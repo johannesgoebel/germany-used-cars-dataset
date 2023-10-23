@@ -1,0 +1,131 @@
+\documentclass[usegeometry=true]{scrartcl}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{amssymb}
+% Dimensionen bitte nicht ändern. 
+\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm, bindingoffset=1cm, includeheadfoot]{geometry}
+%Zeilenabstand bitte nicht ändern
+\usepackage[onehalfspacing]{setspace}
+
+\usepackage[backend=biber,style=numeric,]{biblatex}\addbibresource{literatur.bib}
+
+\begin{document}
+% ----------------------------------------------------------------------------
+\subject{Projektbericht zum Modul Information Retrieval und Visualisierung Sommersemester 2022}
+\title{Eine Analyse von Anzeigen auf einer deutschen Gebrauchtwagenplattform aus dem Jahr 2023}
+%\subtitle{Untertitel}% optional
+\author{Johannes Göbel}% obligatorisch
+%\date{x.12.2023}
+\maketitle% verwendet die zuvor gemachte Angaben zur Gestaltung eines Titels
+% ----------------------------------------------------------------------------
+% Inhaltsverzeichnis:
+%\tableofcontents
+% ----------------------------------------------------------------------------
+% Gliederung und Text:
+
+\section{Einleitung}
+
+Internetmarktplattformen gewannen zuerst im Jahr xxx mit Firmen wie e-bay, bla bla, asd, bedeutung. Heute, y Jahre später, interagieren Menschen so selbstverständlich mit solchen Plattformen so selbstverständlich, dass ...
+Gerade deshalb lohnt es sich einen Blick auf die Mechanismen von diesen Plattformen zu werfen. Beispielsweise könnte es ein besonderes Interesse zu sein nachzuvollziehen, wie Verkäufer ihre Angebote bewerben.
+Dies soll in dieser Arbeit am Beispiel von einer Gebrauchtwagenplattform geschehen. //
+Dabei sollen in dieser Arbeit aber auch Markteffekte wie Preisentwicklungen von PKWs mit unterschiedlichen Eigenschaften nicht außer Acht gelassen werden. Zu diesem Zwecke möchte ich die folgenden Forschungsfragen formulieren:
+
+\begin{itemize}
+    \item Wie hängt der Angebotspreis mit den angegeben Merkmalen eines Gebrauchtwagens zusammen?
+    \item Was sind die Werte für ein bestimmtes Land? Wo befindet es sich im Vergleich zu den anderen Ländern? 
+    \item Wie konstant sind die Werte von Autos? Verlieren Gebrauchtwagen konstant an Wert?
+\end{itemize}
+
+\subsection{Anwendungshintergrund}
+Sie müssen genug Hintergrund bereitstellen, so dass die Lesenden sich ein Urteil bilden können, ob ihre Lösung funktioniert. Sie sollen die Lesenden jedoch nicht mit Anwendungsdetails so überschütten, dass der Fokus auf die Fragen zur Informationsvisualisierung untergehen. 
+
+- Problem: in der Kategorie nein sind auch Fahrzeuge, die keine Klimaanlage haben
+- Problem: das sind immer Angebotspeise, wir kennen die Kaufpreise nicht
+
+\subsection{Zielgruppen}
+Beschreiben sie die Personengruppe oder Personengruppen, die das von ihnen benannte Anwendungsproblem lösen möchte. Auf welches Vorwissen können sie in dieser Gruppen von Anwenderinnen aufbauen? Welche Informations"-bedürf"-nisse werden durch die Visualisierungen adressiert?
+
+Die Zielgruppe dieser Arbeit sollen Gebrauchtwagenverkäufer sein. Diese Zielgruppe zeichnet sich durch eine hohe Fachkenntniss aus. \\
+Im Markt profitert diese Gruppe von bestehenden Informationsasymetrien, die sich durch Marktintransparenzen bilden. Durch Internetmarktplattformen sind diese Marktintransparenzen seltener zu finden. Beispielsweise können Käufer Preise vergleichen und können damit besser abschätzen, wie hoch der reale Marktpreis ist. \\
+Daher interessieren professionelle Marktteilnehmer, wie auch trotz dieser technologischen Entwicklungen, eine relevante Marge erzielen können. 
+Dieser Informationsbedürfnisse möchte diese Arbeit mithilfe von Visualisierungen zu Preisentwicklungen und Bewerbungsstilen decken. \\
+
+
+\subsection{Überblick und Beiträge}
+In diesem Abschnitt geben sie einen kurzen Überblick über die Daten und verwendeten Visualisierungen. Dann benennen sie die Beiträge ihres Projekts. Diese Beiträge müssen sie in den hinteren Teilen des Berichts genauer ausführen und belegen.
+
+\section{Daten}
+Beschreiben Sie vorhandenen Daten. Gehen sie kritisch darauf ein, in wie weit sich die Daten für die Bearbeitung der Fragestellungen und dem Erreichen von Lösungen für die oben beschriebene Zielgruppen eignen. Haben sie die Daten sinnvoll mit weiteren Datenquellen ergänzt? Wenn ja, wie?
+Erklären sie die technische Bereitstellung der Daten.
+Wie sind die Daten zugänglich? Welche Formate werden genutzt. Gibt es Besonderheiten beim Lesen der Formate?
+Beschreiben sie die Datenvorverarbeitung.
+Welche Datenvorverarbeitungsschritte sind notwendig? Beschreiben Sie die einzelnen Schritte und begründen sie sie, z.B. warum werden manche Daten weggelassen, über welche Mengen werden Durchschnitte berechnet, warum sind die so berechneten Werte aussagekräftiger als andere Werte. Wenn möglich sollen sie die Datenvorverarbeitung in Elm programmieren, so dass ihre Anwendung auf eine Änderung der Rohdaten reagieren kan. 
+
+
+Der Datensatz auf der Webseite Kaggle unter dem Titel "Germany Used Cars Dataset 2023" (https://www.kaggle.com/datasets/wspirat/germany-used-cars-dataset-2023) bereitgestellt. Dieser enthält über 200 Tsd. Datenpunkte zu gescrapeten Daten von der Gebrauchtwagenplattform Autoscout24 aus dem Jahr 2023. \\
+Dieser Datensatz wurde anschließend um einen Überblick zu bekommen in Excel geladen. Hier wurde der Datensatz auch um erste Merkmale wie offer_len, die die Anzahl der Buchstaben des Anzeigetextes widergibt, erweitert. \\
+Nach diesen ersten Überlegungen sollte der Datensatz bereinigt werden. Zum Beispiel Antriebsart electric, usw.  \\
+Dabei war ein Ziel die Vergleichbarkeit von Fahrzeugen unterschiedlicher Antriebsarten zu Gewährleisten, was beispielsweise bei den Daten zum Verbrauch ein Problem aufwarf. Wie sind die Daten von Pkws mit Verbrennungsmotor in l/100km und der Reichweitedaten für Elekoautos vergleichbar? Da diese nicht gewehrleistet werden konnte, wurde das Merkmal "Reichweite" eingeführt für Autos mit dem fuel_type electric.
+- Erweiterung um Daten zu Anzeigetiteln (Zeichenlänge des Titels, Sentiment Analysis?, Anzahl Großbuchstaben) \\
+
+Im Anschluss daran wurde der Datensatz im CSV-Format exportiert und in Elm geladen. \\
+
+\section{Visualisierungen}
+
+\subsection{Analyse der Anwendungsaufgaben}
+
+Analysieren sie die konkreten Anwendungsaufgaben, die die Lösung des Zielproblems durch die Anwender:innen bearbeitet werden müssen. 
+Welche sinnvollen mentale Modelle helfen den Personen bei der Bearbeitung. 
+%Welche Visualisierungen helfen den Personen, die die Software verwenden, sinnvolle mentale Modelle aufzubauen. 
+Sind diese mentalen Modelle für sie notwendig, um die Aufgaben lösen zu können? Gehen sie bei ihrer Argumentation von den Anwendungsaufgaben aus und kommen sie dann zu den mentalen Modellen, deren Aufbau durch Visualisierungen unterstützt wird. 
+\subsection{Anforderungen an die Visualisierungen}
+Leiten sie Anforderungen an das Design der Visualisierungen ab, die sich durch ihre Analyse des Zielproblems ergeben.
+\subsection{Präsentation der Visualisierungen}
+Präsentieren sie die visuelle Abbildungen und Kodierungen der Daten und Interaktionsmöglichkeiten. 
+Sie müssen  begründen, warum und wie gut ihre Designentscheidungen die erstellten Anforderungen erfüllen. 
+Weiterhin müssen sie begründen, warum die gewählte visuelle Kodierung der Daten für das zulösenden Problem passend ist.
+Typische Argumente würden hier auf Wahrnehmungsprinzipien und Theorie über Informationsvisualisierung verweisen. 
+Die besten Begründungen diskutieren explizit die konkrete Auswahl der Visualisierungen im Kontext von mehreren verschiedenen Alternativen. 
+Machen sie hier nicht den Fehler, einfach nur Visualisierung aus den vorgegebenen Bereichen zu diskutieren, weil das in der Regel nicht sinnvoll ist.
+Wenn sie sich für einen Scatterplot entschieden haben, ist ein Zeitreihendiagramm in der Regel keine Alternative.
+Diskutieren sie also nicht einfach Zeitreihendiagramme, weil sie in den Anforderungenen an das Projekt neben Scatterplots stehen, sondern suchen sie nach echten alternativen Visualisierungen, die zum Aufbau eines vergleichbaren mentalen Modells führen. 
+Diskutieren sie die Expressivität und die Effektivität der einzelnen Visualisierungen. 
+
+Die eben beschriebenen Präsentationen und Begründungen sollen für jede der drei folgenden Visualisierungen durchgeführt werden. 
+\subsubsection{Visualisierung Eins}
+\subsubsection{Visualisierung Zwei}
+\subsubsection{Visualisierung Drei}
+
+\subsection{Interaktion}
+Die präsentierten Visualisierungstechniken müssen interaktiv zu einer Anwendung verknüpft werden.
+Die Interaktion mit einer Visualisierung soll in den anderen Visualisierungen zu einer Änderung führen. 
+Erklären sie die möglichen Interaktionen mit den einzelnen Visualisierungen und die möglichen Verknüpfungen zwischen ihnen. Begründen Sie warum die konkreten Interaktionen umgesetzt wurden und welche Zwecke für die Anwenderinnen mit ihnen unterstützt werden. Begründen sie ebenfalls warum sie andere Interaktionsmöglichkeiten nicht umgesetzt haben. Wenn sie keine der geforderten Interaktionen umsetzen, erhalten Sie im gesamten Projekt deutlichen Punktabzug. 
+
+\section{Implementierung}
+Beschreiben Sie die Implementierung ihrer Visualisierungsanwendung in Elm. Stellen die Gliederung ihres Quellcodes vor. Haben Sie verschiedene Elm-Module erstellt. Was war aufwändig umzusetzen, was ließ sich mit dem vorhanden Code aus den Übungen relativ einfach umsetzen? 
+
+Wie sieht die Elm-Datenstruktur für das Model aus, in dem die verschiedenen Zustände der Interaktion gespeichert werden können.
+
+\section{Anwendungsfälle}
+Präsentieren sie für jede der drei Visualisierungen einen sinnvollen Anwendungsfall in dem ein bestimmter Fakt, ein Muster oder die Abwesenheit eines Musters visuell festgestellt wird. Begründen sie warum dieser Anwendungsfall wichtig für die Zielgruppe der Anwenderinnen ist. Diskutieren sie weiterhin, ob die oben beschriebene Information auch mit anderen Visualisierungstechniken hätte gefunden werden können. Falls dies möglich wäre, vergleichen sie die den Aufwand und die Schwierigkeiten ihres Ansatzes und der Alternativen. 
+\subsection{Anwendung Visualisierung Eins}
+\subsection{Anwendung Visualisierung Zwei}
+\subsection{Anwendung Visualisierung Drei}
+
+\section{Verwandte Arbeiten}
+Führen sie eine kurze Literatursuche in der wissenschaftlichen Literatur zu Informationsvisualisierung und Visual Analytics nach ähnlichen Anwendungen durch. Diskutieren sie mindestens zwei Artikel. Stellen sie Gemeinsamkeiten und Unterschiede dar.
+
+\section{Zusammenfassung und Ausblick}
+Fassen sie die Beiträge ihre Visualisierungsanwendung zusammen. Wo bietet sie für die Personen der Zielgruppe einen echten Mehrwert.
+
+Was wären mögliche sinnvolle Erweiterungen, entweder auf der Ebene der Visualisierungen und/oder auf der Datenebene?
+
+\section*{Anhang: Git-Historie}
+
+\printbibliography
+
+\end{document}
+
