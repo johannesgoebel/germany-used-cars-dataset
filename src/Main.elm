@@ -1,7 +1,7 @@
 module Main exposing (..)
 import CarOfferTypes exposing (carOfferAttributes, Model, Msg, CarOffer)
 import DataHandling exposing (fetchData, dataFromCSV)
-import Html exposing (Html, div, text, ul, li, main_)
+import Html exposing (Html, div, text, ul, li, main_, h1, h2, p)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import Browser
@@ -54,11 +54,14 @@ view model =
       text "I was unable to load your book."
 
     CarOfferTypes.Loading ->
-      text "neues laden..."
+      text "Loading..."
 
     CarOfferTypes.Success fullText ->
       main_ []
-          [ div []
+          [ 
+            topText
+            ,scatterplotText
+            , div []
               [ -- Calling viewDropdown with SelectChangeX
               viewDropdown carOfferAttributes CarOfferTypes.SelectChangeX
 
@@ -66,6 +69,7 @@ view model =
               , viewDropdown carOfferAttributes CarOfferTypes.SelectChangeY
               , viewCarOffers fullText.data
               ]
+            , newText
           ]
 
 viewCarOffers : List CarOffer -> Html Msg
@@ -96,3 +100,21 @@ viewDropdown options onInputMsg =
         [ Html.select [ Html.Events.onInput onInputMsg ]
             (List.map (\opt -> Html.option [ Html.Attributes.value opt ] [ text opt ]) options)
         ]
+
+topText: Html Msg
+topText =
+  div[]
+  [
+    h1 [] [text "Used Car Offers"],
+    p []  [text "Welcome to this GitHub repository showcasing the outcome of a Information Visualization project. This project comprises three visualizations, offering insights into the world of used car offers extracted from a prominent online marketplace. The goal of this project is to provide valuable perspectives and actionable intelligence for stakeholders in the automotive industry."
+    ]
+  ]
+
+scatterplotText: Html Msg
+scatterplotText =
+  div[]
+  [
+    h2 [] [text "Compare the attributes of used cars"],
+    p []  [text "Below, you'll find our scatterplot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles."
+    ]
+  ]
