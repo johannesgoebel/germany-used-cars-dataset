@@ -1,10 +1,13 @@
 module Main exposing (..)
-import CarOfferTypes exposing (..)
+import CarOfferTypes exposing (carOfferAttributes, Model, Msg, CarOffer)
 import DataHandling exposing (fetchData, dataFromCSV)
 import Html exposing (Html, div, text, ul, li, main_)
+import Html.Events exposing (..)
+import Html.Attributes exposing (..)
 import Browser
 import Debug exposing (toString)
 import List exposing (length)
+import CarOfferTypes exposing (Model(..))
 
 main : Program () Model Msg
 main
@@ -17,41 +20,57 @@ main
 
 init : () -> (Model, Cmd Msg)
 init _ =
-  ( Loading , 
+  ( CarOfferTypes.Loading , 
    fetchData)
 
 update: Msg -> Model -> (Model, Cmd Msg)
-update msg model =
+update msg model=
     case msg of
-        FetchedCSV result ->
+        CarOfferTypes.FetchedCSV result ->
             case result of
                 Ok fetched_data ->
-                    (Success <| {data = fetched_data}, Cmd.none)
+                    (CarOfferTypes.Success <| {data = (DataHandling.dataFromCSV fetched_data)
+                                              ,yAxis = "model"
+                                              ,xAxis ="price_in_euro"}, Cmd.none)
                 Err _ ->
-                    (Failure, Cmd.none)
-
+                    (CarOfferTypes.Failure, Cmd.none)
+        CarOfferTypes.SelectChangeY yUpdate -> 
+          case model of
+              Success d ->
+                (Success <| {d | yAxis = yUpdate}, Cmd.none)
+              _ -> 
+                (model, Cmd.none)
+        CarOfferTypes.SelectChangeX xUpdate -> 
+          case model of
+              Success d ->
+                (Success <| {d | yAxis = xUpdate}, Cmd.none)
+              _ -> 
+                (model, Cmd.none)
 
 view : Model -> Html Msg
 view model =
   case model of
-    Failure ->
+    CarOfferTypes.Failure ->
       text "I was unable to load your book."
 
-    Loading ->
-      text "Loading..."
+    CarOfferTypes.Loading ->
+      text "neues laden..."
 
-    Success fullText ->
+    CarOfferTypes.Success fullText ->
       main_ []
-      [ 
-        Html.text  fullText.data
-        ]
+          [ div []
+              [ -- Calling viewDropdown with SelectChangeX
+              viewDropdown carOfferAttributes CarOfferTypes.SelectChangeX
 
+                -- Calling viewDropdown with SelectChangeY
+              , viewDropdown carOfferAttributes CarOfferTypes.SelectChangeY
+              , viewCarOffers fullText.data
+              ]
+          ]
 
 viewCarOffers : List CarOffer -> Html Msg
 viewCarOffers carOffers =
-    ul []
-        (List.map viewCarOffer carOffers)
-
+  ul [] (List.map viewCarOffer carOffers)
 viewCarOffer : CarOffer -> Html Msg
 viewCarOffer carOffer =
     li []
@@ -69,4 +88,11 @@ viewCarOffer carOffer =
         , div [] [ text ("Fuel Consumption (g/km): " ++ String.fromFloat carOffer.fuel_consumption_g_km) ]
         , div [] [ text ("Mileage (km): " ++ String.fromFloat carOffer.mileage_in_km) ]
         , div [] [ text ("Offer Description: " ++ carOffer.offer_description) ]
+        ]
+
+viewDropdown : List String -> (String -> Msg) -> Html Msg
+viewDropdown options onInputMsg =
+    div []
+        [ Html.select [ Html.Events.onInput onInputMsg ]
+            (List.map (\opt -> Html.option [ Html.Attributes.value opt ] [ text opt ]) options)
         ]

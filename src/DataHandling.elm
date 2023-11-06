@@ -12,6 +12,7 @@ fetchData = Http.get
             url = "https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/data.csv"
             , expect = Http.expectString <| FetchedCSV
         }
+        
 dataFromCSV: String -> List CarOffer
 dataFromCSV csv_string =
      Csv.parse csv_string

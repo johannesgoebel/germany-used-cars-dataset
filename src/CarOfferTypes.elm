@@ -3,23 +3,20 @@ import Http
 
 type Msg
   = FetchedCSV (Result Http.Error String)
+  | SelectChangeX String
+  | SelectChangeY String
 
 type Model 
     = Failure
     | Loading 
-    | Success 
-        {data: String}
-type alias Point =
-    { pointName : String, x : Float, y : Float , k :Float , z: Float}
+    | Success CarOfferData
 
-
-type alias XyData =
-    { xDescription : String
-    , yDescription : String
-    , data : List Point
-    , autoTyp : List CarOffer --Cartype eigentlich
+type alias CarOfferData =
+    {
+        data: List CarOffer
+        , yAxis : String
+        , xAxis : String
     }
-
 type alias CarOffer =
     { brand : String,
     model : String,
@@ -36,3 +33,20 @@ type alias CarOffer =
     mileage_in_km : Float,
     offer_description : String
     }
+carOfferAttributes : List String
+carOfferAttributes =
+    [ "brand"
+    , "model"
+    , "color"
+    , "registration_date"
+    , "year"
+    , "price_in_euro"
+    , "power_kw"
+    , "power_ps"
+    , "transmission_type"
+    , "fuel_type"
+    , "fuel_consumption_l_100km"
+    , "fuel_consumption_g_km"
+    , "mileage_in_km"
+    , "offer_description"
+    ]
