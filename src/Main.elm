@@ -9,6 +9,8 @@ import Browser
 import CarOfferTypes exposing (Model(..))
 import CarOfferTypes exposing (carOfferAttributesNumeric)
 import DataHandling exposing (getFloatColumn)
+import ParallelPlot exposing (drawParallelplot)
+import DataHandling exposing (generateParallelAxisCarOffers)
 
 main : Program () Model Msg
 main
@@ -32,7 +34,11 @@ update msg model=
                 Ok fetched_data ->
                     (CarOfferTypes.Success <| {data = (DataHandling.dataFromCSV fetched_data)
                                               ,yAxis = "model"
-                                              ,xAxis ="price_in_euro"}, Cmd.none)
+                                              ,xAxis ="price_in_euro"
+                                              ,firstCoordinate = "price_in_euro"
+                                              ,secondCoordinate = "power_ps" 
+                                              ,thirdCoordinate = "fuel_consumption_g_km"
+                                              ,forthCoordinate = "mileage_in_km"}, Cmd.none)
                 Err _ ->
                     (CarOfferTypes.Failure, Cmd.none)
         CarOfferTypes.SelectChangeYScatterplot yUpdate -> 
@@ -47,8 +53,31 @@ update msg model=
                 (Success <| {d | xAxis = xUpdate}, Cmd.none)
               _ -> 
                 (model, Cmd.none)
-        _ -> 
-          (model, Cmd.none)
+        
+        CarOfferTypes.SelectChange1PolarPlot firstUpdate ->
+          case model of
+              Success d ->
+                (Success <| {d | firstCoordinate = firstUpdate}, Cmd.none)
+              _ -> 
+                (model, Cmd.none)
+        CarOfferTypes.SelectChange2PolarPlot secondUpdate -> 
+          case model of
+              Success d ->
+                (Success <| {d | secondCoordinate = secondUpdate}, Cmd.none)
+              _ -> 
+                (model, Cmd.none)
+        CarOfferTypes.SelectChange3PolarPlot thirdUpdate-> 
+          case model of
+              Success d ->
+                (Success <| {d | thirdCoordinate = thirdUpdate}, Cmd.none)
+              _ -> 
+                (model, Cmd.none)
+        CarOfferTypes.SelectChange4PolarPlot forthUpdate -> 
+          case model of
+              Success d ->
+                (Success <| {d | forthCoordinate = forthUpdate}, Cmd.none)
+              _ -> 
+                (model, Cmd.none)
 
 view : Model -> Html Msg
 view model =
@@ -107,6 +136,7 @@ view model =
                 -- Calling viewDropdown with SelectChangeYScatterplot
               , (viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange4PolarPlot)
           ]
+          , drawParallelplot (generateParallelAxisCarOffers fullText.data fullText.firstCoordinate fullText.secondCoordinate fullText.thirdCoordinate fullText.forthCoordinate) fullText.firstCoordinate fullText.secondCoordinate fullText.thirdCoordinate fullText.forthCoordinate
           ]]
 viewCarOffers : List CarOffer -> Html Msg
 viewCarOffers carOffers =

@@ -20,6 +20,10 @@ type alias CarOfferData =
         data: List CarOffer
         , yAxis : String
         , xAxis : String
+        , firstCoordinate : String
+        , secondCoordinate : String
+        , thirdCoordinate : String
+        , forthCoordinate : String
     }
 type alias CarOffer =
     { brand : String,
@@ -37,6 +41,9 @@ type alias CarOffer =
     mileage_in_km : Float,
     offer_description : String
     }
+type alias ParallelAxisCarOffer =
+    { pointName : String, values : List Float}
+    
 carOfferAttributes : List String
 carOfferAttributes =
     [ "brand"

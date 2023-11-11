@@ -1,5 +1,5 @@
 module DataHandling exposing (..)
-import CarOfferTypes exposing (CarOffer)
+import CarOfferTypes exposing (CarOffer, ParallelAxisCarOffer)
 import Http exposing (..)
 import CarOfferTypes exposing (..)
 import Html exposing (a)
@@ -64,3 +64,36 @@ getFloatColumn attribute carOffers =
 
         _ ->
             []
+
+generateParallelAxisCarOffers : List CarOffer -> String -> String -> String -> String -> List ParallelAxisCarOffer
+generateParallelAxisCarOffers carOffers attr1 attr2 attr3 attr4 =
+    let
+        getDescriptionColumn : List CarOffer -> List String
+        getDescriptionColumn =
+            List.map .offer_description
+
+        values1 : List Float
+        values1 =
+            getFloatColumn attr1 carOffers
+
+        values2 : List Float
+        values2 =
+            getFloatColumn attr2 carOffers
+
+        values3 : List Float
+        values3 =
+            getFloatColumn attr3 carOffers
+
+        values4 : List Float
+        values4 =
+            getFloatColumn attr4 carOffers
+
+        descriptions : List String
+        descriptions =
+            getDescriptionColumn carOffers
+
+        zipValuesAndDescription : List Float -> List Float -> List Float -> List Float -> List String -> List ParallelAxisCarOffer
+        zipValuesAndDescription v1 v2 v3 v4 desc =
+            List.map5 (\a b c d e -> { pointName = e, values = [a, b, c, d] }) v1 v2 v3 v4 desc
+    in
+    zipValuesAndDescription values1 values2 values3 values4 descriptions
