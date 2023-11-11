@@ -11,6 +11,9 @@ import CarOfferTypes exposing (carOfferAttributesNumeric)
 import DataHandling exposing (getFloatColumn)
 import ParallelPlot exposing (drawParallelplot)
 import DataHandling exposing (generateParallelAxisCarOffers)
+import Bootstrap.CDN as CDN
+import Bootstrap.Grid as Grid
+
 
 main : Program () Model Msg
 main
@@ -89,55 +92,49 @@ view model =
       text "Loading..."
 
     CarOfferTypes.Success fullText ->
-      main_ []
-          [ 
-            topText
-            ,scatterPlotText
-            , div []
-              [ div [][
-                Html.p[][
-                  Html.text "Adjust attribute shown on x-coordinate."
+      main_ []         -- Responsive fixed width container
+        [ topText
+          , scatterPlotText
+          , div [class "row"] -- Add Bootstrap row class
+              [ div [class "col-md-6"] [ -- Use Bootstrap col-md-6 class for half-width
+                    div [] [ Html.p [] [ Html.text "Adjust attribute shown on x-coordinate." ]
+                        , viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChangeXScatterplot
+                    ]
                 ]
-                -- Calling viewDropdown with SelectChangeXScatterplot
-              ,(viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChangeXScatterplot)
-              ], div [][
-                Html.p[][
-                  Html.text "Adjust attribute shown on y-coordinate."
+              , div [class "col-md-6"] [ -- Use Bootstrap col-md-6 class for half-width
+                    div [] [ Html.p [] [ Html.text "Adjust attribute shown on y-coordinate." ]
+                        , viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChangeYScatterplot
+                    ]
                 ]
-                -- Calling viewDropdown with SelectChangeYScatterplot
-              , (viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChangeYScatterplot)
               ]
-              , drawScatterplot (List.map .offer_description fullText.data) (getFloatColumn fullText.xAxis fullText.data) (getFloatColumn fullText.yAxis fullText.data)  fullText.xAxis fullText.yAxis
-          ]
+          , drawScatterplot (List.map .offer_description fullText.data) (getFloatColumn fullText.xAxis fullText.data) (getFloatColumn fullText.yAxis fullText.data) fullText.xAxis fullText.yAxis
           , paralellPlotText
-          , div[][
-             div [][
-                Html.p[][
-                  Html.text "Adjust attribute shown on first coordinate."
+          , div [class "row"] -- Add Bootstrap row class
+              [ div [class "col-md-3"] [
+                    div [] [ Html.p [] [ Html.text "Adjust attribute shown on first coordinate." ]
+                        , viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange1PolarPlot
+                    ]
                 ]
-                -- Calling viewDropdown with SelectChangeYScatterplot
-              , (viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange1PolarPlot)
-          ], div [][
-                Html.p[][
-                  Html.text "Adjust attribute shown on second coordinate."
+              , div [class "col-md-3"] [
+                    div [] [ Html.p [] [ Html.text "Adjust attribute shown on second coordinate." ]
+                        , viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange2PolarPlot
+                    ]
                 ]
-                -- Calling viewDropdown with SelectChangeYScatterplot
-              , (viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange2PolarPlot)
-          ], div [][
-                Html.p[][
-                  Html.text "Adjust attribute shown on third coordinate."
+              , div [class "col-md-3"] [
+                    div [] [ Html.p [] [ Html.text "Adjust attribute shown on third coordinate." ]
+                        , viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange3PolarPlot
+                    ]
                 ]
-                -- Calling viewDropdown with SelectChangeYScatterplot
-              , (viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange3PolarPlot)
-          ], div [][
-                Html.p[][
-                  Html.text "Adjust attribute shown on forth-coordinate."
+              , div [class "col-md-3"] [
+                    div [] [ Html.p [] [ Html.text "Adjust attribute shown on fourth coordinate." ]
+                        , viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange4PolarPlot
+                    ]
                 ]
-                -- Calling viewDropdown with SelectChangeYScatterplot
-              , (viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange4PolarPlot)
-          ]
+              ]
           , drawParallelplot (generateParallelAxisCarOffers fullText.data fullText.firstCoordinate fullText.secondCoordinate fullText.thirdCoordinate fullText.forthCoordinate) fullText.firstCoordinate fullText.secondCoordinate fullText.thirdCoordinate fullText.forthCoordinate
-          ]]
+          ]
+
+
 viewCarOffers : List CarOffer -> Html Msg
 viewCarOffers carOffers =
   ul [] (List.map viewCarOffer carOffers)
@@ -159,7 +156,7 @@ viewCarOffer carOffer =
         , div [] [ text ("Mileage (km): " ++ String.fromFloat carOffer.mileage_in_km) ]
         , div [] [ text ("Offer Description: " ++ carOffer.offer_description) ]
         ]
-
+        
 viewDropdown : List String -> (String -> Msg) -> Html Msg
 viewDropdown options onInputMsg =
     div []
@@ -189,7 +186,7 @@ paralellPlotText: Html Msg
 paralellPlotText =
   div[]
   [
-    h2 [] [text "Compare the attributes of used cars"]
-    ,p []  [text "Below, you'll find our scatterplot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles."
+    h2 [] [text "Parallel Plot"]
+    ,p []  [text "Below, you'll find our parallel plot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles."
     ]
   ]
