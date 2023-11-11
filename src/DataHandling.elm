@@ -38,3 +38,29 @@ decodeCarOffer =
             |>  Csv.Decode.andMap (field "mileage_in_km" (String.toFloat >> Result.fromMaybe "error parsing string"  ))
             |>  Csv.Decode.andMap (field "offer_description" Ok)
         )
+
+    
+-- Function to get a list of a specific attribute from a list of CarOffer
+getFloatColumn : String -> List CarOffer -> List Float
+getFloatColumn attribute carOffers =
+    case attribute of
+        "price_in_euro" ->
+            List.map .price_in_euro carOffers |> List.map toFloat
+
+        "power_kw" ->
+            List.map  .power_kw carOffers |> List.map toFloat
+
+        "power_ps" ->
+            List.map .power_ps carOffers |> List.map toFloat
+
+        "fuel_consumption_l_100km" ->
+            List.map .fuel_consumption_l_100km carOffers
+
+        "fuel_consumption_g_km" ->
+            List.map .fuel_consumption_g_km carOffers
+
+        "mileage_in_km" ->
+            List.map .mileage_in_km carOffers
+
+        _ ->
+            []

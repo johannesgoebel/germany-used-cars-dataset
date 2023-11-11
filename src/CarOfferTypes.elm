@@ -3,8 +3,12 @@ import Http
 
 type Msg
   = FetchedCSV (Result Http.Error String)
-  | SelectChangeX String
-  | SelectChangeY String
+  | SelectChangeXScatterplot String
+  | SelectChangeYScatterplot String
+  | SelectChange1PolarPlot String
+  | SelectChange2PolarPlot String
+  | SelectChange3PolarPlot String
+  | SelectChange4PolarPlot String
 
 type Model 
     = Failure
@@ -49,4 +53,14 @@ carOfferAttributes =
     , "fuel_consumption_g_km"
     , "mileage_in_km"
     , "offer_description"
+    ]
+carOfferAttributesNumeric : List String 
+carOfferAttributesNumeric = 
+    [
+         "price_in_euro" ,
+        "power_kw" ,
+        "power_ps" ,
+        "fuel_consumption_l_100km" ,
+        "fuel_consumption_g_km" ,
+        "mileage_in_km"
     ]

@@ -1,13 +1,14 @@
 module Main exposing (..)
 import CarOfferTypes exposing (carOfferAttributes, Model, Msg, CarOffer)
+import Scatterplot exposing (drawScatterplot)
 import DataHandling exposing (fetchData, dataFromCSV)
 import Html exposing (Html, div, text, ul, li, main_, h1, h2, p)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import Browser
-import Debug exposing (toString)
-import List exposing (length)
 import CarOfferTypes exposing (Model(..))
+import CarOfferTypes exposing (carOfferAttributesNumeric)
+import DataHandling exposing (getFloatColumn)
 
 main : Program () Model Msg
 main
@@ -34,18 +35,20 @@ update msg model=
                                               ,xAxis ="price_in_euro"}, Cmd.none)
                 Err _ ->
                     (CarOfferTypes.Failure, Cmd.none)
-        CarOfferTypes.SelectChangeY yUpdate -> 
+        CarOfferTypes.SelectChangeYScatterplot yUpdate -> 
           case model of
               Success d ->
                 (Success <| {d | yAxis = yUpdate}, Cmd.none)
               _ -> 
                 (model, Cmd.none)
-        CarOfferTypes.SelectChangeX xUpdate -> 
+        CarOfferTypes.SelectChangeXScatterplot xUpdate -> 
           case model of
               Success d ->
-                (Success <| {d | yAxis = xUpdate}, Cmd.none)
+                (Success <| {d | xAxis = xUpdate}, Cmd.none)
               _ -> 
                 (model, Cmd.none)
+        _ -> 
+          (model, Cmd.none)
 
 view : Model -> Html Msg
 view model =
@@ -60,18 +63,51 @@ view model =
       main_ []
           [ 
             topText
-            ,scatterplotText
+            ,scatterPlotText
             , div []
-              [ -- Calling viewDropdown with SelectChangeX
-              viewDropdown carOfferAttributes CarOfferTypes.SelectChangeX
-
-                -- Calling viewDropdown with SelectChangeY
-              , viewDropdown carOfferAttributes CarOfferTypes.SelectChangeY
-              , viewCarOffers fullText.data
+              [ div [][
+                Html.p[][
+                  Html.text "Adjust attribute shown on x-coordinate."
+                ]
+                -- Calling viewDropdown with SelectChangeXScatterplot
+              ,(viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChangeXScatterplot)
+              ], div [][
+                Html.p[][
+                  Html.text "Adjust attribute shown on y-coordinate."
+                ]
+                -- Calling viewDropdown with SelectChangeYScatterplot
+              , (viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChangeYScatterplot)
               ]
-            , newText
+              , drawScatterplot (List.map .offer_description fullText.data) (getFloatColumn fullText.xAxis fullText.data) (getFloatColumn fullText.yAxis fullText.data)  fullText.xAxis fullText.yAxis
           ]
-
+          , paralellPlotText
+          , div[][
+             div [][
+                Html.p[][
+                  Html.text "Adjust attribute shown on first coordinate."
+                ]
+                -- Calling viewDropdown with SelectChangeYScatterplot
+              , (viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange1PolarPlot)
+          ], div [][
+                Html.p[][
+                  Html.text "Adjust attribute shown on second coordinate."
+                ]
+                -- Calling viewDropdown with SelectChangeYScatterplot
+              , (viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange2PolarPlot)
+          ], div [][
+                Html.p[][
+                  Html.text "Adjust attribute shown on third coordinate."
+                ]
+                -- Calling viewDropdown with SelectChangeYScatterplot
+              , (viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange3PolarPlot)
+          ], div [][
+                Html.p[][
+                  Html.text "Adjust attribute shown on forth-coordinate."
+                ]
+                -- Calling viewDropdown with SelectChangeYScatterplot
+              , (viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange4PolarPlot)
+          ]
+          ]]
 viewCarOffers : List CarOffer -> Html Msg
 viewCarOffers carOffers =
   ul [] (List.map viewCarOffer carOffers)
@@ -110,11 +146,20 @@ topText =
     ]
   ]
 
-scatterplotText: Html Msg
-scatterplotText =
+scatterPlotText: Html Msg
+scatterPlotText =
   div[]
   [
-    h2 [] [text "Compare the attributes of used cars"],
-    p []  [text "Below, you'll find our scatterplot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles."
+    h2 [] [text "Compare the attributes of used cars"]
+    ,p []  [text "Below, you'll find our scatterplot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles."
+    ]
+  ]
+
+paralellPlotText: Html Msg
+paralellPlotText =
+  div[]
+  [
+    h2 [] [text "Compare the attributes of used cars"]
+    ,p []  [text "Below, you'll find our scatterplot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles."
     ]
   ]
