@@ -66,10 +66,21 @@ Welche Datenvorverarbeitungsschritte sind notwendig? Beschreiben Sie die einzeln
 
 
 Der Datensatz auf der Webseite Kaggle unter dem Titel "Germany Used Cars Dataset 2023" (https://www.kaggle.com/datasets/wspirat/germany-used-cars-dataset-2023) bereitgestellt. Dieser enthält über 200 Tsd. Datenpunkte zu gescrapeten Daten von der Gebrauchtwagenplattform Autoscout24 aus dem Jahr 2023. \\
-Dieser Datensatz wurde anschließend um einen Überblick zu bekommen in Excel geladen. Hier wurde der Datensatz auch um erste Merkmale wie offer_len, die die Anzahl der Buchstaben des Anzeigetextes widergibt, erweitert. \\
-Nach diesen ersten Überlegungen sollte der Datensatz bereinigt werden. Zum Beispiel Antriebsart electric, usw.  \\
+Dieser Datensatz wurde anschließend um einen Überblick zu bekommen in ein IPython Notebook geladen. 
+Nach diesen ersten Überlegungen sollte der Datensatz bereinigt werden. Zum Beispiel Antriebsart electric, usw.  Dazu wurden die Attribute bewertet, ob sie für eine spätere Visualisierung (1) elementar sind oder eher (2) sekundär. Darauf basierend wurde die Entscheidung getroffen, ob (1) fehlende Werte dieses Attributes zu einer Entfernung des Datums führen oder (2) die Werte aufgefüllt werden. Die Art und Weise einer Auffüllens wird anhand des Attributes entschieden. Das Ziel der Bereinigung ist es in jedem Feld einen verarbeitbaren Wert vorfinden zu können.\\
+- Drop unnamed \\
+- drop einen Wert, der keine description hat \\
+- droppe Werte ohne mileage \\
+- Farbe: Aufgefüllt mit Wert "unknown" \\
+- In der Spalte fuel_type wurden nur wirkliche Antriebsarten zugelassen. \\
+- Andere Spalten auch auf Werte geprüft \\
+- Alle Daten gelöscht, wo ps oder kw null ist \\
+- Alle vollständig außer fuel l pro 100 km, aber da wir g/km haben -> drop \\
+- jetzt alle Daten vollständig vorhanden \\
 Dabei war ein Ziel die Vergleichbarkeit von Fahrzeugen unterschiedlicher Antriebsarten zu Gewährleisten, was beispielsweise bei den Daten zum Verbrauch ein Problem aufwarf. Wie sind die Daten von Pkws mit Verbrennungsmotor in l/100km und der Reichweitedaten für Elekoautos vergleichbar? Da diese nicht gewehrleistet werden konnte, wurde das Merkmal "Reichweite" eingeführt für Autos mit dem fuel_type electric.
 - Erweiterung um Daten zu Anzeigetiteln (Zeichenlänge des Titels, Sentiment Analysis?, Anzahl Großbuchstaben) \\
+
+Hier wurde der Datensatz auch um erste Merkmale wie offer_len, die die Anzahl der Buchstaben des Anzeigetextes widergibt, erweitert. \\
 
 Im Anschluss daran wurde der Datensatz im CSV-Format exportiert und in Elm geladen. \\
 
