@@ -31,15 +31,15 @@ type alias CarOffer =
     color : String,
     registration_date : String,
     year : Int,
-    price_in_euro : Int,
+    price_in_euro : Float,
     power_kw : Int,
     power_ps : Int,
     transmission_type : String,
     fuel_type : String,
     fuel_consumption_l_100km : Float,
-    fuel_consumption_g_km : Float,
     mileage_in_km : Float,
-    offer_description : String
+    offer_description : String,
+    length_offer_description: Int
     }
 type alias ParallelAxisCarOffer =
     { pointName : String, values : List Float}
@@ -57,9 +57,9 @@ carOfferAttributes =
     , "transmission_type"
     , "fuel_type"
     , "fuel_consumption_l_100km"
-    , "fuel_consumption_g_km"
     , "mileage_in_km"
     , "offer_description"
+    , "length_offer_description"
     ]
 carOfferAttributesNumeric : List String 
 carOfferAttributesNumeric = 
@@ -68,6 +68,5 @@ carOfferAttributesNumeric =
         "power_kw" ,
         "power_ps" ,
         "fuel_consumption_l_100km" ,
-        "fuel_consumption_g_km" ,
         "mileage_in_km"
     ]

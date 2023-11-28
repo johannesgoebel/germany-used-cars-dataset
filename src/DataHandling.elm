@@ -28,15 +28,15 @@ decodeCarOffer =
             |>  Csv.Decode.andMap (field "color" Ok)
             |>  Csv.Decode.andMap (field "registration_date" Ok)
             |>  Csv.Decode.andMap (field "year" (String.toInt >> Result.fromMaybe "error parsing string"))
-            |>  Csv.Decode.andMap (field "price_in_euro" (String.toInt >> Result.fromMaybe "error parsing string" ))
+            |>  Csv.Decode.andMap (field "price_in_euro" (String.toFloat >> Result.fromMaybe "error parsing string" ))
             |>  Csv.Decode.andMap (field "power_kw" (String.toInt >> Result.fromMaybe "error parsing string"  ))
             |>  Csv.Decode.andMap (field "power_ps" (String.toInt >> Result.fromMaybe "error parsing string"  ))
             |>  Csv.Decode.andMap (field "transmission_type" Ok)
             |>  Csv.Decode.andMap (field "fuel_type" Ok)
             |>  Csv.Decode.andMap (field "fuel_consumption_l_100km" (String.toFloat >> Result.fromMaybe "error parsing string"  ))
-            |>  Csv.Decode.andMap (field "fuel_consumption_g_km" (String.toFloat >> Result.fromMaybe "error parsing string"  ))
             |>  Csv.Decode.andMap (field "mileage_in_km" (String.toFloat >> Result.fromMaybe "error parsing string"  ))
             |>  Csv.Decode.andMap (field "offer_description" Ok)
+            |>  Csv.Decode.andMap (field "length_offer_description" (String.toInt >> Result.fromMaybe "error parsing string"  ))
         )
 
     
@@ -45,7 +45,7 @@ getFloatColumn : String -> List CarOffer -> List Float
 getFloatColumn attribute carOffers =
     case attribute of
         "price_in_euro" ->
-            List.map .price_in_euro carOffers |> List.map toFloat
+            List.map .price_in_euro carOffers
 
         "power_kw" ->
             List.map  .power_kw carOffers |> List.map toFloat
@@ -56,8 +56,6 @@ getFloatColumn attribute carOffers =
         "fuel_consumption_l_100km" ->
             List.map .fuel_consumption_l_100km carOffers
 
-        "fuel_consumption_g_km" ->
-            List.map .fuel_consumption_g_km carOffers
 
         "mileage_in_km" ->
             List.map .mileage_in_km carOffers

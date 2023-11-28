@@ -40,7 +40,7 @@ update msg model=
                                               ,xAxis ="price_in_euro"
                                               ,firstCoordinate = "price_in_euro"
                                               ,secondCoordinate = "power_ps" 
-                                              ,thirdCoordinate = "fuel_consumption_g_km"
+                                              ,thirdCoordinate = "fuel_consumption_l_100km"
                                               ,forthCoordinate = "mileage_in_km"}, Cmd.none)
                 Err _ ->
                     (CarOfferTypes.Failure, Cmd.none)
@@ -152,9 +152,9 @@ viewCarOffer carOffer =
         , div [] [ text ("Transmission Type: " ++ carOffer.transmission_type) ]
         , div [] [ text ("Fuel Type: " ++ carOffer.fuel_type) ]
         , div [] [ text ("Fuel Consumption (L/100km): " ++ String.fromFloat carOffer.fuel_consumption_l_100km) ]
-        , div [] [ text ("Fuel Consumption (g/km): " ++ String.fromFloat carOffer.fuel_consumption_g_km) ]
         , div [] [ text ("Mileage (km): " ++ String.fromFloat carOffer.mileage_in_km) ]
         , div [] [ text ("Offer Description: " ++ carOffer.offer_description) ]
+        , div [] [ text ("Length offer description: " ++ String.fromInt carOffer.length_offer_description) ]
         ]
         
 viewDropdown : List String -> (String -> Msg) -> Html Msg
