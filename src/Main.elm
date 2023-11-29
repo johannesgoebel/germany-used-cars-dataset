@@ -13,6 +13,7 @@ import ParallelPlot exposing (drawParallelplot)
 import DataHandling exposing (generateParallelAxisCarOffers)
 import Bootstrap.CDN as CDN
 import Bootstrap.Grid as Grid
+import Debug exposing (toString)
 
 
 main : Program () Model Msg
@@ -95,6 +96,7 @@ view model =
       main_ []         -- Responsive fixed width container
         [ topText
           , scatterPlotText
+          , Html.text(  toString(List.length( fullText.data)))
           , div [class "row"] -- Add Bootstrap row class
               [ div [class "col-md-6"] [ -- Use Bootstrap col-md-6 class for half-width
                     div [] [ Html.p [] [ Html.text "Adjust attribute shown on x-coordinate." ]
@@ -146,7 +148,7 @@ viewCarOffer carOffer =
         , div [] [ text ("Color: " ++ carOffer.color) ]
         , div [] [ text ("Registration Date: " ++ carOffer.registration_date) ]
         , div [] [ text ("Year: " ++ String.fromInt carOffer.year) ]
-        , div [] [ text ("Price in Euro: " ++ String.fromInt carOffer.price_in_euro) ]
+        , div [] [ text ("Price in Euro: " ++ String.fromFloat carOffer.price_in_euro) ]
         , div [] [ text ("Power kW: " ++ String.fromInt carOffer.power_kw) ]
         , div [] [ text ("Power PS: " ++ String.fromInt carOffer.power_ps) ]
         , div [] [ text ("Transmission Type: " ++ carOffer.transmission_type) ]
