@@ -9,6 +9,7 @@ type Msg
   | SelectChange2PolarPlot String
   | SelectChange3PolarPlot String
   | SelectChange4PolarPlot String
+  | SelectChangeStarPlot String
 
 type Model 
     = Failure
@@ -24,6 +25,7 @@ type alias CarOfferData =
         , secondCoordinate : String
         , thirdCoordinate : String
         , forthCoordinate : String
+        , starParameter : String
     }
 type alias CarOffer =
     { brand : String,
@@ -39,7 +41,7 @@ type alias CarOffer =
     fuel_consumption_l_100km : Float,
     mileage_in_km : Float,
     offer_description : String,
-    length_offer_description: Int
+    length_offer_description : Int
     }
 type alias ParallelAxisCarOffer =
     { pointName : String, values : List Float}

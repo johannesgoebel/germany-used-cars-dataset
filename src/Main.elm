@@ -11,6 +11,7 @@ import CarOfferTypes exposing (carOfferAttributesNumeric)
 import DataHandling exposing (getFloatColumn)
 import ParallelPlot exposing (drawParallelplot)
 import DataHandling exposing (generateParallelAxisCarOffers)
+import StarPlot exposing (drawStarPlot)
 import Bootstrap.CDN as CDN
 import Bootstrap.Grid as Grid
 import Debug exposing (toString)
@@ -34,17 +35,20 @@ update: Msg -> Model -> (Model, Cmd Msg)
 update msg model=
     case msg of
         CarOfferTypes.FetchedCSV result ->
-            case result of
-                Ok fetched_data ->
-                    (CarOfferTypes.Success <| {data = (DataHandling.dataFromCSV fetched_data)
+                  case result of
+          Ok fetched_data ->
+                (CarOfferTypes.Success <| {data = (DataHandling.dataFromCSV fetched_data)
                                               ,yAxis = "model"
                                               ,xAxis ="price_in_euro"
                                               ,firstCoordinate = "price_in_euro"
                                               ,secondCoordinate = "power_ps" 
                                               ,thirdCoordinate = "fuel_consumption_l_100km"
-                                              ,forthCoordinate = "mileage_in_km"}, Cmd.none)
-                Err _ ->
-                    (CarOfferTypes.Failure, Cmd.none)
+                                              ,forthCoordinate = "mileage_in_km"
+                                              , starParameter = ""}, Cmd.none)
+
+          Err _ ->
+              (CarOfferTypes.Failure, Cmd.none)
+
         CarOfferTypes.SelectChangeYScatterplot yUpdate -> 
           case model of
               Success d ->
@@ -82,6 +86,13 @@ update msg model=
                 (Success <| {d | forthCoordinate = forthUpdate}, Cmd.none)
               _ -> 
                 (model, Cmd.none)
+        CarofferTypes.SelectChangeStarPlot starUpdate ->
+          case model of 
+            Success d ->
+              (Success <| {d | starParameter = starUpdate}, Cmd.none)
+            _ -> 
+                (model, Cmd.none)
+
 
 view : Model -> Html Msg
 view model =
@@ -134,30 +145,16 @@ view model =
                 ]
               ]
           , drawParallelplot (generateParallelAxisCarOffers fullText.data fullText.firstCoordinate fullText.secondCoordinate fullText.thirdCoordinate fullText.forthCoordinate) fullText.firstCoordinate fullText.secondCoordinate fullText.thirdCoordinate fullText.forthCoordinate
+          , starPlotText
+          , div [class "row"] -- Add Bootstrap row class
+              [ div [class "col-md-3"] [
+                    div [] [ Html.p [] [ Html.text "Adjust attribute shown on first coordinate." ]
+                        , viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChangeStarPlot
+                    ]
+                ]
+              ]
+          , drawStarPlot fullText.data fullText.starParameter
           ]
-
-
-viewCarOffers : List CarOffer -> Html Msg
-viewCarOffers carOffers =
-  ul [] (List.map viewCarOffer carOffers)
-viewCarOffer : CarOffer -> Html Msg
-viewCarOffer carOffer =
-    li []
-        [ div [] [ text ("Brand: " ++ carOffer.brand) ]
-        , div [] [ text ("Model: " ++ carOffer.model) ]
-        , div [] [ text ("Color: " ++ carOffer.color) ]
-        , div [] [ text ("Registration Date: " ++ carOffer.registration_date) ]
-        , div [] [ text ("Year: " ++ String.fromInt carOffer.year) ]
-        , div [] [ text ("Price in Euro: " ++ String.fromFloat carOffer.price_in_euro) ]
-        , div [] [ text ("Power kW: " ++ String.fromInt carOffer.power_kw) ]
-        , div [] [ text ("Power PS: " ++ String.fromInt carOffer.power_ps) ]
-        , div [] [ text ("Transmission Type: " ++ carOffer.transmission_type) ]
-        , div [] [ text ("Fuel Type: " ++ carOffer.fuel_type) ]
-        , div [] [ text ("Fuel Consumption (L/100km): " ++ String.fromFloat carOffer.fuel_consumption_l_100km) ]
-        , div [] [ text ("Mileage (km): " ++ String.fromFloat carOffer.mileage_in_km) ]
-        , div [] [ text ("Offer Description: " ++ carOffer.offer_description) ]
-        , div [] [ text ("Length offer description: " ++ String.fromInt carOffer.length_offer_description) ]
-        ]
         
 viewDropdown : List String -> (String -> Msg) -> Html Msg
 viewDropdown options onInputMsg =
@@ -189,6 +186,15 @@ paralellPlotText =
   div[]
   [
     h2 [] [text "Parallel Plot"]
+    ,p []  [text "Below, you'll find our parallel plot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles."
+    ]
+  ]
+
+starPlotText: Html Msg
+starPlotText =
+  div[]
+  [
+    h2 [] [text "Star Plot"]
     ,p []  [text "Below, you'll find our parallel plot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles."
     ]
   ]
