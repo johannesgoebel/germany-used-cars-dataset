@@ -12,8 +12,6 @@ import DataHandling exposing (getFloatColumn)
 import ParallelPlot exposing (drawParallelplot)
 import DataHandling exposing (generateParallelAxisCarOffers)
 import StarPlot exposing (drawStarPlot)
-import Bootstrap.CDN as CDN
-import Bootstrap.Grid as Grid
 import Debug exposing (toString)
 
 

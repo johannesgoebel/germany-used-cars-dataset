@@ -4,19 +4,39 @@ import CarOfferTypes exposing (Msg)
 import TypedSvg.Core exposing (Svg)
 import TypedSvg exposing ( ..)
 import Html
+import Scale exposing (convert, ContinuousScale)
 import Color
 import TypedSvg.Attributes exposing (..)
+
 -- import Svg exposing (Svg, svg, circle, line, Attributes)
+
+xScale : List Float -> ContinuousScale Float
+xScale values =
+        Scale.linear ( 0, w - 2 * padding ) ( wideExtent  )
+
+
+yScale : List Float -> ContinuousScale Float
+yScale values =
+            Scale.linear ( h - 2 * padding, 0 ) ( wideExtent  )
+
+padding = 10
+
+h = 12
+
+w = 12
+
+wideExtent = (90, 90)
+
 drawStarplot: List CarOfferData -> String -> Svg msg
 drawStarplot carList param =
     let
         radius = 50.0
     in
-        svg [ width (px 120), height (px 120), viewBox 0 0 120 120 ]
-            [ circle [ cx "50", cy "50", r (String.fromFloat radius) ] []
-            -- , spokes radius
-            ]
-
+        circle
+                [ cx (Scale.convert xScale 0)
+                , cy (Scale.convert yScale 0)
+                , r (Scale.convert yScale radius)               
+                ]
 -- spokes : Float -> Svg msg
 -- spokes radius =
 --     let
