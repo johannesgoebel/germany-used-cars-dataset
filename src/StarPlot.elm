@@ -101,7 +101,7 @@ drawStarPlot carList param =
             , circle
                 [ cx pointPosition.x
                 , cy pointPosition.y
-                , r 5 -- Adjust the radius of the circle as needed
+                , r 50 -- Adjust the radius of the circle as needed
                 , fill (Paint Color.red) -- Adjust the fill color of the circle
                 ]
                 []
