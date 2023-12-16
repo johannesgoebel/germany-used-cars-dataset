@@ -36,29 +36,38 @@ update msg model=
                   case result of
           Ok fetched_data ->
                 (CarOfferTypes.Success <| {data = (DataHandling.dataFromCSV fetched_data)
-                                              , dataStarAvg = (DataHandling.dataFromCSV fetchStarAvgData)
-                                              , dataStarSum = (DataHandling.dataFromCSV fetchStarSumData)
+                                              , dataStarAvg = []
+                                              , dataStarSum = []
                                               ,yAxis = "model"
                                               ,xAxis ="price_in_euro"
                                               ,firstCoordinate = "price_in_euro"
                                               ,secondCoordinate = "power_ps" 
                                               ,thirdCoordinate = "fuel_consumption_l_100km"
                                               ,forthCoordinate = "mileage_in_km"
-                                              , starParameter = ""}, Cmd.none)
+                                              , starParameter = "Audi"}, Cmd.none)
           Err _ ->
               (CarOfferTypes.Failure, Cmd.none)
         CarOfferTypes.FetchedCSVStarAvg result ->
-          case model of 
-            Success d ->
-              ( Success <| {d |  dataStarAvg =(DataHandling.starDataFromCSV result)}, Cmd.none)
-            _ -> 
-              (model, Cmd.none)
+          case result of
+              Ok starData ->
+                case model of 
+                Success d ->
+                  ( Success <| {d |  dataStarAvg =(DataHandling.starDataFromCSV starData)}, Cmd.none)
+                _ -> 
+                  (model, Cmd.none)
+              Err _ ->
+                (Failure, Cmd.none)
+
         CarOfferTypes.FetchedCSVStarSum result ->
-          case model of 
-            Success d ->
-              ( Success <| {d | dataStarSum = (DataHandling.starDataFromCSV result)}, Cmd.none)
-            _ -> 
-              (model, Cmd.none)
+          case result of
+              Ok starData ->
+                case model of 
+                Success d ->
+                  ( Success <| {d |  dataStarAvg =(DataHandling.starDataFromCSV starData)}, Cmd.none)
+                _ -> 
+                  (model, Cmd.none)
+              Err _ ->
+                (Failure, Cmd.none)
               
         CarOfferTypes.SelectChangeYScatterplot yUpdate -> 
           case model of
@@ -160,11 +169,11 @@ view model =
           , div [class "row"] -- Add Bootstrap row class
               [ div [class "col-md-3"] [
                     div [] [ Html.p [] [ Html.text "Adjust attribute shown on first coordinate." ]
-                        , viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChangeStarPlot
+                        , viewDropdown carBrandList CarOfferTypes.SelectChangeStarPlot
                     ]
                 ]
               ]
-          , drawStarPlot fullText.data fullText.starParameter
+          , drawStarPlot fullText.dataStarAvg fullText.starParameter
           ]
         
 viewDropdown : List String -> (String -> Msg) -> Html Msg

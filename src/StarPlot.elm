@@ -7,6 +7,7 @@ import Html
 import Scale exposing (convert, ContinuousScale)
 import Color
 import TypedSvg.Attributes exposing (..)
+import CarOfferTypes exposing (StarData)
 
 -- import Svg exposing (Svg, svg, circle, line, Attributes)
 
@@ -27,16 +28,12 @@ w = 12
 
 wideExtent = (90, 90)
 
-drawStarplot: List CarOfferData -> String -> Svg msg
-drawStarplot carList param =
+drawStarPlot: List StarData -> String -> Svg msg
+drawStarPlot carList param =
     let
         radius = 50.0
     in
-        circle
-                [ cx (Scale.convert xScale 0)
-                , cy (Scale.convert yScale 0)
-                , r (Scale.convert yScale radius)               
-                ]
+        
 -- spokes : Float -> Svg msg
 -- spokes radius =
 --     let
