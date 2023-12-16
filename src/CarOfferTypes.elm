@@ -49,13 +49,13 @@ type alias CarOffer =
     }
 type alias StarData =
     { brand : String,
-    year : Int,
+    year : Float,
     price_in_euro : Float,
-    power_kw : Int,
-    power_ps : Int,
+    power_kw : Float,
+    power_ps : Float,
     fuel_consumption_l_100km : Float,
     mileage_in_km : Float,
-    length_offer_description : Int
+    length_offer_description : Float
     }
 
 type alias ParallelAxisCarOffer =
@@ -81,33 +81,35 @@ carOfferAttributes =
 carOfferAttributesNumeric : List String 
 carOfferAttributesNumeric = 
     [
+        "year",
         "price_in_euro" ,
         "power_kw" ,
         "power_ps" ,
         "fuel_consumption_l_100km" ,
-        "mileage_in_km"
+        "mileage_in_km",
+        "length_offer_description"
     ]
 carBrandList : List String 
 carBrandList = 
     [
-        "Alfa-Romeo"
-        ,"Aston-Martin"
-        ,"Audi"
-        ,"Bentley"
-        ,"BMW"
-        ,"Cadillac"
-        ,"Chevrolet"
-       , "Chrysler"
-       , "Citroen"
-       , "Dacia"
-       , "Daewoo"
-       , "Daihatsu"
-       , "Dodge"
-       , "Ferrari"
-       , "Fiat"
-       , "Ford"
-       , "Honda"
-       , "Hyundai"
+        "alfa-romeo"
+        ,"aston-martin"
+        ,"audi"
+        ,"bentley"
+        ,"bmw"
+        ,"cadillac"
+        ,"chevrolet"
+       , "chrysler"
+       , "citroen"
+       , "dacia"
+       , "daewoo"
+       , "daihatsu"
+       , "dodge"
+       , "ferrari"
+       , "fiat"
+       , "ford"
+       , "honda"
+       , "hyundai"
        , "Infiniti"
        , "Isuzu"
        , "Jaguar"

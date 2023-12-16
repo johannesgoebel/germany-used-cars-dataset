@@ -13,6 +13,7 @@ import ParallelPlot exposing (drawParallelplot)
 import DataHandling exposing (generateParallelAxisCarOffers)
 import StarPlot exposing (drawStarPlot)
 import Debug exposing (toString)
+import DataHandling exposing (fetchStarAvgData)
 
 
 main : Program () Model Msg
@@ -38,13 +39,13 @@ update msg model=
                 (CarOfferTypes.Success <| {data = (dataFromCSV fetched_data)
                                               , dataStarAvg = []
                                               , dataStarSum = []
-                                              ,yAxis = "model"
-                                              ,xAxis ="price_in_euro"
+                                              ,yAxis = "price_in_euro"
+                                              ,xAxis ="power_ps"
                                               ,firstCoordinate = "price_in_euro"
                                               ,secondCoordinate = "power_ps" 
                                               ,thirdCoordinate = "fuel_consumption_l_100km"
                                               ,forthCoordinate = "mileage_in_km"
-                                              , starParameter = "Audi"}, Cmd.none)
+                                              , starParameter = "Audi"}, fetchStarAvgData)
           Err _ ->
               (CarOfferTypes.Failure, Cmd.none)
         CarOfferTypes.FetchedCSVStarAvg result ->
@@ -111,7 +112,8 @@ update msg model=
             Success d ->
               (Success <| {d | starParameter = starUpdate}, Cmd.none)
             _ -> 
-                (model, Cmd.none)
+                (model, Cmd.none) 
+                
 
 
 view : Model -> Html Msg
@@ -127,7 +129,6 @@ view model =
       main_ []         -- Responsive fixed width container
         [ topText
           , scatterPlotText
-          , Html.text(  toString(List.length( fullText.data)))
           , div [class "row"] -- Add Bootstrap row class
               [ div [class "col-md-6"] [ -- Use Bootstrap col-md-6 class for half-width
                     div [] [ Html.p [] [ Html.text "Adjust attribute shown on x-coordinate." ]
@@ -168,11 +169,15 @@ view model =
           , starPlotText
           , div [class "row"] -- Add Bootstrap row class
               [ div [class "col-md-3"] [
-                    div [] [ Html.p [] [ Html.text "Adjust attribute shown on first coordinate." ]
+                    div [] [ Html.p [] [ Html.text "Adjust attribute shown on star plot." ]
                         , viewDropdown carBrandList CarOfferTypes.SelectChangeStarPlot
                     ]
                 ]
               ]
+          , div []
+          [
+            h1 [] [text fullText.starParameter]
+          ]
           , drawStarPlot fullText.dataStarAvg fullText.starParameter
           ]
         
