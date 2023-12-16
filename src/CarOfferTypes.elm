@@ -66,9 +66,60 @@ carOfferAttributes =
 carOfferAttributesNumeric : List String 
 carOfferAttributesNumeric = 
     [
-         "price_in_euro" ,
+        "price_in_euro" ,
         "power_kw" ,
         "power_ps" ,
         "fuel_consumption_l_100km" ,
         "mileage_in_km"
+    ]
+carBrandList : List String 
+carBrandList = 
+    [
+        "Alfa-Romeo"
+        ,"Aston-Martin"
+        ,"Audi"
+        ,"Bentley"
+        ,"BMW"
+        ,"Cadillac"
+        ,"Chevrolet"
+       , "Chrysler"
+       , "Citroen"
+       , "Dacia"
+       , "Daewoo"
+       , "Daihatsu"
+       , "Dodge"
+       , "Ferrari"
+       , "Fiat"
+       , "Ford"
+       , "Honda"
+       , "Hyundai"
+       , "Infiniti"
+       , "Isuzu"
+       , "Jaguar"
+       , "Jeep"
+       , "Kia"
+       , "Lada"
+       , "Lamborghini"
+       , "Lancia"
+       , "Land-Rover"
+       , "Maserati"
+       , "Mazda"
+       , "Mercedes-Benz"
+       , "Mini"
+       , "Mitsubishi"
+       , "Nissan"
+       , "Opel"
+       , "Peugeot"
+       , "Porsche"
+       , "Proton"
+       , "Renault"
+       , "Rover"
+       , "Saab"
+       , "Seat"
+       , "Skoda"
+       , "Smart"
+       , "Ssangyong"
+       , "Toyota"
+       , "Volkswagen"
+       , "Volvo"
     ]
