@@ -3,41 +3,61 @@ import CarOfferTypes exposing (CarOfferData)
 import CarOfferTypes exposing (Msg)
 import TypedSvg.Core exposing (Svg)
 import TypedSvg exposing ( ..)
+import TypedSvg.Types exposing ( Transform (..))
+import TypedSvg.Attributes.InPx exposing (fontSize, r, x,x1, x2,y1,y2, y, cx, cy, rx,ry)
+import TypedSvg.Attributes exposing (transform, viewBox)
 import Html
 import Scale exposing (convert, ContinuousScale)
 import Color
-import TypedSvg.Attributes exposing (..)
 import CarOfferTypes exposing (StarData)
 
--- import Svg exposing (Svg, svg, circle, line, Attributes)
 
-xScale : List Float -> ContinuousScale Float
-xScale values =
-        Scale.linear ( 0, w - 2 * padding ) ( wideExtent  )
+-- defaultStarData : StarData
+-- defaultStarData =
+--     { brand = ""
+--     , year = 0
+--     , priceInEuro = 0.0
+--     , powerKw = 0
+--     , powerPs = 0
+--     , fuelConsumptionLPer100km = 0.0
+--     , mileageInKm = 0.0
+--     , lengthOfferDescription = 0
+--     }
 
+getScaling : Float -> List Float -> List Float
+getScaling radius valueList =
+    let
+        maxVal = List.maximum valueList |> Maybe.withDefault 0
+        scaleFactor = if maxVal /= 0 then radius / maxVal else 0
+    in
+    List.map (\val -> val * scaleFactor) valueList
 
-yScale : List Float -> ContinuousScale Float
-yScale values =
-            Scale.linear ( h - 2 * padding, 0 ) ( wideExtent  )
+getRow : String -> List StarData -> Maybe StarData
+getRow targetBrand starDataList =
+    List.filter (\starData -> starData.brand == targetBrand) starDataList
+        |> List.head
 
-padding = 10
-
-h = 12
-
-w = 12
-
-wideExtent = (90, 90)
-
-drawStarPlot: List StarData -> String -> Svg msg
+drawStarPlot : List StarData -> String -> Svg msg
 drawStarPlot carList param =
     let
-        radius = 50.0
+        radius = 5000.0
+        angleIncrement = 2 * pi / 7
+        center = { x = 0.0, y = 0.0 }
+
+        getSpokePosition angle =
+            { x = center.x + radius * cos angle
+            , y = center.y + radius * sin angle
+            }
+
+        drawSpoke angle =
+            let
+                startPoint = center
+                endPoint = getSpokePosition angle
+            in
+            line [ x1 startPoint.x, y1 startPoint.y, x2 endPoint.x, y2 endPoint.y ] []
+
+
+        viewBoxDimensions = 10000 
     in
-        
--- spokes : Float -> Svg msg
--- spokes radius =
---     let
---         angles =
---             List.map (\n -> (2 * Float.pi / 5) * Float.fromInt n) [ 0 .. 4 ]
---     in
---     List.map (\angle -> line [ Attributes.x1 "50", Attributes.y1 "50", Attributes.x2 <| toString <| 50 + radius * cos angle, Attributes.y2 <| toString <| 50 + radius * sin angle ] []) angles
+    svg [ viewBox 0 0 viewBoxDimensions viewBoxDimensions ]
+        [ g [] (List.indexedMap (\i angle -> drawSpoke (toFloat i * angleIncrement)) (List.range 0 6)) ]

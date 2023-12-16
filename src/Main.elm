@@ -1,5 +1,5 @@
 module Main exposing (..)
-import CarOfferTypes exposing (carOfferAttributes, Model, Msg, CarOffer)
+import CarOfferTypes exposing (carOfferAttributes, Model, Msg, CarOffer, carBrandList)
 import Scatterplot exposing (drawScatterplot)
 import DataHandling exposing (fetchData, dataFromCSV)
 import Html exposing (Html, div, text, ul, li, main_, h1, h2, p)
@@ -35,7 +35,7 @@ update msg model=
         CarOfferTypes.FetchedCSV result ->
                   case result of
           Ok fetched_data ->
-                (CarOfferTypes.Success <| {data = (DataHandling.dataFromCSV fetched_data)
+                (CarOfferTypes.Success <| {data = (dataFromCSV fetched_data)
                                               , dataStarAvg = []
                                               , dataStarSum = []
                                               ,yAxis = "model"
@@ -106,7 +106,7 @@ update msg model=
                 (Success <| {d | forthCoordinate = forthUpdate}, Cmd.none)
               _ -> 
                 (model, Cmd.none)
-        CarofferTypes.SelectChangeStarPlot starUpdate ->
+        CarOfferTypes.SelectChangeStarPlot starUpdate ->
           case model of 
             Success d ->
               (Success <| {d | starParameter = starUpdate}, Cmd.none)

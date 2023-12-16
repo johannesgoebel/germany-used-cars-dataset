@@ -9,7 +9,7 @@ import Csv exposing (..)
 fetchData : Cmd Msg
 fetchData = Http.get
         {
-            url = "https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/data.csv"
+            url = "https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/data_subset.csv"
             , expect = Http.expectString <| FetchedCSV
         }
 fetchStarAvgData: Cmd Msg 
@@ -24,13 +24,20 @@ fetchStarSumData = Http.get
             url = "https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/sum_star_data.csv"
             , expect = Http.expectString <| FetchedCSVStarSum
         }
+log : String -> a -> a
+log tag value =
+    Debug.log tag value
 
-
-dataFromCSV: String -> List CarOffer
+dataFromCSV : String -> List CarOffer
 dataFromCSV csv_string =
-     Csv.parse csv_string
+    csv_string
+        |> log "Raw CSV String"
+        |> Csv.parse
+        |> log "Parsed CSV"
         |> Csv.Decode.decodeCsv decodeCarOffer
+        |> log "Decoded CarOffer"
         |> Result.toMaybe
+        |> log "Ergebnis"
         |> Maybe.withDefault []
 
 decodeCarOffer : Csv.Decode.Decoder (CarOffer -> a) a
@@ -40,21 +47,23 @@ decodeCarOffer =
             |>  Csv.Decode.andMap (field "model" Ok)
             |>  Csv.Decode.andMap (field "color" Ok)
             |>  Csv.Decode.andMap (field "registration_date" Ok)
-            |>  Csv.Decode.andMap (field "year" (String.toInt >> Result.fromMaybe "error parsing string"))
-            |>  Csv.Decode.andMap (field "price_in_euro" (String.toFloat >> Result.fromMaybe "error parsing string" ))
-            |>  Csv.Decode.andMap (field "power_kw" (String.toInt >> Result.fromMaybe "error parsing string"  ))
-            |>  Csv.Decode.andMap (field "power_ps" (String.toInt >> Result.fromMaybe "error parsing string"  ))
+            |>  Csv.Decode.andMap (field "year" (String.toInt >> Result.fromMaybe "error parsing string year"))
+            |>  Csv.Decode.andMap (field "price_in_euro" (String.toFloat >> Result.fromMaybe "error parsing string price_in_euro" ))
+            |>  Csv.Decode.andMap (field "power_kw" (String.toInt >> Result.fromMaybe "error parsing string power_kw"  ))
+            |>  Csv.Decode.andMap (field "power_ps" (String.toInt >> Result.fromMaybe "error parsing string power_ps"  ))
             |>  Csv.Decode.andMap (field "transmission_type" Ok)
             |>  Csv.Decode.andMap (field "fuel_type" Ok)
-            |>  Csv.Decode.andMap (field "fuel_consumption_l_100km" (String.toFloat >> Result.fromMaybe "error parsing string"  ))
-            |>  Csv.Decode.andMap (field "mileage_in_km" (String.toFloat >> Result.fromMaybe "error parsing string"  ))
+            |>  Csv.Decode.andMap (field "fuel_consumption_l_100km" (String.toFloat >> Result.fromMaybe "error parsing string fuel consumption"  ))
+            |>  Csv.Decode.andMap (field "mileage_in_km" (String.toFloat >> Result.fromMaybe "error parsing string mileage_in_km"  ))
             |>  Csv.Decode.andMap (field "offer_description" Ok)
-            |>  Csv.Decode.andMap (field "length_offer_description" (String.toInt >> Result.fromMaybe "error parsing string"  ))
+            |> Csv.Decode.andMap (field "length_offer_description" (String.toInt >> Result.fromMaybe "Error parsing 'length_offer_description' as integer"))
         )
+        
 
 starDataFromCSV: String -> List StarData
 starDataFromCSV csv_string =
      Csv.parse csv_string
+        |> log "Raw Star CSV String"
         |> Csv.Decode.decodeCsv decodeStarData
         |> Result.toMaybe
         |> Maybe.withDefault []
@@ -69,8 +78,7 @@ decodeStarData =
             |>  Csv.Decode.andMap (field "power_ps" (String.toInt >> Result.fromMaybe "error parsing string"  ))
             |>  Csv.Decode.andMap (field "fuel_consumption_l_100km" (String.toFloat >> Result.fromMaybe "error parsing string"  ))
             |>  Csv.Decode.andMap (field "mileage_in_km" (String.toFloat >> Result.fromMaybe "error parsing string"  ))
-            |>  Csv.Decode.andMap (field "length_offer_description" (String.toInt >> Result.fromMaybe "error parsing string"  ))
-        )
+            |>  Csv.Decode.andMap (field "length_offer_description" (String.toInt >> Result.fromMaybe "Error parsing 'length_offer_description' as integer"))        )
     
 -- Function to get a list of a specific attribute from a list of CarOffer
 getFloatColumn : String -> List CarOffer -> List Float
