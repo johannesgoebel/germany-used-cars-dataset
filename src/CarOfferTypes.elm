@@ -3,6 +3,8 @@ import Http
 
 type Msg
   = FetchedCSV (Result Http.Error String)
+  | FetchedCSVStarAvg (Result Http.Error String)
+  | FetchedCSVStarSum (Result Http.Error String)
   | SelectChangeXScatterplot String
   | SelectChangeYScatterplot String
   | SelectChange1PolarPlot String
@@ -19,6 +21,8 @@ type Model
 type alias CarOfferData =
     {
         data: List CarOffer
+        , dataStarAvg: List StarData
+        , dataStarSum: List StarData
         , yAxis : String
         , xAxis : String
         , firstCoordinate : String
@@ -43,6 +47,17 @@ type alias CarOffer =
     offer_description : String,
     length_offer_description : Int
     }
+type alias StarData =
+    { brand : String,
+    year : Int,
+    price_in_euro : Float,
+    power_kw : Int,
+    power_ps : Int,
+    fuel_consumption_l_100km : Float,
+    mileage_in_km : Float,
+    length_offer_description : Int
+    }
+
 type alias ParallelAxisCarOffer =
     { pointName : String, values : List Float}
     

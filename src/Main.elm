@@ -36,6 +36,8 @@ update msg model=
                   case result of
           Ok fetched_data ->
                 (CarOfferTypes.Success <| {data = (DataHandling.dataFromCSV fetched_data)
+                                              , dataStarAvg = (DataHandling.dataFromCSV fetchStarAvgData)
+                                              , dataStarSum = (DataHandling.dataFromCSV fetchStarSumData)
                                               ,yAxis = "model"
                                               ,xAxis ="price_in_euro"
                                               ,firstCoordinate = "price_in_euro"
@@ -43,10 +45,21 @@ update msg model=
                                               ,thirdCoordinate = "fuel_consumption_l_100km"
                                               ,forthCoordinate = "mileage_in_km"
                                               , starParameter = ""}, Cmd.none)
-
           Err _ ->
               (CarOfferTypes.Failure, Cmd.none)
-
+        CarOfferTypes.FetchedCSVStarAvg result ->
+          case model of 
+            Success d ->
+              ( Success <| {d |  dataStarAvg =(DataHandling.starDataFromCSV result)}, Cmd.none)
+            _ -> 
+              (model, Cmd.none)
+        CarOfferTypes.FetchedCSVStarSum result ->
+          case model of 
+            Success d ->
+              ( Success <| {d | dataStarSum = (DataHandling.starDataFromCSV result)}, Cmd.none)
+            _ -> 
+              (model, Cmd.none)
+              
         CarOfferTypes.SelectChangeYScatterplot yUpdate -> 
           case model of
               Success d ->
