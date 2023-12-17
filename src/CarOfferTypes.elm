@@ -81,7 +81,6 @@ carOfferAttributes =
 carOfferAttributesNumeric : List String 
 carOfferAttributesNumeric = 
     [
-        "year",
         "price_in_euro" ,
         "power_kw" ,
         "power_ps" ,

@@ -8,6 +8,7 @@ import TypedSvg.Attributes exposing (class, fontFamily, fontSize, textAnchor, tr
 import TypedSvg.Attributes.InPx exposing (cx, cy, height, r, width, x, y)
 import TypedSvg.Core exposing (Svg, text)
 import TypedSvg.Types exposing (AnchorAlignment(..), Length(..), Transform(..))
+import Debug exposing (toString)
 
 
 w : Float
@@ -44,7 +45,7 @@ drawScatterplot pointLabels xValues yValues xLabel yLabel =
     let
         points : List (Float, Float)
         points =
-            List.map2 (\x y-> (x,y)) xValues yValues
+            List.map2 (\x y-> (x,y))   xValues yValues
             
                 
         xScale : List Float -> ContinuousScale Float
@@ -77,12 +78,13 @@ drawScatterplot pointLabels xValues yValues xLabel yLabel =
               
         xAxis : List Float -> Svg msg
         xAxis values =
-            Axis.bottom [ Axis.tickCount tickCount ] (xScale values)
+            Axis.bottom [ Axis.tickCount tickCount ] (xScale values )
 
+        
 
         yAxis : List Float -> Svg msg
         yAxis values =
-            Axis.left [ Axis.tickCount tickCount ] (yScale values)   
+            Axis.left [ Axis.tickCount tickCount ] (yScale values )   
             
         wideExtent : List Float -> ( Float, Float )
         wideExtent values =
@@ -102,7 +104,7 @@ drawScatterplot pointLabels xValues yValues xLabel yLabel =
                     [ y (Scale.convert scaleY (Tuple.first point))
                     , x (Scale.convert scaleX (Tuple.second point))
                     ]
-                    [ text (pointLabelText) ]
+                    [ text (pointLabelText )]
                 ]
               
     in            
@@ -112,7 +114,7 @@ drawScatterplot pointLabels xValues yValues xLabel yLabel =
             .point circle { stroke: rgba(0, 0, 0,0.4); fill: rgba(255, 255, 255,0.3); }
             .point text { display: none; }
             .point:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
-            .point:hover text { display: inline; }
+            .point:hover .point text { display: inline; } 
           """ ]
         , g
             [ transform [ Translate (padding - 1) ( padding - 1 ) ]
@@ -141,5 +143,5 @@ drawScatterplot pointLabels xValues yValues xLabel yLabel =
             ]
          , g 
              [transform [ Translate padding padding ] ]
-                (List.map2 (makePoint xScaleLocal yScaleLocal)  points pointLabels)
+                (List.map2 (makePoint xScaleLocal yScaleLocal)  points pointLabels  )
         ]

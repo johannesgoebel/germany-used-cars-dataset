@@ -100,7 +100,10 @@ getFloatColumn attribute carOffers =
 
         "mileage_in_km" ->
             List.map .mileage_in_km carOffers
-
+        
+        "length_offer_description" ->
+            List.map .length_offer_description carOffers |> List.map toFloat
+        
         _ ->
             []
 
