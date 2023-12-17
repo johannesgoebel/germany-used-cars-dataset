@@ -1,8 +1,8 @@
 module StarPlot exposing (..)
 import CarOfferTypes exposing (CarOfferData,carOfferAttributesNumeric, Msg)
-import TypedSvg.Core exposing (Svg)
+import TypedSvg.Core exposing (Svg, text)
 import TypedSvg exposing ( ..)
-import TypedSvg.Types exposing ( Transform (..), Paint(..), AnchorAlignment(..))
+import TypedSvg.Types exposing ( Transform (..), Paint(..), AnchorAlignment(..), px)
 import TypedSvg.Attributes.InPx exposing (fontSize, r, x,x1, x2,y1,y2, y, cx, cy, rx,ry)
 import TypedSvg.Attributes exposing (transform, viewBox, textAnchor)
 import Html
@@ -11,6 +11,8 @@ import Color
 import CarOfferTypes exposing (StarData)
 import DataHandling exposing (log)
 import TypedSvg.Attributes exposing (stroke, strokeWidth, fill)
+import TypedSvg.Attributes exposing (class)
+import TypedSvg.Attributes exposing (fontFamily)
 
 starDataToFloat : Maybe StarData -> List Float
 starDataToFloat maybeStarData =
@@ -70,16 +72,16 @@ drawStarPlot : List StarData -> String -> Svg msg
 drawStarPlot carList param =
     let
         radius : Float
-        radius = 1000.0
-        center = { x = 3000.0, y = 2000.0 }
+        radius = 2000.0
+        center = { x = 3000.0, y = 3000.0 }
 
         getSpokePosition angle =
             { x = center.x + radius * cos angle
             , y = center.y + radius * sin angle
             }
 
-        drawSpoke: Float -> String -> Float -> Svg msg
-        drawSpoke angle label point=
+        drawSpoke : Float -> String -> Float -> Svg msg
+        drawSpoke angle label point =
             let
                 startPoint = center
                 endPoint = getSpokePosition angle
@@ -88,31 +90,71 @@ drawStarPlot carList param =
                     { x = startPoint.x + (endPoint.x - startPoint.x) * point
                     , y = startPoint.y + (endPoint.y - startPoint.y) * point
                     }
+
+                tickLength = 100
+                tickPositions = [0.2, 0.4, 0.6, 0.8]
+
+                createTickAndLabel position =
+                    let
+                        tickEndPoint =
+                            { x = startPoint.x + (endPoint.x - startPoint.x) * position
+                            , y = startPoint.y + (endPoint.y - startPoint.y) * position
+                            }
+
+                        tickLabelPosition =
+                            { x = startPoint.x + (endPoint.x - startPoint.x) * position
+                            , y = startPoint.y + (endPoint.y - startPoint.y) * position + tickLength
+                            }
+                    in
+                    [ line
+                        [ x1 tickEndPoint.x
+                        , y1 tickEndPoint.y
+                        , x2 tickLabelPosition.x 
+                        , y2 tickLabelPosition.y 
+                        , stroke (Paint Color.black)
+                        ]
+                        []
+                    , text_
+                        [ x tickLabelPosition.x
+                        , y tickLabelPosition.y
+                        , textAnchor AnchorMiddle
+                        , fontSize 70.0
+                        ]
+                        [ TypedSvg.Core.text (String.fromFloat (position * 100) ++ "%") ]
+                    ]
             in
             g []
-            [ line
-                [ x1 startPoint.x
-                , y1 startPoint.y
-                , x2 endPoint.x
-                , y2 endPoint.y
-                , stroke (Paint Color.black)
-                ]
-                []
-            , circle
-                [ cx pointPosition.x
-                , cy pointPosition.y
-                , r 50 -- Adjust the radius of the circle as needed
-                , fill (Paint Color.red) -- Adjust the fill color of the circle
-                ]
-                []
-            , text_
-                [ x (endPoint.x + (startPoint.x - endPoint.x) / 2 +50)  -- Adjust the x-position for centering
-                , y (endPoint.y + (startPoint.y - endPoint.y) / 2 +50) -- Adjust the y-position for centering
-                , textAnchor AnchorMiddle
-                ]
-                [ TypedSvg.Core.text label ]
-            ]
-            
+                ( List.concat
+                    [ [ line
+                        [ x1 startPoint.x
+                        , y1 startPoint.y
+                        , x2 endPoint.x
+                        , y2 endPoint.y
+                        , stroke (Paint Color.black)
+                        ]
+                        []
+                    , circle
+                        [ cx pointPosition.x
+                        , cy pointPosition.y
+                        , r 100 -- Adjust the radius of the circle as needed
+                        , fill (Paint Color.red) -- Adjust the fill color of the circle
+                        , fontFamily ["Bauhaus 93"]
+                        ]
+                        []
+                    , text_
+                        [ x (endPoint.x  + 500  * cos angle)  -- Adjust the x-position for centering
+                        , y (endPoint.y + 500* sin angle) -- Adjust the y-position for centering
+                        , textAnchor AnchorMiddle
+                        , fontSize 100.0
+                        , fontFamily ["Bauhaus 93"]
+                        ]
+                        [ TypedSvg.Core.text label ]
+                    ]
+                    , List.concatMap createTickAndLabel tickPositions
+                    ]
+                )
+
+    
         viewBoxDimensions = 10000 
         
         rowData : Maybe StarData
@@ -137,14 +179,16 @@ drawStarPlot carList param =
 
     in
     svg [ viewBox 0 0 viewBoxDimensions viewBoxDimensions ]
-    [ g [] spokes
-    , circle
-        [ cx center.x
-        , cy center.y
-        , r radius
-        , stroke (Paint Color.black)
-        , fill (PaintNone)
-        ]
-        []
+    [ 
+        g [] spokes
+        , circle
+            [ cx center.x
+            , cy center.y
+            , r radius
+            , stroke (Paint Color.black)
+            , strokeWidth (px 5)
+            , fill (PaintNone)
+            ]
+            []
     ]
 

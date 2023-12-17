@@ -2,7 +2,7 @@ module Main exposing (..)
 import CarOfferTypes exposing (carOfferAttributes, Model, Msg, CarOffer, carBrandList)
 import Scatterplot exposing (drawScatterplot)
 import DataHandling exposing (fetchData, dataFromCSV)
-import Html exposing (Html, div, text, ul, li, main_, h1, h2, p)
+import Html exposing (Html, div, text, ul, li, main_, h1, h2, p, a, h4)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import Browser
@@ -45,7 +45,7 @@ update msg model=
                                               ,secondCoordinate = "power_ps" 
                                               ,thirdCoordinate = "fuel_consumption_l_100km"
                                               ,forthCoordinate = "mileage_in_km"
-                                              , starParameter = "Audi"}, fetchStarAvgData)
+                                              , starParameter = "audi"}, fetchStarAvgData)
           Err _ ->
               (CarOfferTypes.Failure, Cmd.none)
         CarOfferTypes.FetchedCSVStarAvg result ->
@@ -64,7 +64,7 @@ update msg model=
               Ok starData ->
                 case model of 
                 Success d ->
-                  ( Success <| {d |  dataStarAvg =(DataHandling.starDataFromCSV starData)}, Cmd.none)
+                  ( Success <| {d |  dataStarSum =(DataHandling.starDataFromCSV starData)}, Cmd.none)
                 _ -> 
                   (model, Cmd.none)
               Err _ ->
@@ -127,7 +127,9 @@ view model =
 
     CarOfferTypes.Success fullText ->
       main_ []         -- Responsive fixed width container
-        [ topText
+        [ bootstrapCDN
+          ,navigationBar
+          ,topText
           , scatterPlotText
           , div [class "row"] -- Add Bootstrap row class
               [ div [class "col-md-6"] [ -- Use Bootstrap col-md-6 class for half-width
@@ -142,8 +144,8 @@ view model =
                 ]
               ]
           , drawScatterplot (List.map .offer_description fullText.data) (getFloatColumn fullText.xAxis fullText.data) (getFloatColumn fullText.yAxis fullText.data) fullText.xAxis fullText.yAxis
-          , paralellPlotText
-          , div [class "row"] -- Add Bootstrap row class
+          , parallelPlotText
+          , div [class "row"]
               [ div [class "col-md-3"] [
                     div [] [ Html.p [] [ Html.text "Adjust attribute shown on first coordinate." ]
                         , viewDropdown carOfferAttributesNumeric CarOfferTypes.SelectChange1PolarPlot
@@ -174,52 +176,69 @@ view model =
                     ]
                 ]
               ]
-          , div []
-          [
-            h1 [] [text fullText.starParameter]
+          , div [ class "row" ]
+            [ div [ class "col-md-6 ml-63 p-100 text-center" ] -- Adjust the column size and margin as needed
+                [ h1 [class "mt-50"] [ text fullText.starParameter ] ]
+            , div [ class "col-md-6 mb-3" ] -- Adjust the column size and margin as needed
+                [ drawStarPlot fullText.dataStarAvg fullText.starParameter ]
+            ]
           ]
-          , drawStarPlot fullText.dataStarAvg fullText.starParameter
-          ]
-        
+
+navigationBar : Html msg
+navigationBar =
+    div [ class "navbar navbar-expand-lg navbar-dark bg-dark" ]
+        [ 
+            ul [ class "navbar-nav" ]
+                [ li [ class "nav-item" ] [ a [ class "nav-link", href "https://github.com/johannesgoebel/germany-used-cars-dataset" ] [ text "GitHub Repository" ] ]
+                , li [ class "nav-item" ] [ a [ class "nav-link", href "https://www.kaggle.com/datasets/wspirat/germany-used-cars-dataset-2023/" ] [ text "Kaggle Dataset" ] ]
+                , li [ class "nav-item" ] [ a [ class "nav-link", href "https://www.autoscout24.de/" ] [ text "AutoScout24" ] ]
+                , li [ class "nav-item" ] [ a [ class "nav-link", href "#about" ] [ text "About" ] ]
+                ]
+        ]
+
+
+
 viewDropdown : List String -> (String -> Msg) -> Html Msg
 viewDropdown options onInputMsg =
-    div []
-        [ Html.select [ Html.Events.onInput onInputMsg ]
+    div [ class "mb-3" ]
+        [ Html.select [ class "form-select", onInput onInputMsg ]
             (List.map (\opt -> Html.option [ Html.Attributes.value opt ] [ text opt ]) options)
         ]
 
-topText: Html Msg
+topText : Html Msg
 topText =
-  div[]
-  [
-    h1 [] [text "Used Car Offers"],
-    p []  [text "Welcome to this GitHub repository showcasing the outcome of a Information Visualization project. This project comprises three visualizations, offering insights into the world of used car offers extracted from a prominent online marketplace. The goal of this project is to provide valuable perspectives and actionable intelligence for stakeholders in the automotive industry."
-    ]
-  ]
+    div [ class "mb-3 pt-50" 
+        ]
+        [ h1 [ class "display-4"  ] [ text "Used Car Offers" ]
+        , p [ class "lead" ] [ text "Welcome to this GitHub repository showcasing the outcome of an Information Visualization project. This project comprises three visualizations, offering insights into the world of used car offers extracted from a prominent online marketplace. The goal of this project is to provide valuable perspectives and actionable intelligence for stakeholders in the automotive industry." ]
+        ]
 
-scatterPlotText: Html Msg
+scatterPlotText : Html Msg
 scatterPlotText =
-  div[]
-  [
-    h2 [] [text "Compare the attributes of used cars"]
-    ,p []  [text "Below, you'll find our scatterplot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles."
-    ]
-  ]
+    div [ class "mb-3" ]
+        [ h2 [ class "display-6" ] [ text "Compare the attributes of used cars" ]
+        , p [ class "lead" ] [ text "Below, you'll find our scatterplot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles." ]
+        ]
 
-paralellPlotText: Html Msg
-paralellPlotText =
-  div[]
-  [
-    h2 [] [text "Parallel Plot"]
-    ,p []  [text "Below, you'll find our parallel plot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles."
-    ]
-  ]
+parallelPlotText : Html Msg
+parallelPlotText =
+    div [ class "mb-3" ]
+        [ h2 [ class "display-6" ] [ text "Parallel Plot" ]
+        , p [ class "lead" ] [ text "Below, you'll find our parallel plot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles." ]
+        ]
 
-starPlotText: Html Msg
+starPlotText : Html Msg
 starPlotText =
-  div[]
-  [
-    h2 [] [text "Star Plot"]
-    ,p []  [text "Below, you'll find our parallel plot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles."
+    div [ class "mb-3" ]
+        [ h2 [ class "display-6" ] [ text "Star Plot" ]
+        , p [ class "lead" ] [ text "Below, you'll find our parallel plot, a powerful tool for comparing various attributes of used car offers. This visualization enables you to analyze and discern patterns, correlations, and disparities among key features of the listings, offering valuable insights into the diverse landscape of available vehicles." ]
+        ]
+
+
+bootstrapCDN
+  = Html.node "link"
+    [ rel "stylesheet"
+    , href "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
     ]
-  ]
+    []
+        

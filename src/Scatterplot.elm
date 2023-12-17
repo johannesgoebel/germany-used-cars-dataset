@@ -116,9 +116,9 @@ drawScatterplot pointLabels xValues yValues xLabel yLabel =
           """ ]
         , g
             [ transform [ Translate (padding - 1) ( padding - 1 ) ]
-            , class [ "point" ]
             , fontSize <| Px 10.0
             , fontFamily [ "sans-serif" ]
+            , class [ "r", "point" ]
             ]
             []
         , g 
