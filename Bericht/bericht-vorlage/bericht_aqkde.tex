@@ -42,7 +42,7 @@ Dabei sollen in dieser Arbeit aber auch Markteffekte wie Preisentwicklungen von 
 \subsection{Anwendungshintergrund}
 Sie müssen genug Hintergrund bereitstellen, so dass die Lesenden sich ein Urteil bilden können, ob ihre Lösung funktioniert. Sie sollen die Lesenden jedoch nicht mit Anwendungsdetails so überschütten, dass der Fokus auf die Fragen zur Informationsvisualisierung untergehen. 
 
-- Problem: in der Kategorie nein sind auch Fahrzeuge, die keine Klimaanlage haben
+Zu diesem Zweck soll eine
 - Problem: das sind immer Angebotspeise, wir kennen die Kaufpreise nicht
 
 \subsection{Zielgruppen}
@@ -57,32 +57,40 @@ Dieser Informationsbedürfnisse möchte diese Arbeit mithilfe von Visualisierung
 \subsection{Überblick und Beiträge}
 In diesem Abschnitt geben sie einen kurzen Überblick über die Daten und verwendeten Visualisierungen. Dann benennen sie die Beiträge ihres Projekts. Diese Beiträge müssen sie in den hinteren Teilen des Berichts genauer ausführen und belegen.
 
-\section{Daten}
-Beschreiben Sie vorhandenen Daten. Gehen sie kritisch darauf ein, in wie weit sich die Daten für die Bearbeitung der Fragestellungen und dem Erreichen von Lösungen für die oben beschriebene Zielgruppen eignen. Haben sie die Daten sinnvoll mit weiteren Datenquellen ergänzt? Wenn ja, wie?
-Erklären sie die technische Bereitstellung der Daten.
-Wie sind die Daten zugänglich? Welche Formate werden genutzt. Gibt es Besonderheiten beim Lesen der Formate?
-Beschreiben sie die Datenvorverarbeitung.
-Welche Datenvorverarbeitungsschritte sind notwendig? Beschreiben Sie die einzelnen Schritte und begründen sie sie, z.B. warum werden manche Daten weggelassen, über welche Mengen werden Durchschnitte berechnet, warum sind die so berechneten Werte aussagekräftiger als andere Werte. Wenn möglich sollen sie die Datenvorverarbeitung in Elm programmieren, so dass ihre Anwendung auf eine Änderung der Rohdaten reagieren kan. 
 
+
+\section{Daten}
+
+\subsection{Datenverarbeitung}
 
 Der Datensatz auf der Webseite Kaggle unter dem Titel "Germany Used Cars Dataset 2023" (https://www.kaggle.com/datasets/wspirat/germany-used-cars-dataset-2023) bereitgestellt. Dieser enthält über 200 Tsd. Datenpunkte zu gescrapeten Daten von der Gebrauchtwagenplattform Autoscout24 aus dem Jahr 2023. \\
 Dieser Datensatz wurde anschließend um einen Überblick zu bekommen in ein IPython Notebook geladen. 
 Nach diesen ersten Überlegungen sollte der Datensatz bereinigt werden. Zum Beispiel Antriebsart electric, usw.  Dazu wurden die Attribute bewertet, ob sie für eine spätere Visualisierung (1) elementar sind oder eher (2) sekundär. Darauf basierend wurde die Entscheidung getroffen, ob (1) fehlende Werte dieses Attributes zu einer Entfernung des Datums führen oder (2) die Werte aufgefüllt werden. Die Art und Weise einer Auffüllens wird anhand des Attributes entschieden. Das Ziel der Bereinigung ist es in jedem Feld einen verarbeitbaren Wert vorfinden zu können.\\
-- Drop unnamed \\
-- drop einen Wert, der keine description hat \\
-- droppe Werte ohne mileage \\
-- Farbe: Aufgefüllt mit Wert "unknown" \\
-- In der Spalte fuel_type wurden nur wirkliche Antriebsarten zugelassen. \\
-- Andere Spalten auch auf Werte geprüft \\
-- Alle Daten gelöscht, wo ps oder kw null ist \\
-- Alle vollständig außer fuel l pro 100 km, aber da wir g/km haben -> drop \\
-- jetzt alle Daten vollständig vorhanden \\
-Dabei war ein Ziel die Vergleichbarkeit von Fahrzeugen unterschiedlicher Antriebsarten zu Gewährleisten, was beispielsweise bei den Daten zum Verbrauch ein Problem aufwarf. Wie sind die Daten von Pkws mit Verbrennungsmotor in l/100km und der Reichweitedaten für Elekoautos vergleichbar? Da diese nicht gewehrleistet werden konnte, wurde das Merkmal "Reichweite" eingeführt für Autos mit dem fuel_type electric.
+Zuerst wurde die unbenannte Indexspalte gelöscht.
+Ebenso alle Zeilen die keine Werte in den Spalten "offer_description" oder "mileage_in_km" hatten. 
+Anschließend wurden alle fehlenden Werte der Spalte "color"mit dem Wert "unknown" aufgefüllt, um leere Felder zu vermeiden. Nachfolgend wurde die Werte  der Spalte "fuel_type" geprüft und nur wirkliche Antriebsarten zugelassen. \\
+Weil in diesem Zusammenhang viele unsinnige Daten auftraten wurden auch alle anderen Spalten auf Werte geprüft.\\
+Im Anschluss daran wurden alle Daten gelöscht, wo "power_ps" oder "power_kw" null ist.\\
+Zuletzt wurde entschieden die Spalte "fuel_consumption_g_km" zu entfernen, da diese viele fehlende Werte enthält und dem Nutzer keine weiteren Informationen als "fuel_consumption_l_100km" bietet. In dieser Spalte mussten allerdings auch Stringumwandlungen durchgeführt werden, um die Spalte in Elm als Float-Daten laden zu können. \\
+Eine ähnliche Umwandlung wurde in der Spalte "registration_date" vollzogen, die in ein Datumsformat umgewandelt wurde.\\
+Nach diesen Schritten waren keine leeren Felder mehr vorhanden. \\
+Dabei war ein Ziel die Vergleichbarkeit von Fahrzeugen unterschiedlicher Antriebsarten zu Gewährleisten, was beispielsweise bei den Daten zum Verbrauch ein Problem aufwarf. Wie sind die Daten von Pkws mit Verbrennungsmotor in l/100km und der Reichweitedaten für Elekoautos vergleichbar? Da diese nicht gewehrleistet werden konnte, 
 - Erweiterung um Daten zu Anzeigetiteln (Zeichenlänge des Titels, Sentiment Analysis?, Anzahl Großbuchstaben) \\
 
 Hier wurde der Datensatz auch um erste Merkmale wie offer_len, die die Anzahl der Buchstaben des Anzeigetextes widergibt, erweitert. \\
 
 Im Anschluss daran wurde der Datensatz im CSV-Format exportiert und in Elm geladen. \\
+Dabei wurden drei Datensätze exportiert: (1) "data.csv": Der Standarddatensatz, der rein wie oben beschreiben erstellt wurde. \\
+(2) "avg_star_data.csv" und (3) "sum_star_data.csv": Die Datensätze für den Starplot, welche durch einen zusätzlichen Schritt erstellt wurden. Hier wurden die Daten der einzelnen PKWs nach Marken aggregiert bei (1) durchschnittswerte und bei (3) die summierten Werte.\\
+Eine letzte Bemerkung soll zu einem größeren Problem beim Laden der Daten in Elm gewidmet sein. Leider traten bei der Erstellen der Daten mittels des iPython-Notebooks Probleme bei der Kodierung der Daten auf, so dass unsichtbare Characters in der CSV vorzufinden waren, welches dazu führte, dass Elm diese nicht ordnungsgemäß dekodieren konnte. \\
+
+\subsection{Eignung der Daten}
+
+In diesem Abschnitt soll diskutiert werden, inwieweit sich die nun vorliegenden Daten eignen um die vorher gestellten Forschungsfragen zu beantworten. \\
+Grundsätzlich ist zu sagen, dass der hier verwendete Datensatz aus von einer Marktplatz-Webseite gescrapeten Daten besteht. Dies führt dazu, dass diese Daten ein realitätsnahes Bild dieses Marktplatzes geben können, wenn diese Daten Stichprobenartig erhoben wurden. Allerdings heißt das auch, dass die Übertragung der Erkenntnisse aus der Datenanalyse und -visualisierung eingeschränkt übertragbar auf andere Plattformen sind. \\
+Des Weiteren ist zu bemerken, dass keine Kenntnis darüber besteht ob die hier vorliegenden Daten authentisch sind und tatsächlich und ohne eine Vorauswahl, die zu einer Verfälschung führen würde, gescrapet wurden. Andererseits bietet sich auch kein Grund an der Authentizität der Daten zu zweifeln. \\
+
+
 
 \section{Visualisierungen}
 
@@ -93,7 +101,30 @@ Welche sinnvollen mentale Modelle helfen den Personen bei der Bearbeitung.
 %Welche Visualisierungen helfen den Personen, die die Software verwenden, sinnvolle mentale Modelle aufzubauen. 
 Sind diese mentalen Modelle für sie notwendig, um die Aufgaben lösen zu können? Gehen sie bei ihrer Argumentation von den Anwendungsaufgaben aus und kommen sie dann zu den mentalen Modellen, deren Aufbau durch Visualisierungen unterstützt wird. 
 \subsection{Anforderungen an die Visualisierungen}
-Leiten sie Anforderungen an das Design der Visualisierungen ab, die sich durch ihre Analyse des Zielproblems ergeben.
+
+Bei diesem Visualisierungsprojekt sind klare Anforderungen an die Darstellung von Daten von entscheidender Bedeutung. Um potenziellen Käufern eine hilfreiche Entscheidungsgrundlage zu bieten, sollten die Visualisierungen Aspekte wie Fahrzeugpreise, Kilometerstand, Baujahr, etc. einschließen. Eine intuitive Benutzeroberfläche ist unabdingbar, damit die Interessenten mühelos durch die Vielzahl von Angeboten navigieren können. Die Visualisierungen sollten daher die Möglichkeit bieten, Fahrzeuge anhand verschiedener Parameter zu filtern und zu vergleichen. Ein interaktiver Ansatz mit Filteroptionen und Hover-Funktionen könnte dabei helfen, detaillierte Informationen zu einzelnen Fahrzeugen abzurufen. Die visuelle Darstellung sollte sowohl informativ als auch ansprechend sein, um die Benutzererfahrung zu optimieren und eine effektive Entscheidungsfindung zu ermöglichen.  \\
+Basierend auf diesen Metaanforderungen werden konkrete User Stories formuliert, die im Rahmen des Projektes addressiert werden sollen. \\
+Konkrete Visualisierungsanforderungen: \\
+\begin{enumerate}
+
+    \item Als Nutzer möchte ich einen interaktiven Scatterplot haben, der es mir ermöglicht, Fahrzeuge anhand verschiedener Parameter wie Preis, Kilometerstand und Baujahr zu vergleichen, um schnell einen Überblick über die verfügbaren Optionen zu erhalten.
+    
+    \item Als Nutzer wünsche ich mir einen benutzerfreundlichen Parallelplot, der alle relevanten Informationen zu einzelnen Fahrzeugen auf einen Blick darstellt. Damit kann ich die Zusammenhänge zwischen den verschiedenen Parametern besser verstehen und gezielt nach meinen Präferenzen filtern.
+    
+    \item Als Nutzer interessiere ich mich für einen Star Plot, der mir eine visuelle Zusammenfassung der wichtigsten Merkmale verschiedener Fahrzeugmarken bietet. Dadurch kann ich schnell erkennen, wie sich die Marken in Bezug auf verschiedene Parameter unterscheiden.
+\end{enumerate}
+Allgemeine Anfoderungen an die Oberfläche: \\
+\begin{enumerate}
+    \item Als Anwender möchte ich eine ansprechende und intuitive Oberfläche erleben, die meine Navigation durch die Gebrauchtwagenanzeigen erleichtert. Die Visualisierungen sollten informativ und leicht verständlich sein, um mir eine effiziente Entscheidungsfindung zu ermöglichen.
+    
+    \item Als Nutzer erwarte ich, dass die Visualisierungen eine hohe Benutzerfreundlichkeit bieten, einschließlich interaktiver Elemente wie Filteroptionen und Hover-Funktionen. Dadurch kann ich gezielt nach meinen Anforderungen suchen und zusätzliche Details zu einzelnen Fahrzeugen abrufen.
+    
+    \item Als Anwender möchte ich die Möglichkeit haben, die Visualisierungen individuell anzupassen, indem ich verschiedene Parameter auswähle oder abwähle. Dadurch kann ich meine Suche und Analyse personalisieren und mich auf die für mich relevanten Informationen konzentrieren.
+    
+\end{enumerate}
+
+
+
 \subsection{Präsentation der Visualisierungen}
 Präsentieren sie die visuelle Abbildungen und Kodierungen der Daten und Interaktionsmöglichkeiten. 
 Sie müssen  begründen, warum und wie gut ihre Designentscheidungen die erstellten Anforderungen erfüllen. 
