@@ -2,20 +2,20 @@
 
 \subsection{Datenverarbeitung}
 
-Der Datensatz auf der Webseite Kaggle unter dem Titel "Germany Used Cars Dataset 2023" \href[]{https://www.kaggle.com/datasets/wspirat/germany-used-cars-dataset-2023}{Kaggle Datensatz}  bereitgestellt. Dieser umfasst über 200.000 Datensätze von der Gebrauchtwagenplattform Autoscout24 aus dem Jahr 2023, die durch Scraping gesammelt wurden.\\
+Der Datensatz auf der Webseite Kaggle unter dem Titel  \grqq Germany Used Cars Dataset 2023 \grqq  \href[]{https://www.kaggle.com/datasets/wspirat/germany-used-cars-dataset-2023}{Kaggle Datensatz}  bereitgestellt. Dieser umfasst über 200.000 Datensätze von der Gebrauchtwagenplattform Autoscout24 aus dem Jahr 2023, die durch Scraping gesammelt wurden.\\
 In einem IPython Notebook wurden zunächst grundlegende Überlegungen angestellt, gefolgt von der Bereinigung des Datensatzes. Die Bewertung der Attribute erfolgte in Bezug darauf, ob sie für spätere Visualisierungen als (1) essenziell oder (2) sekundär betrachtet werden sollten. Fehlende Werte wurden entsprechend behandelt. Das Ziel der Bereinigung ist es in jedem Feld einen verarbeitbaren Wert vorfinden zu können.\\
-Nach dem Löschen der unbenannten Indexspalte und der Zeilen ohne Werte in den Spalten "offer_description" oder "mileage_in_km", wurden fehlende Werte in der "color"-Spalte mit "unknown" aufgefüllt. Die "fuel_type"-Spalte wurde auf echte Antriebsarten überprüft, und unsinnige Daten in anderen Spalten wurden entfernt. Datensätze mit "power_ps" oder "power_kw" gleich null wurden gelöscht. \\
+Nach dem Löschen der unbenannten Indexspalte und der Zeilen ohne Werte in den Spalten  \glqq offer\_description \grqq  oder  \glqq mileage\_in\_km \grqq , wurden fehlende Werte in der  \glqq color \grqq -Spalte mit  \glqq unknown \grqq  aufgefüllt. Die  \glqq fuel\_type \grqq -Spalte wurde auf echte Antriebsarten überprüft, und unsinnige Daten in anderen Spalten wurden entfernt. Datensätze mit  \glqq power\_ps \grqq  oder  \glqq power\_kw \grqq  gleich null wurden gelöscht. \\
 
-Die Spalte "fuel_consumption_g_km" wurde entfernt, da sie viele fehlende Werte enthielt und keine zusätzlichen Informationen gegenüber "fuel_consumption_l_100km" bot. Stringumwandlungen wurden für Elm in der "fuel_consumption_g_km"-Spalte und der "registration_date"-Spalte durchgeführt. \\
+Die Spalte  \glqq fuel\_consumption\_g\_km \grqq  wurde entfernt, da sie viele fehlende Werte enthielt und keine zusätzlichen Informationen gegenüber  \glqq fuel\_consumption\_l\_100km \grqq  bot. Stringumwandlungen wurden für Elm in der  \glqq fuel\_consumption\_g\_km \grqq -Spalte und der  \glqq registration\_date \grqq -Spalte durchgeführt. \\
 
 Dabei war ein Ziel die Vergleichbarkeit von Fahrzeugen unterschiedlicher Antriebsarten zu Gewährleisten, was beispielsweise bei den Daten zum Verbrauch ein Problem aufwarf. Wie sind die Daten von Pkws mit Verbrennungsmotor in l/100km und der Reichweitedaten für Elekoautos vergleichbar? Da diese nicht gewehrleistet werden konnte, 
 - Erweiterung um Daten zu Anzeigetiteln (Zeichenlänge des Titels, Sentiment Analysis?, Anzahl Großbuchstaben) \\
 
-Hier wurde der Datensatz auch um erste Merkmale wie offer_len, die die Anzahl der Buchstaben des Anzeigetextes widergibt, erweitert. \\
+Hier wurde der Datensatz auch um erste Merkmale wie offer\_len, die die Anzahl der Buchstaben des Anzeigetextes widergibt, erweitert. \\
 
 Im Anschluss daran wurde der Datensatz im CSV-Format exportiert und in Elm geladen. \\
-Dabei wurden drei Datensätze exportiert: (1) "data.csv": Der Standarddatensatz, der rein wie oben beschreiben erstellt wurde. \\
-(2) "avg_star_data.csv" und (3) "sum_star_data.csv": Die Datensätze für den Starplot, welche durch einen zusätzlichen Schritt erstellt wurden. Hier wurden die Daten der einzelnen PKWs nach Marken aggregiert bei (1) durchschnittswerte und bei (3) die summierten Werte.\\
+Dabei wurden drei Datensätze exportiert: (1)  \glqq data.csv \grqq : Der Standarddatensatz, der rein wie oben beschreiben erstellt wurde. \\
+(2)  \glqq avg\_star\_data.csv \grqq  und (3)  \glqq sum\_star\_data.csv \grqq : Die Datensätze für den Starplot, welche durch einen zusätzlichen Schritt erstellt wurden. Hier wurden die Daten der einzelnen PKWs nach Marken aggregiert bei (1) durchschnittswerte und bei (3) die summierten Werte.\\
 Eine letzte Bemerkung soll zu einem größeren Problem beim Laden der Daten in Elm gewidmet sein. Leider traten bei der Erstellen der Daten mittels des iPython-Notebooks Probleme bei der Kodierung der Daten auf, so dass unsichtbare Characters in der CSV vorzufinden waren, welches dazu führte, dass Elm diese nicht ordnungsgemäß dekodieren konnte. \\
 
 \subsection{Eignung der Daten}
