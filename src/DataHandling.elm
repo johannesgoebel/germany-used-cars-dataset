@@ -9,7 +9,7 @@ import Csv exposing (..)
 fetchData : Cmd Msg
 fetchData = Http.get
         {
-            url = "https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/data_subset.csv"
+            url = "https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/data_with_sentiment.csv"
             , expect = Http.expectString <| FetchedCSV
         }
 fetchStarAvgData: Cmd Msg 
@@ -58,7 +58,8 @@ decodeCarOffer =
             |>  Csv.Decode.andMap (field "mileage_in_km" (String.toFloat >> Result.fromMaybe "error parsing string mileage_in_km"  ))
             |>  Csv.Decode.andMap (field "offer_description" Ok)
             |> Csv.Decode.andMap (field "length_offer_description" (String.toInt >> Result.fromMaybe "Error parsing 'length_offer_description' as integer"))
-        )
+            |> Csv.Decode.andMap (field "sentiment_score" (String.toFloat >> Result.fromMaybe "error parsing string sentiment"  )))
+        
         
 
 starDataFromCSV: String -> List StarData
@@ -103,6 +104,9 @@ getFloatColumn attribute carOffers =
         
         "length_offer_description" ->
             List.map .length_offer_description carOffers |> List.map toFloat
+        
+        "sentiment_score" ->
+            List.map .sentiment_score carOffers
         
         _ ->
             []

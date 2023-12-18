@@ -45,7 +45,8 @@ type alias CarOffer =
     fuel_consumption_l_100km : Float,
     mileage_in_km : Float,
     offer_description : String,
-    length_offer_description : Int
+    length_offer_description : Int,
+    sentiment_score : Float
     }
 type alias StarData =
     { brand : String,
@@ -77,6 +78,7 @@ carOfferAttributes =
     , "mileage_in_km"
     , "offer_description"
     , "length_offer_description"
+    , "sentiment_score"
     ]
 carOfferAttributesNumeric : List String 
 carOfferAttributesNumeric = 
@@ -86,7 +88,8 @@ carOfferAttributesNumeric =
         "power_ps" ,
         "fuel_consumption_l_100km" ,
         "mileage_in_km",
-        "length_offer_description"
+        "length_offer_description",
+        "sentiment_score"
     ]
 carBrandList : List String 
 carBrandList = 
