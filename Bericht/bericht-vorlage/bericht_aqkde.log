@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.12.17)  18 DEC 2023 12:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.12.17)  18 DEC 2023 12:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -562,7 +562,8 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 15.
 (C:\Users\johan\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) (bericht_aqkde.aux)
+)
+No file bericht_aqkde.aux.
 \openout1 = `bericht_aqkde.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
@@ -595,7 +596,7 @@ Class scrartcl Info: loading recommended package `bookmark'.
 (scrartcl)           you can avoid this message adding:
 (scrartcl)             \usepackage{bookmark}
 (scrartcl)           before \begin{document} on input line 15.
- (C:\Users\johan\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bookmark.sty
+(C:\Users\johan\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bookmark.sty
 Package: bookmark 2023-12-05 v1.30 PDF bookmarks (HO)
  (C:\Users\johan\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bkm-pdftex.def
 File: bkm-pdftex.def 2023-12-05 v1.30 bookmark driver for pdfTeX and luaTeX (HO)
@@ -718,8 +719,8 @@ No file bericht_aqkde.toc.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.21 \include{chapters/1_einleitung}
-                                     [2
+l.21 \clearpage
+                [2
 
 
 
@@ -728,305 +729,234 @@ l.21 \include{chapters/1_einleitung}
 
  (chapters/1_einleitung.tex
 
-LaTeX Warning: Citation 'MUZELLEC2015139' on page 3 undefined on input line 2.
+LaTeX Warning: Citation 'MUZELLEC2015139' on page 1 undefined on input line 3.
 
 
-LaTeX Warning: Citation 'evans2016matchmakers' on page 3 undefined on input line 2.
+LaTeX Warning: Citation 'evans2016matchmakers' on page 1 undefined on input line 3.
 
 
-Overfull \hbox (11.7894pt too wide) in paragraph at lines 2--8
+Overfull \hbox (11.7894pt too wide) in paragraph at lines 3--9
 \T1/lmr/m/n/10.95 Sei-te durch ei-ne Par-ti-zi-pa-ti-on der ge-gen-über-lie-gen-den Sei-te am Netz-werk [[]].
  []
 
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 10.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 11.
 (C:\Users\johan\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 16--18
+Underfull \hbox (badness 10000) in paragraph at lines 17--19
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 19--23
+Underfull \hbox (badness 10000) in paragraph at lines 20--24
 
  []
 
+[1
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.23 
-      [3
 
 {C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}])
-Underfull \hbox (badness 10000) in paragraph at lines 26--21
+Underfull \hbox (badness 10000) in paragraph at lines 27--26
 
  []
 
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.21 \include{chapters/1_einleitung}
-                                     [4]
+[2]
 \openout2 = `chapters/2_daten.aux'.
 
  (chapters/2_daten.tex
-chapters/2_daten.tex:8: Missing $ inserted.
+chapters/2_daten.tex:7: Missing $ inserted.
 <inserted text> 
                 $
-l.8 ...er Zeilen ohne Werte in den Spalten "offer_
+l.7 ...er Zeilen ohne Werte in den Spalten "offer_
                                                   description" oder "mileage...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 8.
+(Font)              <10.95> on input line 7.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 8.
+(Font)              <8> on input line 7.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 8.
+(Font)              <6> on input line 7.
 
-LaTeX Warning: Command \" invalid in math mode on input line 8.
-
-
-LaTeX Warning: Command \" invalid in math mode on input line 8.
+LaTeX Warning: Command \" invalid in math mode on input line 7.
 
 
-LaTeX Warning: Command \" invalid in math mode on input line 8.
+LaTeX Warning: Command \" invalid in math mode on input line 7.
 
 
-LaTeX Warning: Command \" invalid in math mode on input line 8.
+LaTeX Warning: Command \" invalid in math mode on input line 7.
 
 
-LaTeX Warning: Command \" invalid in math mode on input line 8.
+LaTeX Warning: Command \" invalid in math mode on input line 7.
 
-chapters/2_daten.tex:9: Missing $ inserted.
+
+LaTeX Warning: Command \" invalid in math mode on input line 7.
+
+chapters/2_daten.tex:8: Missing $ inserted.
 <inserted text> 
                 $
-l.9 
+l.8 
     
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (105.44246pt too wide) in paragraph at lines 6--9
+Overfull \hbox (105.44246pt too wide) in paragraph at lines 5--8
 \T1/lmr/m/n/10.95 öffer$[]\OML/lmm/m/it/10.95 escription[]der\OT1/lmr/m/n/10.95 "\OML/lmm/m/it/10.95 mileage[]n[]m\OT1/lmr/m/n/10.95 "\OML/lmm/m/it/10.95 ; wurdenfehlendeWerteinder\OT1/lmr/m/n/10.95 "\OML/lmm/m/it/10.95 color\T1/lmr/m/n/10.95 -\OML/lmm/m/it/10.95 Spaltemit[]nknown[]ufgef\OT1/lmr/m/n/10.95 ü\OML/lmm/m/it/10.95 llt:Die\OT1/lmr/m/n/10.95 "\OML/lmm/m/it/10.95 fuel[]ype\T1/lmr/m/n/10.95 -
  []
 
 
-Overfull \hbox (363.14891pt too wide) in paragraph at lines 6--9
+Overfull \hbox (363.14891pt too wide) in paragraph at lines 5--8
 \OML/lmm/m/it/10.95 SpaltewurdeaufechteAntriebsarten\OT1/lmr/m/n/10.95 ü\OML/lmm/m/it/10.95 berpr\OT1/lmr/m/n/10.95 ü\OML/lmm/m/it/10.95 ft; undunsinnigeDateninanderenSpaltenwurdenentfernt:Datens\OT1/lmr/m/n/10.95 ä\OML/lmm/m/it/10.95 tzemit\OT1/lmr/m/n/10.95 "\OML/lmm/m/it/10.95 power[]s[]der\OT1/lmr/m/n/10.95 "\OML/lmm/m/it/10.95 power[]w\OT1/lmr/m/n/10.95 "\OML/lmm/m/it/10.95 gleichnullwurdengel\OT1/lmr/m/n/10.95 ö\OML/lmm/m/it/10.95 scht:[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 6--9
+Underfull \hbox (badness 10000) in paragraph at lines 5--8
 
  []
 
-chapters/2_daten.tex:10: Missing $ inserted.
+chapters/2_daten.tex:9: Missing $ inserted.
 <inserted text> 
                 $
-l.10 Die Spalte "fuel_
-                      consumption_g_km" wurde entfernt, da sie viele fehlend...
+l.9 Die Spalte "fuel_
+                     consumption_g_km" wurde entfernt, da sie viele fehlende...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-chapters/2_daten.tex:10: Double subscript.
-l.10 Die Spalte "fuel_consumption_g_
-                                    km" wurde entfernt, da sie viele fehlend...
+chapters/2_daten.tex:9: Double subscript.
+l.9 Die Spalte "fuel_consumption_g_
+                                   km" wurde entfernt, da sie viele fehlende...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 
-LaTeX Warning: Command \" invalid in math mode on input line 10.
+LaTeX Warning: Command \" invalid in math mode on input line 9.
 
 
-LaTeX Warning: Command \" invalid in math mode on input line 10.
+LaTeX Warning: Command \" invalid in math mode on input line 9.
 
-chapters/2_daten.tex:10: Double subscript.
-l.10 ...ormationen gegenÃ¼ber "fuel_consumption_l_
+chapters/2_daten.tex:9: Double subscript.
+l.9 ...formationen gegenÃ¼ber "fuel_consumption_l_
                                                   100km" bot. Stringumwandlu...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 
-LaTeX Warning: Command \" invalid in math mode on input line 10.
+LaTeX Warning: Command \" invalid in math mode on input line 9.
 
-chapters/2_daten.tex:10: Double subscript.
-l.10 ...urden fÃ¼r Elm in der "fuel_consumption_g_
+chapters/2_daten.tex:9: Double subscript.
+l.9 ...wurden fÃ¼r Elm in der "fuel_consumption_g_
                                                   km"-Spalte und der "regist...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 
-LaTeX Warning: Command \" invalid in math mode on input line 10.
+LaTeX Warning: Command \" invalid in math mode on input line 9.
 
-chapters/2_daten.tex:11: Missing $ inserted.
+chapters/2_daten.tex:10: Missing $ inserted.
 <inserted text> 
                 $
-l.11 
+l.10 
      
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (656.16458pt too wide) in paragraph at lines 10--11
+Overfull \hbox (656.16458pt too wide) in paragraph at lines 9--10
 []\T1/lmr/m/n/10.95 Die Spal-te "fuel$[]\OML/lmm/m/it/10.95 onsumption[][]m\OT1/lmr/m/n/10.95 "\OML/lmm/m/it/10.95 wurdeentfernt; dasievielefehlendeWerteenthieltundkeinezus\OT1/lmr/m/n/10.95 ä\OML/lmm/m/it/10.95 tzlichenInformationengegen\OT1/lmr/m/n/10.95 ü\OML/lmm/m/it/10.95 ber\OT1/lmr/m/n/10.95 "\OML/lmm/m/it/10.95 fuel[]onsumption[][]\OT1/lmr/m/n/10.95 00\OML/lmm/m/it/10.95 km\OT1/lmr/m/n/10.95 "\OML/lmm/m/it/10.95 bot:Stringumwandlungenwurdenf\OT1/lmr/m/n/10.95 ü\OML/lmm/m/it/10.95 rElminder\OT1/lmr/m/n/10.95 "\OML/lmm/m/it/10.95 fuel[]onsumption[][]m\T1/lmr/m/n/10.95 -
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 10--11
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 12--14
+Underfull \hbox (badness 10000) in paragraph at lines 11--13
 
  []
 
-chapters/2_daten.tex:15: Missing $ inserted.
+chapters/2_daten.tex:14: Missing $ inserted.
 <inserted text> 
                 $
-l.15 ...atensatz auch um erste Merkmale wie offer_
+l.14 ...atensatz auch um erste Merkmale wie offer_
                                                   len, die die Anzahl der Bu...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-chapters/2_daten.tex:16: Missing $ inserted.
+chapters/2_daten.tex:15: Missing $ inserted.
 <inserted text> 
                 $
-l.16 
+l.15 
      
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (177.8556pt too wide) in paragraph at lines 15--16
+Overfull \hbox (177.8556pt too wide) in paragraph at lines 14--15
 []\T1/lmr/m/n/10.95 Hier wur-de der Da-ten-satz auch um ers-te Merk-ma-le wie offer$[]\OML/lmm/m/it/10.95 en; diedieAnzahlderBuchstabendesAnzeigetexteswidergibt; erweitert:[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 15--16
+Underfull \hbox (badness 10000) in paragraph at lines 14--15
 
  []
 
-chapters/2_daten.tex:19: Missing $ inserted.
+chapters/2_daten.tex:18: Missing $ inserted.
 <inserted text> 
                 $
-l.19 (2) "avg_
+l.18 (2) "avg_
               star_data.csv" und (3) "sum_star_data.csv": Die DatensÃ¤tze fÃ...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
+LaTeX Warning: Command \" invalid in math mode on input line 18.
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 18.
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 18.
+
+
+LaTeX Warning: Command \" invalid in math mode on input line 19.
+
+
+LaTeX Warning: Command \ss invalid in math mode on input line 19.
+
+
 LaTeX Warning: Command \" invalid in math mode on input line 19.
 
 
 LaTeX Warning: Command \" invalid in math mode on input line 19.
 
 
-LaTeX Warning: Command \" invalid in math mode on input line 19.
+LaTeX Warning: Command \ss invalid in math mode on input line 19.
 
-
-LaTeX Warning: Command \" invalid in math mode on input line 20.
-
-
-LaTeX Warning: Command \ss invalid in math mode on input line 20.
-
-
-LaTeX Warning: Command \" invalid in math mode on input line 20.
-
-
-LaTeX Warning: Command \" invalid in math mode on input line 20.
-
-
-LaTeX Warning: Command \ss invalid in math mode on input line 20.
-
-chapters/2_daten.tex:21: Missing $ inserted.
+chapters/2_daten.tex:20: Missing $ inserted.
 <inserted text> 
                 $
-l.21 
+l.20 
      
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (777.90749pt too wide) in paragraph at lines 17--21
+Overfull \hbox (777.90749pt too wide) in paragraph at lines 16--20
 \T1/lmr/m/n/10.95 (2) ävg$[]\OML/lmm/m/it/10.95 tar[]ata:csv[]nd\OT1/lmr/m/n/10.95 (3)^^Y[]\OML/lmm/m/it/10.95 um[]tar[]ata:csv\OT1/lmr/m/n/10.95 " : \OML/lmm/m/it/10.95 DieDatens\OT1/lmr/m/n/10.95 ä\OML/lmm/m/it/10.95 tzef\OT1/lmr/m/n/10.95 ü\OML/lmm/m/it/10.95 rdenStarplot; welchedurcheinenzus\OT1/lmr/m/n/10.95 ä\OML/lmm/m/it/10.95 tzlichenSchritterstelltwurden:HierwurdendieDatendereinzelnenPKWsnachMarkenaggregiertbei\OT1/lmr/m/n/10.95 (1)\OML/lmm/m/it/10.95 durchschnittswerteundbei\OT1/lmr/m/n/10.95 (3)\OML/lmm/m/it/10.95 diesummiertenWerte:[] 
  []
 
 
-Overfull \hbox (288.67215pt too wide) in paragraph at lines 17--21
+Overfull \hbox (288.67215pt too wide) in paragraph at lines 16--20
 \OML/lmm/m/it/10.95 EineletzteBemerkungsollzueinemgr\OT1/lmr/m/n/10.95 öÿ\OML/lmm/m/it/10.95 erenProblembeimLadenderDateninElmgewidmetsein:LeidertratenbeiderErstellenderDatenmittelsdesiPython \OMS/lmsy/m/n/10.95 ^^@
  []
 
 
-Overfull \hbox (451.37497pt too wide) in paragraph at lines 17--21
+Overfull \hbox (451.37497pt too wide) in paragraph at lines 16--20
 \OML/lmm/m/it/10.95 NotebooksProblemebeiderKodierungderDatenauf; sodassunsichtbareCharactersinderCSVvorzufindenwaren; welchesdazuf\OT1/lmr/m/n/10.95 ü\OML/lmm/m/it/10.95 hrte; dassElmdiesenichtordnungsgem\OT1/lmr/m/n/10.95 äÿ\OML/lmm/m/it/10.95 dekodierenkonnte:[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--21
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 24--25
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 26--27
-
- []
-
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.27 
-      [5
-
-
-
-{C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 28--29
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 30--31
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 32--33
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 34--35
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--37
-
- []
-
-)
-Underfull \hbox (badness 10000) in paragraph at lines 38--23
-
- []
-
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.23 \include{chapters/2_daten}
-                                [6]
-\openout2 = `chapters/3_visualisierungen.aux'.
-
- (chapters/3_visualisierungen.tex
-Underfull \hbox (badness 10000) in paragraph at lines 12--15
+Underfull \hbox (badness 10000) in paragraph at lines 16--20
 
  []
 
@@ -1036,20 +966,64 @@ Underfull \hbox (badness 10000) in paragraph at lines 23--24
  []
 
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.26 
-      [7
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
+
+ []
+
+[3
+
+
+
+{C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 27--28
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 29--30
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--32
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 33--34
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
+
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 37--28
+
+ []
+
+[4]
+\openout2 = `chapters/3_visualisierungen.aux'.
+
+ (chapters/3_visualisierungen.tex
+Underfull \hbox (badness 10000) in paragraph at lines 11--14
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+
+ []
+
+[5
 
 
 
 ]
-
-LaTeX Warning: Reference `fig:uc_diagram' on page  undefined on input line 33.
-
-chapters/3_visualisierungen.tex:36: Undefined control sequence.
-l.36     \includegraphics
+chapters/3_visualisierungen.tex:34: Undefined control sequence.
+l.34     \includegraphics
                          [scale=0,5]{img/uc_diagram.png}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -1057,16 +1031,16 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-chapters/3_visualisierungen.tex:36: Missing $ inserted.
+chapters/3_visualisierungen.tex:34: Missing $ inserted.
 <inserted text> 
                 $
-l.36     \includegraphics[scale=0,5]{img/uc_
+l.34     \includegraphics[scale=0,5]{img/uc_
                                             diagram.png}
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-chapters/3_visualisierungen.tex:36: Extra }, or forgotten $.
-l.36 ...udegraphics[scale=0,5]{img/uc_diagram.png}
+chapters/3_visualisierungen.tex:34: Extra }, or forgotten $.
+l.34 ...udegraphics[scale=0,5]{img/uc_diagram.png}
                                                   
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -1074,18 +1048,18 @@ you forgot something else, as in `\hbox{$x}'. In such cases
 the way to recover is to insert both the forgotten and the
 deleted material, e.g., by typing `I$}'.
 
-chapters/3_visualisierungen.tex:38: Missing $ inserted.
+chapters/3_visualisierungen.tex:36: Missing $ inserted.
 <inserted text> 
                 $
-l.38 \end{figure}
+l.36 \end{figure}
                  
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-chapters/3_visualisierungen.tex:38: Missing } inserted.
+chapters/3_visualisierungen.tex:36: Missing } inserted.
 <inserted text> 
                 }
-l.38 \end{figure}
+l.36 \end{figure}
                  
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1093,29 +1067,65 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-)
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.25 \include{chapters/3_visualisierungen}
-                                           [8]
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.25 \include{chapters/3_visualisierungen}
-                                           [9]
 
-LaTeX Warning: Empty bibliography on input line 48.
+LaTeX Warning: Reference `fig:uc_diagram' on page 6 undefined on input line 38.
 
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.50 \end{document}
-                    [10
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
+
+ []
 
 
-] (bericht_aqkde.aux (chapters/0_titelseite.aux) (chapters/1_einleitung.aux) (chapters/2_daten.aux) (chapters/3_visualisierungen.aux))
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 45--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 50--54
+
+ []
+
+[6]) [7]
+\openout2 = `chapters/4_implementierung.aux'.
+
+ (chapters/4_implementierung.tex) [8
+
+
+
+]
+\openout2 = `chapters/5_anwendungsfaelle.aux'.
+
+ (chapters/5_anwendungsfaelle.tex) [9
+
+
+
+]
+\openout2 = `chapters/6_verwandte_arbeiten.aux'.
+
+ (chapters/6_verwandte_arbeiten.tex) [10
+
+
+
+]
+\openout2 = `chapters/7_zusammenfassung.aux'.
+
+ (chapters/7_zusammenfassung.tex) [11
+
+
+
+] [12
+
+
+]
+
+LaTeX Warning: Empty bibliography on input line 44.
+
+(bericht_aqkde.aux (chapters/0_titelseite.aux) (chapters/1_einleitung.aux) (chapters/2_daten.aux) (chapters/3_visualisierungen.aux) (chapters/4_implementierung.aux) (chapters/5_anwendungsfaelle.aux) (chapters/6_verwandte_arbeiten.aux) (chapters/7_zusammenfassung.aux))
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
@@ -1145,17 +1155,17 @@ Package logreq Info: Writing requests to 'bericht_aqkde.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 20701 strings out of 475248
- 389945 string characters out of 5757812
+ 20798 strings out of 475248
+ 394304 string characters out of 5757812
  1928785 words of memory out of 5000000
- 41942 multiletter control sequences out of 15000+600000
+ 42009 multiletter control sequences out of 15000+600000
  609632 words of font info for 79 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  108i,7n,107p,11019b,2371s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmssbx10.pfb><C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb>
-Output written on bericht_aqkde.pdf (10 pages, 227025 bytes).
+Output written on bericht_aqkde.pdf (14 pages, 232211 bytes).
 PDF statistics:
- 203 PDF objects out of 1000 (max. 8388607)
- 32 named destinations out of 1000 (max. 500000)
+ 232 PDF objects out of 1000 (max. 8388607)
+ 44 named destinations out of 1000 (max. 500000)
  177 words of extra memory for PDF output out of 10000 (max. 10000000)
 
