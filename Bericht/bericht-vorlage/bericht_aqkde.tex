@@ -12,7 +12,8 @@
 %Zeilenabstand bitte nicht ändern
 \usepackage[onehalfspacing]{setspace}
 \usepackage{mdframed}
-\usepackage[outputdir={/tmp/latex}]{minted}
+\usepackage{minted}
+\usemintedstyle{native}
 \usepackage[backend=biber,style=numeric,]{biblatex}\addbibresource{literatur.bib}
 
 
@@ -42,6 +43,7 @@
 
 \include{chapters/6_verwandte_arbeiten}
 \include{chapters/7_zusammenfassung}
+
 \section*{Anhang: Git-Historie}
 
 \clearpage
