@@ -9,7 +9,7 @@ import Csv exposing (..)
 fetchData : Cmd Msg
 fetchData = Http.get
         {
-            url = "https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/data_with_sentiment.csv"
+            url = "https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/data_with_sentiment_error_rows_removed.csv"
             , expect = Http.expectString <| FetchedCSV
         }
 fetchStarAvgData: Cmd Msg 
