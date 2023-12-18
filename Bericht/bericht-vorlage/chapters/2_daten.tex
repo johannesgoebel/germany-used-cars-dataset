@@ -1,0 +1,38 @@
+
+\section{Daten}
+
+\subsection{Datenverarbeitung}
+
+Der Datensatz auf der Webseite Kaggle unter dem Titel "Germany Used Cars Dataset 2023" \href[]{https://www.kaggle.com/datasets/wspirat/germany-used-cars-dataset-2023}{Kaggle Datensatz}  bereitgestellt. Dieser umfasst über 200.000 Datensätze von der Gebrauchtwagenplattform Autoscout24 aus dem Jahr 2023, die durch Scraping gesammelt wurden.\\
+In einem IPython Notebook wurden zunächst grundlegende Überlegungen angestellt, gefolgt von der Bereinigung des Datensatzes. Die Bewertung der Attribute erfolgte in Bezug darauf, ob sie für spätere Visualisierungen als (1) essenziell oder (2) sekundär betrachtet werden sollten. Fehlende Werte wurden entsprechend behandelt. Das Ziel der Bereinigung ist es in jedem Feld einen verarbeitbaren Wert vorfinden zu können.\\
+Nach dem Löschen der unbenannten Indexspalte und der Zeilen ohne Werte in den Spalten "offer_description" oder "mileage_in_km", wurden fehlende Werte in der "color"-Spalte mit "unknown" aufgefüllt. Die "fuel_type"-Spalte wurde auf echte Antriebsarten überprüft, und unsinnige Daten in anderen Spalten wurden entfernt. Datensätze mit "power_ps" oder "power_kw" gleich null wurden gelöscht. \\
+
+Die Spalte "fuel_consumption_g_km" wurde entfernt, da sie viele fehlende Werte enthielt und keine zusätzlichen Informationen gegenüber "fuel_consumption_l_100km" bot. Stringumwandlungen wurden für Elm in der "fuel_consumption_g_km"-Spalte und der "registration_date"-Spalte durchgeführt. \\
+
+Dabei war ein Ziel die Vergleichbarkeit von Fahrzeugen unterschiedlicher Antriebsarten zu Gewährleisten, was beispielsweise bei den Daten zum Verbrauch ein Problem aufwarf. Wie sind die Daten von Pkws mit Verbrennungsmotor in l/100km und der Reichweitedaten für Elekoautos vergleichbar? Da diese nicht gewehrleistet werden konnte, 
+- Erweiterung um Daten zu Anzeigetiteln (Zeichenlänge des Titels, Sentiment Analysis?, Anzahl Großbuchstaben) \\
+
+Hier wurde der Datensatz auch um erste Merkmale wie offer_len, die die Anzahl der Buchstaben des Anzeigetextes widergibt, erweitert. \\
+
+Im Anschluss daran wurde der Datensatz im CSV-Format exportiert und in Elm geladen. \\
+Dabei wurden drei Datensätze exportiert: (1) "data.csv": Der Standarddatensatz, der rein wie oben beschreiben erstellt wurde. \\
+(2) "avg_star_data.csv" und (3) "sum_star_data.csv": Die Datensätze für den Starplot, welche durch einen zusätzlichen Schritt erstellt wurden. Hier wurden die Daten der einzelnen PKWs nach Marken aggregiert bei (1) durchschnittswerte und bei (3) die summierten Werte.\\
+Eine letzte Bemerkung soll zu einem größeren Problem beim Laden der Daten in Elm gewidmet sein. Leider traten bei der Erstellen der Daten mittels des iPython-Notebooks Probleme bei der Kodierung der Daten auf, so dass unsichtbare Characters in der CSV vorzufinden waren, welches dazu führte, dass Elm diese nicht ordnungsgemäß dekodieren konnte. \\
+
+\subsection{Eignung der Daten}
+
+In diesem Abschnitt wird diskutiert, inwieweit die vorliegenden Daten geeignet sind, die zuvor formulierten Forschungsfragen zu beantworten. \\
+
+Grundsätzlich stammen die Daten aus dem Scraping einer Marktplatz-Webseite. Dies könnte ein realistisches Abbild des Marktplatzes liefern, sofern die Datenerhebung repräsentativ und stichprobenartig erfolgt ist. Es ist jedoch zu beachten, dass die Übertragbarkeit der Erkenntnisse aus der Datenanalyse und -visualisierung auf andere Plattformen möglicherweise eingeschränkt ist. \\
+
+Zusätzlich ist anzumerken, dass keine Informationen darüber vorliegen, ob die vorliegenden Daten authentisch sind. Es ist unklar, ob die Daten ohne Vorauswahl oder Verfälschung durch das Scraping-Prozess gesammelt wurden. Andererseits gibt es derzeit keine erkennbaren Gründe, an der Authentizität der Daten zu zweifeln. \\
+
+Eine letzte allgemeine Anmerkung ist, dass es sich bei der Beurteilung der Preise immer um Angebotspreise handelt. Es ist nicht bekannt, ob diese Fahrzeuge zu den genannten Preisen verkauft wurden oder nicht. Ebenfalls gehen natürlich weitere als die hier aufgeführten Merkmale in die Preisbildung ein. Beispielsweise ist es nicht klar, ob ein Auto eine Klimaanlage hat oder nicht, was die Preisvorstellung des Anbieters stark beeinflussen würde. \\
+
+Die Daten enthalten Informationen über den Angebotspreis sowie verschiedene Merkmale von Gebrauchtwagen. Allerdings ist eine detaillierte Analyse der Beziehung zwischen diesen Merkmalen und dem Preis abhängig von der Qualität und Vollständigkeit der Daten. Einschränkungen könnten in fehlenden oder ungenauen Merkmalen liegen, die die Analyse beeinträchtigen könnten. \\
+
+Die Datengrundlage um die Werte für ein einzelnes Fahrzeug und diese mit anderen zu vergleichen ist gegeben. Allerdings sind hier auch die allgemeinen Einschränkungen zu beachten. \\
+
+Die Daten könnten eine Analyse der Preis- und Merkmalsunterschiede zwischen verschiedenen Automarken ermöglichen. Hierbei sind jedoch mögliche Einschränkungen zu berücksichtigen, wie ungleichmäßige Verteilung der Daten, so sind Einträge der Marke Audi viel häufiger im Datensatz vorhanden als Daten der Marke Proton. \\
+
+Insgesamt sind die vorliegenden Daten geeignet, diese Forschungsfragen zu beantworten, vorausgesetzt, dass bestimmte Einschränkungen und Unklarheiten in der Datenqualität sorgfältig berücksichtigt werden. \\
