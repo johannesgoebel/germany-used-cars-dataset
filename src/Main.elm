@@ -143,7 +143,7 @@ view model =
                     ]
                 ]
               ]
-          , drawScatterplot (List.map .offer_description fullText.data ) (getFloatColumn fullText.xAxis fullText.data) (getFloatColumn fullText.yAxis fullText.data) fullText.xAxis fullText.yAxis
+          , drawScatterplot (List.map .offer_description fullText.data ) (getFloatColumn fullText.xAxis fullText.data) (getFloatColumn fullText.yAxis fullText.data) ((List.map .fuel_type fullText.data )|> Debug.log "transmission") fullText.xAxis fullText.yAxis
           , parallelPlotText
           , div [class "row"]
               [ div [class "col-md-3"] [
