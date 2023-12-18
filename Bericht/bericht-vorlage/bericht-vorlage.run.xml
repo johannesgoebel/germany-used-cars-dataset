@@ -41,13 +41,13 @@
   >
 ]>
 <requests version="1.0">
-  <internal package="biblatex" priority="9" active="1">
+  <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>bericht_aqkde.bcf</file>
+      <file>bericht-vorlage.bcf</file>
     </provides>
     <requires type="dynamic">
-      <file>bericht_aqkde.bbl</file>
+      <file>bericht-vorlage.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
@@ -61,23 +61,23 @@
       <file>ngerman.lbx</file>
     </requires>
   </internal>
-  <external package="biblatex" priority="5" active="1">
+  <external package="biblatex" priority="5" active="0">
     <generic>biber</generic>
     <cmdline>
       <binary>biber</binary>
-      <infile>bericht_aqkde</infile>
+      <infile>bericht-vorlage</infile>
     </cmdline>
     <input>
-      <file>bericht_aqkde.bcf</file>
+      <file>bericht-vorlage.bcf</file>
     </input>
     <output>
-      <file>bericht_aqkde.bbl</file>
+      <file>bericht-vorlage.bbl</file>
     </output>
     <provides type="dynamic">
-      <file>bericht_aqkde.bbl</file>
+      <file>bericht-vorlage.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>bericht_aqkde.bcf</file>
+      <file>bericht-vorlage.bcf</file>
     </requires>
     <requires type="editable">
       <file>literatur.bib</file>

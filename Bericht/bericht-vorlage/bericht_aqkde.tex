@@ -13,50 +13,9 @@
 \usepackage[backend=biber,style=numeric,]{biblatex}\addbibresource{literatur.bib}
 
 \begin{document}
-% ----------------------------------------------------------------------------
-\subject{Projektbericht zum Modul Information Retrieval und Visualisierung Sommersemester 2022}
-\title{Eine Analyse von Anzeigen auf einer deutschen Gebrauchtwagenplattform aus dem Jahr 2023}
-%\subtitle{Untertitel}% optional
-\author{Johannes Göbel}% obligatorisch
-%\date{x.12.2023}
-\maketitle% verwendet die zuvor gemachte Angaben zur Gestaltung eines Titels
-% ----------------------------------------------------------------------------
-% Inhaltsverzeichnis:
-%\tableofcontents
-% ----------------------------------------------------------------------------
-% Gliederung und Text:
 
-\section{Einleitung}
-
-Internetmarktplattformen gewannen zuerst im Jahr xxx mit Firmen wie e-bay, bla bla, asd, bedeutung. Heute, y Jahre später, interagieren Menschen so selbstverständlich mit solchen Plattformen so selbstverständlich, dass ...
-Gerade deshalb lohnt es sich einen Blick auf die Mechanismen von diesen Plattformen zu werfen. Beispielsweise könnte es ein besonderes Interesse zu sein nachzuvollziehen, wie Verkäufer ihre Angebote bewerben.
-Dies soll in dieser Arbeit am Beispiel von einer Gebrauchtwagenplattform geschehen. //
-Dabei sollen in dieser Arbeit aber auch Markteffekte wie Preisentwicklungen von PKWs mit unterschiedlichen Eigenschaften nicht außer Acht gelassen werden. Zu diesem Zwecke möchte ich die folgenden Forschungsfragen formulieren:
-
-\begin{itemize}
-    \item Wie hängt der Angebotspreis mit den angegeben Merkmalen eines Gebrauchtwagens zusammen?
-    \item Was sind die Werte für ein bestimmtes Land? Wo befindet es sich im Vergleich zu den anderen Ländern? 
-    \item Wie konstant sind die Werte von Autos? Verlieren Gebrauchtwagen konstant an Wert?
-\end{itemize}
-
-\subsection{Anwendungshintergrund}
-Sie müssen genug Hintergrund bereitstellen, so dass die Lesenden sich ein Urteil bilden können, ob ihre Lösung funktioniert. Sie sollen die Lesenden jedoch nicht mit Anwendungsdetails so überschütten, dass der Fokus auf die Fragen zur Informationsvisualisierung untergehen. 
-
-Zu diesem Zweck soll eine
-- Problem: das sind immer Angebotspeise, wir kennen die Kaufpreise nicht
-
-\subsection{Zielgruppen}
-Beschreiben sie die Personengruppe oder Personengruppen, die das von ihnen benannte Anwendungsproblem lösen möchte. Auf welches Vorwissen können sie in dieser Gruppen von Anwenderinnen aufbauen? Welche Informations"-bedürf"-nisse werden durch die Visualisierungen adressiert?
-
-Die Zielgruppe dieser Arbeit sollen Gebrauchtwagenverkäufer sein. Diese Zielgruppe zeichnet sich durch eine hohe Fachkenntniss aus. \\
-Im Markt profitert diese Gruppe von bestehenden Informationsasymetrien, die sich durch Marktintransparenzen bilden. Durch Internetmarktplattformen sind diese Marktintransparenzen seltener zu finden. Beispielsweise können Käufer Preise vergleichen und können damit besser abschätzen, wie hoch der reale Marktpreis ist. \\
-Daher interessieren professionelle Marktteilnehmer, wie auch trotz dieser technologischen Entwicklungen, eine relevante Marge erzielen können. 
-Dieser Informationsbedürfnisse möchte diese Arbeit mithilfe von Visualisierungen zu Preisentwicklungen und Bewerbungsstilen decken. \\
-
-
-\subsection{Überblick und Beiträge}
-In diesem Abschnitt geben sie einen kurzen Überblick über die Daten und verwendeten Visualisierungen. Dann benennen sie die Beiträge ihres Projekts. Diese Beiträge müssen sie in den hinteren Teilen des Berichts genauer ausführen und belegen.
-
+\include{chapters/0_titelseite}
+\include{chapters/1_einleitung}
 
 
 \section{Daten}
@@ -104,16 +63,16 @@ Sind diese mentalen Modelle für sie notwendig, um die Aufgaben lösen zu könne
 
 Bei diesem Visualisierungsprojekt sind klare Anforderungen an die Darstellung von Daten von entscheidender Bedeutung. Um potenziellen Käufern eine hilfreiche Entscheidungsgrundlage zu bieten, sollten die Visualisierungen Aspekte wie Fahrzeugpreise, Kilometerstand, Baujahr, etc. einschließen. Eine intuitive Benutzeroberfläche ist unabdingbar, damit die Interessenten mühelos durch die Vielzahl von Angeboten navigieren können. Die Visualisierungen sollten daher die Möglichkeit bieten, Fahrzeuge anhand verschiedener Parameter zu filtern und zu vergleichen. Ein interaktiver Ansatz mit Filteroptionen und Hover-Funktionen könnte dabei helfen, detaillierte Informationen zu einzelnen Fahrzeugen abzurufen. Die visuelle Darstellung sollte sowohl informativ als auch ansprechend sein, um die Benutzererfahrung zu optimieren und eine effektive Entscheidungsfindung zu ermöglichen.  \\
 Basierend auf diesen Metaanforderungen werden konkrete User Stories formuliert, die im Rahmen des Projektes addressiert werden sollen. \\
-Konkrete Visualisierungsanforderungen: \\
+Funktionale Anforderungen: \\
 \begin{enumerate}
 
-    \item Als Nutzer möchte ich einen interaktiven Scatterplot haben, der es mir ermöglicht, Fahrzeuge anhand verschiedener Parameter wie Preis, Kilometerstand und Baujahr zu vergleichen, um schnell einen Überblick über die verfügbaren Optionen zu erhalten.
+    \item Als Nutzer möchte  Fahrzeuge anhand verschiedener Parameter wie Preis, Kilometerstand und Baujahr zu vergleichen, um schnell einen Überblick über die verfügbaren Optionen zu erhalten.
     
     \item Als Nutzer wünsche ich mir einen benutzerfreundlichen Parallelplot, der alle relevanten Informationen zu einzelnen Fahrzeugen auf einen Blick darstellt. Damit kann ich die Zusammenhänge zwischen den verschiedenen Parametern besser verstehen und gezielt nach meinen Präferenzen filtern.
     
     \item Als Nutzer interessiere ich mich für einen Star Plot, der mir eine visuelle Zusammenfassung der wichtigsten Merkmale verschiedener Fahrzeugmarken bietet. Dadurch kann ich schnell erkennen, wie sich die Marken in Bezug auf verschiedene Parameter unterscheiden.
 \end{enumerate}
-Allgemeine Anfoderungen an die Oberfläche: \\
+Nichtfunktionale Anfoderungen: \\
 \begin{enumerate}
     \item Als Anwender möchte ich eine ansprechende und intuitive Oberfläche erleben, die meine Navigation durch die Gebrauchtwagenanzeigen erleichtert. Die Visualisierungen sollten informativ und leicht verständlich sein, um mir eine effiziente Entscheidungsfindung zu ermöglichen.
     
@@ -122,8 +81,6 @@ Allgemeine Anfoderungen an die Oberfläche: \\
     \item Als Anwender möchte ich die Möglichkeit haben, die Visualisierungen individuell anzupassen, indem ich verschiedene Parameter auswähle oder abwähle. Dadurch kann ich meine Suche und Analyse personalisieren und mich auf die für mich relevanten Informationen konzentrieren.
     
 \end{enumerate}
-
-
 
 \subsection{Präsentation der Visualisierungen}
 Präsentieren sie die visuelle Abbildungen und Kodierungen der Daten und Interaktionsmöglichkeiten. 
