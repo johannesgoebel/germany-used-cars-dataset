@@ -29,9 +29,12 @@ Nichtfunktionale User Stories: \\
     
 \end{enumerate}
 
-\begin{figure}
+
+
+\begin{figure}[h]
     \centering
-    \includegraphics[scale=0,5]{img/uc_diagram.png}
+    \includegraphics[width = \textwidth]{img/uc_diagram.png}
+    \caption{Use Case Diagramm}
     \label{fig:uc_diagram}
 \end{figure}
 
@@ -40,11 +43,27 @@ Aus diesen User Stories wurden dann funktionale und nicht funktionale Anforderun
 \subsubsection{Visualisierung Eins}
 
 Der Scatterplot wurde entworfen, um Muster in den Gebrauchtwagenanzeigen aufzuzeigen und die Verteilung der Fahrzeuge in Bezug auf verschiedene Dimensionen sichtbar zu machen. Die Anpassung der X- und Y-Achsen kann über Dropdown-Menüs erfolgen, um eine direkte Vergleichsmöglichkeit von zwei Größen zu ermöglichen.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = \textwidth]{img/scatterplot.png}
+    \caption{Scatterplot}
+    \label{fig:scatter}
+\end{figure}
 \subsubsection{Visualisierung Zwei}
 
 Im Parallelplot können mehrere Dimensionen gleichzeitig betrachtet werden, und die Linienverläufe zwischen den Achsen können auf mögliche Zusammenhänge hinweisen. \\
 Die Anpassung der Achsen und Dimensionen im Parallelplot kann durch Auswahl der relevanten Attribute erfolgen. Dabei ermöglicht die visuelle Darstellung der Linienverläufe eine direkte Vergleichbarkeit verschiedener Fahrzeuge in Bezug auf diese Attribute. \\
 Zusätzlich kann ein Datenpunkt mittels hovern eingefärbt werden. Dies erhöht die Bedienbarkeit. \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = \textwidth]{img/parallelplot.png}
+    \caption{Parallelplot}
+    \label{fig:scatter}
+\end{figure}
+
+
 \subsubsection{Visualisierung Drei}
 
 Der Starplot bietet eine umfassende Visualisierung aller Attribute von Automobilanzeigen einer bestimmten Marke auf der Plattform. Durch diese Darstellung lassen sich alle relevanten Merkmale gleichzeitig betrachten und erleichtern somit einen schnellen Überblick. \\
@@ -52,7 +71,28 @@ Die Achsen des Starplots repräsentieren die verschiedenen Attribute, auf denen 
 Um den Starplot zu verwenden, wählen Sie die gewünschte Automarke aus, und der Plot wird automatisch generiert. Die Positionen der Linien auf den Achsen vermitteln Informationen über die relativen Werte der Attribute für jedes Fahrzeug. \\
 Insgesamt ermöglicht der Starplot eine effektive und schnelle visuelle Analyse der Attribute aller Fahrzeuge einer ausgewählten Marke auf der Plattform. \\
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = \textwidth]{img/starplot.png}
+    \caption{Starplot}
+    \label{fig:scatter}
+\end{figure}
+
+
 \subsection{Interaktion}
-Die präsentierten Visualisierungstechniken müssen interaktiv zu einer Anwendung verknüpft werden.
-Die Interaktion mit einer Visualisierung soll in den anderen Visualisierungen zu einer Änderung führen. 
-Erklären sie die möglichen Interaktionen mit den einzelnen Visualisierungen und die möglichen Verknüpfungen zwischen ihnen. Begründen Sie warum die konkreten Interaktionen umgesetzt wurden und welche Zwecke für die Anwenderinnen mit ihnen unterstützt werden. Begründen sie ebenfalls warum sie andere Interaktionsmöglichkeiten nicht umgesetzt haben. Wenn sie keine der geforderten Interaktionen umsetzen, erhalten Sie im gesamten Projekt deutlichen Punktabzug. 
+
+
+Die Interaktion mit den Visualisierungen ist ein zentraler Aspekt des Projekts. Ein übergeordnetes Ziel besteht darin, alle Visualisierungen auf einer Seite anzuordnen, sodass ein einfaches Scrollen zwischen ihnen einen schnellen Gesamtüberblick ermöglicht. Um die Benutzererfahrung zu verbessern und die Visualisierungen an die Bedürfnisse des Nutzers anzupassen, sind verschiedene Anpassungsmöglichkeiten implementiert. \\
+
+Insbesondere bieten das Scatterplot und das Parallelplot die Möglichkeit zur Anpassung durch einen Schieberegler (siehe Abbildung \ref{fig:schieber}). Durch Auswahl einer Jahreszahl werden in beiden Grafiken nur Daten aus diesem Jahr angezeigt. Diese Anpassung ist nicht nur benutzerfreundlich, sondern dient auch der Optimierung, da die Visualisierung aller Daten auf einmal zu langen Wartezeiten führen könnte. \\
+
+Zusätzlich ermöglicht das Scatterplot eine weitere Anpassung durch zwei Drop-Down-Menüs. Diese Menüs dienen der Auswahl der Daten für die x- und y-Achse. Die Interaktion mit dem Scatterplot umfasst auch vier Dropdowns, jeweils für jede Achse. Durch diese Interaktion werden nicht alle verfügbaren Daten angezeigt, sondern nur die vom Nutzer gewünschten Werte. Dies trägt zur verbesserten Übersichtlichkeit und damit zur Nutzbarkeit für die Zielgruppe bei. \\
+\begin{figure}[H]
+    \centering
+    \includegraphics{img/interaktion1.png}
+    \caption{Schieberegler}
+    \label{fig:schieber}
+\end{figure}
+
+Die Auswahl der Daten im Parallelplot ist ähnlich möglich. Hier hat der Nutzer über vier Drop-Downs die gewünschten Daten einzubinden. \\
+Auch im Starplot kann der Nutzer einen Datensatz - eine Marke - auswählen, die er/sie sich genauer anschauen will. \\
