@@ -11,7 +11,7 @@ import Html.Attributes exposing (value)
 fetchData : Cmd Msg
 fetchData = Http.get
         {
-            url = "https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/bug_finding2.csv"
+            url = "https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/data.csv"
             , expect = Http.expectString <| FetchedCSV
         }
 fetchStarAvgData: Cmd Msg 

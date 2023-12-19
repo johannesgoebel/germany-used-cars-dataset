@@ -6171,7 +6171,7 @@ var $elm$http$Http$get = function (r) {
 var $author$project$DataHandling$fetchData = $elm$http$Http$get(
 	{
 		expect: $elm$http$Http$expectString($author$project$CarOfferTypes$FetchedCSV),
-		url: 'https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/bug_finding2.csv'
+		url: 'https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/data.csv'
 	});
 var $author$project$Main$init = function (_v0) {
 	return _Utils_Tuple2($author$project$CarOfferTypes$Loading, $author$project$DataHandling$fetchData);
@@ -6194,11 +6194,9 @@ var $author$project$CarOfferTypes$CarOffer = function (brand) {
 									return function (fuel_type) {
 										return function (fuel_consumption_l_100km) {
 											return function (mileage_in_km) {
-												return function (offer_description) {
-													return function (length_offer_description) {
-														return function (sentiment_score) {
-															return {brand: brand, color: color, fuel_consumption_l_100km: fuel_consumption_l_100km, fuel_type: fuel_type, length_offer_description: length_offer_description, mileage_in_km: mileage_in_km, model: model, offer_description: offer_description, power_kw: power_kw, power_ps: power_ps, price_in_euro: price_in_euro, registration_date: registration_date, sentiment_score: sentiment_score, transmission_type: transmission_type, year: year};
-														};
+												return function (length_offer_description) {
+													return function (sentiment_score) {
+														return {brand: brand, color: color, fuel_consumption_l_100km: fuel_consumption_l_100km, fuel_type: fuel_type, length_offer_description: length_offer_description, mileage_in_km: mileage_in_km, model: model, power_kw: power_kw, power_ps: power_ps, price_in_euro: price_in_euro, registration_date: registration_date, sentiment_score: sentiment_score, transmission_type: transmission_type, year: year};
 													};
 												};
 											};
@@ -6369,77 +6367,74 @@ var $author$project$DataHandling$decodeCarOffer = A2(
 					$elm$core$Result$fromMaybe('error parsing length_offer_Description'))),
 			A2(
 				$ericgj$elm_csv_decode$Csv$Decode$andMap,
-				A2($ericgj$elm_csv_decode$Csv$Decode$field, 'offer_description', $elm$core$Result$Ok),
+				A2(
+					$ericgj$elm_csv_decode$Csv$Decode$field,
+					'mileage_in_km',
+					A2(
+						$elm$core$Basics$composeR,
+						$elm$core$String$toFloat,
+						$elm$core$Result$fromMaybe('error parsing string mileage_in_km'))),
 				A2(
 					$ericgj$elm_csv_decode$Csv$Decode$andMap,
 					A2(
 						$ericgj$elm_csv_decode$Csv$Decode$field,
-						'mileage_in_km',
+						'fuel_consumption_l_100km',
 						A2(
 							$elm$core$Basics$composeR,
 							$elm$core$String$toFloat,
-							$elm$core$Result$fromMaybe('error parsing string mileage_in_km'))),
+							$elm$core$Result$fromMaybe('error parsing string fuel consumption'))),
 					A2(
 						$ericgj$elm_csv_decode$Csv$Decode$andMap,
-						A2(
-							$ericgj$elm_csv_decode$Csv$Decode$field,
-							'fuel_consumption_l_100km',
-							A2(
-								$elm$core$Basics$composeR,
-								$elm$core$String$toFloat,
-								$elm$core$Result$fromMaybe('error parsing string fuel consumption'))),
+						A2($ericgj$elm_csv_decode$Csv$Decode$field, 'fuel_type', $elm$core$Result$Ok),
 						A2(
 							$ericgj$elm_csv_decode$Csv$Decode$andMap,
-							A2($ericgj$elm_csv_decode$Csv$Decode$field, 'fuel_type', $elm$core$Result$Ok),
+							A2($ericgj$elm_csv_decode$Csv$Decode$field, 'transmission_type', $elm$core$Result$Ok),
 							A2(
 								$ericgj$elm_csv_decode$Csv$Decode$andMap,
-								A2($ericgj$elm_csv_decode$Csv$Decode$field, 'transmission_type', $elm$core$Result$Ok),
+								A2(
+									$ericgj$elm_csv_decode$Csv$Decode$field,
+									'power_ps',
+									A2(
+										$elm$core$Basics$composeR,
+										$elm$core$String$toInt,
+										$elm$core$Result$fromMaybe('error parsing string power_ps'))),
 								A2(
 									$ericgj$elm_csv_decode$Csv$Decode$andMap,
 									A2(
 										$ericgj$elm_csv_decode$Csv$Decode$field,
-										'power_ps',
+										'power_kw',
 										A2(
 											$elm$core$Basics$composeR,
 											$elm$core$String$toInt,
-											$elm$core$Result$fromMaybe('error parsing string power_ps'))),
+											$elm$core$Result$fromMaybe('error parsing string power_kw'))),
 									A2(
 										$ericgj$elm_csv_decode$Csv$Decode$andMap,
 										A2(
 											$ericgj$elm_csv_decode$Csv$Decode$field,
-											'power_kw',
+											'price_in_euro',
 											A2(
 												$elm$core$Basics$composeR,
-												$elm$core$String$toInt,
-												$elm$core$Result$fromMaybe('error parsing string power_kw'))),
+												$elm$core$String$toFloat,
+												$elm$core$Result$fromMaybe('error parsing string price_in_euro'))),
 										A2(
 											$ericgj$elm_csv_decode$Csv$Decode$andMap,
 											A2(
 												$ericgj$elm_csv_decode$Csv$Decode$field,
-												'price_in_euro',
+												'year',
 												A2(
 													$elm$core$Basics$composeR,
-													$elm$core$String$toFloat,
-													$elm$core$Result$fromMaybe('error parsing string price_in_euro'))),
+													$elm$core$String$toInt,
+													$elm$core$Result$fromMaybe('error parsing string year'))),
 											A2(
 												$ericgj$elm_csv_decode$Csv$Decode$andMap,
-												A2(
-													$ericgj$elm_csv_decode$Csv$Decode$field,
-													'year',
-													A2(
-														$elm$core$Basics$composeR,
-														$elm$core$String$toInt,
-														$elm$core$Result$fromMaybe('error parsing string year'))),
+												A2($ericgj$elm_csv_decode$Csv$Decode$field, 'registration_date', $elm$core$Result$Ok),
 												A2(
 													$ericgj$elm_csv_decode$Csv$Decode$andMap,
-													A2($ericgj$elm_csv_decode$Csv$Decode$field, 'registration_date', $elm$core$Result$Ok),
+													A2($ericgj$elm_csv_decode$Csv$Decode$field, 'color', $elm$core$Result$Ok),
 													A2(
 														$ericgj$elm_csv_decode$Csv$Decode$andMap,
-														A2($ericgj$elm_csv_decode$Csv$Decode$field, 'color', $elm$core$Result$Ok),
-														A2(
-															$ericgj$elm_csv_decode$Csv$Decode$andMap,
-															A2($ericgj$elm_csv_decode$Csv$Decode$field, 'model', $elm$core$Result$Ok),
-															A2($ericgj$elm_csv_decode$Csv$Decode$field, 'brand', $elm$core$Result$Ok))))))))))))))));
+														A2($ericgj$elm_csv_decode$Csv$Decode$field, 'model', $elm$core$Result$Ok),
+														A2($ericgj$elm_csv_decode$Csv$Decode$field, 'brand', $elm$core$Result$Ok)))))))))))))));
 var $ericgj$elm_csv_decode$Csv$Decode$DecodeErrors = function (a) {
 	return {$: 'DecodeErrors', a: a};
 };
@@ -10231,7 +10226,7 @@ var $author$project$DataHandling$generateParallelAxisCarOffers = F5(
 		var values1 = A2($author$project$DataHandling$getFloatColumn, attr1, carOffers);
 		var getDescriptionColumn = $elm$core$List$map(
 			function ($) {
-				return $.offer_description;
+				return $.model;
 			});
 		var descriptions = getDescriptionColumn(carOffers);
 		return A5(zipValuesAndDescription, values1, values2, values3, values4, descriptions);
@@ -10646,7 +10641,7 @@ var $author$project$Main$view = function (model) {
 						A2(
 							$elm$core$List$map,
 							function ($) {
-								return $.offer_description;
+								return $.model;
 							},
 							A2($author$project$Main$filterCarOffersByYear, fullText.data, fullText.year)),
 						A2(
