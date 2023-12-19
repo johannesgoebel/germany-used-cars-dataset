@@ -6171,7 +6171,7 @@ var $elm$http$Http$get = function (r) {
 var $author$project$DataHandling$fetchData = $elm$http$Http$get(
 	{
 		expect: $elm$http$Http$expectString($author$project$CarOfferTypes$FetchedCSV),
-		url: 'https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/data_subset.csv'
+		url: 'https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/bug_finding2.csv'
 	});
 var $author$project$Main$init = function (_v0) {
 	return _Utils_Tuple2($author$project$CarOfferTypes$Loading, $author$project$DataHandling$fetchData);
@@ -6196,7 +6196,9 @@ var $author$project$CarOfferTypes$CarOffer = function (brand) {
 											return function (mileage_in_km) {
 												return function (offer_description) {
 													return function (length_offer_description) {
-														return {brand: brand, color: color, fuel_consumption_l_100km: fuel_consumption_l_100km, fuel_type: fuel_type, length_offer_description: length_offer_description, mileage_in_km: mileage_in_km, model: model, offer_description: offer_description, power_kw: power_kw, power_ps: power_ps, price_in_euro: price_in_euro, registration_date: registration_date, transmission_type: transmission_type, year: year};
+														return function (sentiment_score) {
+															return {brand: brand, color: color, fuel_consumption_l_100km: fuel_consumption_l_100km, fuel_type: fuel_type, length_offer_description: length_offer_description, mileage_in_km: mileage_in_km, model: model, offer_description: offer_description, power_kw: power_kw, power_ps: power_ps, price_in_euro: price_in_euro, registration_date: registration_date, sentiment_score: sentiment_score, transmission_type: transmission_type, year: year};
+														};
 													};
 												};
 											};
@@ -6351,84 +6353,93 @@ var $author$project$DataHandling$decodeCarOffer = A2(
 		$ericgj$elm_csv_decode$Csv$Decode$andMap,
 		A2(
 			$ericgj$elm_csv_decode$Csv$Decode$field,
-			'length_offer_description',
+			'sentiment_score',
 			A2(
 				$elm$core$Basics$composeR,
-				$elm$core$String$toInt,
-				$elm$core$Result$fromMaybe('Error parsing \'length_offer_description\' as integer'))),
+				$elm$core$String$toFloat,
+				$elm$core$Result$fromMaybe('error parsing string sentiment'))),
 		A2(
 			$ericgj$elm_csv_decode$Csv$Decode$andMap,
-			A2($ericgj$elm_csv_decode$Csv$Decode$field, 'offer_description', $elm$core$Result$Ok),
+			A2(
+				$ericgj$elm_csv_decode$Csv$Decode$field,
+				'length_offer_description',
+				A2(
+					$elm$core$Basics$composeR,
+					$elm$core$String$toInt,
+					$elm$core$Result$fromMaybe('error parsing length_offer_Description'))),
 			A2(
 				$ericgj$elm_csv_decode$Csv$Decode$andMap,
-				A2(
-					$ericgj$elm_csv_decode$Csv$Decode$field,
-					'mileage_in_km',
-					A2(
-						$elm$core$Basics$composeR,
-						$elm$core$String$toFloat,
-						$elm$core$Result$fromMaybe('error parsing string mileage_in_km'))),
+				A2($ericgj$elm_csv_decode$Csv$Decode$field, 'offer_description', $elm$core$Result$Ok),
 				A2(
 					$ericgj$elm_csv_decode$Csv$Decode$andMap,
 					A2(
 						$ericgj$elm_csv_decode$Csv$Decode$field,
-						'fuel_consumption_l_100km',
+						'mileage_in_km',
 						A2(
 							$elm$core$Basics$composeR,
 							$elm$core$String$toFloat,
-							$elm$core$Result$fromMaybe('error parsing string fuel consumption'))),
+							$elm$core$Result$fromMaybe('error parsing string mileage_in_km'))),
 					A2(
 						$ericgj$elm_csv_decode$Csv$Decode$andMap,
-						A2($ericgj$elm_csv_decode$Csv$Decode$field, 'fuel_type', $elm$core$Result$Ok),
+						A2(
+							$ericgj$elm_csv_decode$Csv$Decode$field,
+							'fuel_consumption_l_100km',
+							A2(
+								$elm$core$Basics$composeR,
+								$elm$core$String$toFloat,
+								$elm$core$Result$fromMaybe('error parsing string fuel consumption'))),
 						A2(
 							$ericgj$elm_csv_decode$Csv$Decode$andMap,
-							A2($ericgj$elm_csv_decode$Csv$Decode$field, 'transmission_type', $elm$core$Result$Ok),
+							A2($ericgj$elm_csv_decode$Csv$Decode$field, 'fuel_type', $elm$core$Result$Ok),
 							A2(
 								$ericgj$elm_csv_decode$Csv$Decode$andMap,
-								A2(
-									$ericgj$elm_csv_decode$Csv$Decode$field,
-									'power_ps',
-									A2(
-										$elm$core$Basics$composeR,
-										$elm$core$String$toInt,
-										$elm$core$Result$fromMaybe('error parsing string power_ps'))),
+								A2($ericgj$elm_csv_decode$Csv$Decode$field, 'transmission_type', $elm$core$Result$Ok),
 								A2(
 									$ericgj$elm_csv_decode$Csv$Decode$andMap,
 									A2(
 										$ericgj$elm_csv_decode$Csv$Decode$field,
-										'power_kw',
+										'power_ps',
 										A2(
 											$elm$core$Basics$composeR,
 											$elm$core$String$toInt,
-											$elm$core$Result$fromMaybe('error parsing string power_kw'))),
+											$elm$core$Result$fromMaybe('error parsing string power_ps'))),
 									A2(
 										$ericgj$elm_csv_decode$Csv$Decode$andMap,
 										A2(
 											$ericgj$elm_csv_decode$Csv$Decode$field,
-											'price_in_euro',
+											'power_kw',
 											A2(
 												$elm$core$Basics$composeR,
-												$elm$core$String$toFloat,
-												$elm$core$Result$fromMaybe('error parsing string price_in_euro'))),
+												$elm$core$String$toInt,
+												$elm$core$Result$fromMaybe('error parsing string power_kw'))),
 										A2(
 											$ericgj$elm_csv_decode$Csv$Decode$andMap,
 											A2(
 												$ericgj$elm_csv_decode$Csv$Decode$field,
-												'year',
+												'price_in_euro',
 												A2(
 													$elm$core$Basics$composeR,
-													$elm$core$String$toInt,
-													$elm$core$Result$fromMaybe('error parsing string year'))),
+													$elm$core$String$toFloat,
+													$elm$core$Result$fromMaybe('error parsing string price_in_euro'))),
 											A2(
 												$ericgj$elm_csv_decode$Csv$Decode$andMap,
-												A2($ericgj$elm_csv_decode$Csv$Decode$field, 'registration_date', $elm$core$Result$Ok),
+												A2(
+													$ericgj$elm_csv_decode$Csv$Decode$field,
+													'year',
+													A2(
+														$elm$core$Basics$composeR,
+														$elm$core$String$toInt,
+														$elm$core$Result$fromMaybe('error parsing string year'))),
 												A2(
 													$ericgj$elm_csv_decode$Csv$Decode$andMap,
-													A2($ericgj$elm_csv_decode$Csv$Decode$field, 'color', $elm$core$Result$Ok),
+													A2($ericgj$elm_csv_decode$Csv$Decode$field, 'registration_date', $elm$core$Result$Ok),
 													A2(
 														$ericgj$elm_csv_decode$Csv$Decode$andMap,
-														A2($ericgj$elm_csv_decode$Csv$Decode$field, 'model', $elm$core$Result$Ok),
-														A2($ericgj$elm_csv_decode$Csv$Decode$field, 'brand', $elm$core$Result$Ok)))))))))))))));
+														A2($ericgj$elm_csv_decode$Csv$Decode$field, 'color', $elm$core$Result$Ok),
+														A2(
+															$ericgj$elm_csv_decode$Csv$Decode$andMap,
+															A2($ericgj$elm_csv_decode$Csv$Decode$field, 'model', $elm$core$Result$Ok),
+															A2($ericgj$elm_csv_decode$Csv$Decode$field, 'brand', $elm$core$Result$Ok))))))))))))))));
 var $ericgj$elm_csv_decode$Csv$Decode$DecodeErrors = function (a) {
 	return {$: 'DecodeErrors', a: a};
 };
@@ -6801,14 +6812,11 @@ var $author$project$DataHandling$starDataFromCSV = function (csv_string) {
 	return A2(
 		$elm$core$Maybe$withDefault,
 		_List_Nil,
-		A2(
-			$author$project$DataHandling$log,
-			'Ergebnis',
-			$elm$core$Result$toMaybe(
-				A2(
-					$ericgj$elm_csv_decode$Csv$Decode$decodeCsv,
-					$author$project$DataHandling$decodeStarData,
-					$lovasoa$elm_csv$Csv$parse(csv_string)))));
+		$elm$core$Result$toMaybe(
+			A2(
+				$ericgj$elm_csv_decode$Csv$Decode$decodeCsv,
+				$author$project$DataHandling$decodeStarData,
+				$lovasoa$elm_csv$Csv$parse(csv_string))));
 };
 var $author$project$Main$update = F2(
 	function (msg, model) {
@@ -6829,7 +6837,8 @@ var $author$project$Main$update = F2(
 								starParameter: 'audi',
 								thirdCoordinate: 'fuel_consumption_l_100km',
 								xAxis: 'power_ps',
-								yAxis: 'price_in_euro'
+								yAxis: 'price_in_euro',
+								year: 2020
 							}),
 						$author$project$DataHandling$fetchStarAvgData);
 				} else {
@@ -6953,7 +6962,7 @@ var $author$project$Main$update = F2(
 				} else {
 					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 				}
-			default:
+			case 'SelectChangeStarPlot':
 				var starUpdate = msg.a;
 				if (model.$ === 'Success') {
 					var d = model.a;
@@ -6962,6 +6971,19 @@ var $author$project$Main$update = F2(
 							_Utils_update(
 								d,
 								{starParameter: starUpdate})),
+						$elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				}
+			default:
+				var y = msg.a;
+				if (model.$ === 'Success') {
+					var d = model.a;
+					return _Utils_Tuple2(
+						$author$project$CarOfferTypes$Success(
+							_Utils_update(
+								d,
+								{year: y})),
 						$elm$core$Platform$Cmd$none);
 				} else {
 					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
@@ -6988,6 +7010,9 @@ var $author$project$CarOfferTypes$SelectChangeXScatterplot = function (a) {
 };
 var $author$project$CarOfferTypes$SelectChangeYScatterplot = function (a) {
 	return {$: 'SelectChangeYScatterplot', a: a};
+};
+var $author$project$CarOfferTypes$UpdateSlider = function (a) {
+	return {$: 'UpdateSlider', a: a};
 };
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -7021,7 +7046,7 @@ var $author$project$Main$bootstrapCDN = A3(
 var $author$project$CarOfferTypes$carBrandList = _List_fromArray(
 	['alfa-romeo', 'aston-martin', 'audi', 'bentley', 'bmw', 'cadillac', 'chevrolet', 'chrysler', 'citroen', 'dacia', 'daewoo', 'daihatsu', 'dodge', 'ferrari', 'fiat', 'ford', 'honda', 'hyundai', 'infiniti', 'isuzu', 'jaguar', 'jeep', 'kia', 'lada', 'lamborghini', 'lancia', 'land-Rover', 'maserati', 'mazda', 'mercedes-Benz', 'mini', 'mitsubishi', 'nissan', 'opel', 'peugeot', 'porsche', 'proton', 'renault', 'rover', 'saab', 'seat', 'skoda', 'smart', 'ssangyong', 'toyota', 'volkswagen', 'volvo']);
 var $author$project$CarOfferTypes$carOfferAttributesNumeric = _List_fromArray(
-	['price_in_euro', 'power_kw', 'power_ps', 'fuel_consumption_l_100km', 'mileage_in_km', 'length_offer_description']);
+	['price_in_euro', 'power_kw', 'power_ps', 'fuel_consumption_l_100km', 'mileage_in_km', 'length_offer_description', 'sentiment_score']);
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm_community$typed_svg$TypedSvg$Types$Align = F2(
@@ -9145,6 +9170,7 @@ var $gampleman$elm_visualization$Axis$verticalAttrs = {
 };
 var $gampleman$elm_visualization$Axis$bottom = A4($gampleman$elm_visualization$Axis$element, $gampleman$elm_visualization$Axis$verticalAttrs, 1, '0.71em', 'middle');
 var $elm_community$typed_svg$TypedSvg$circle = $elm_community$typed_svg$TypedSvg$Core$node('circle');
+var $author$project$Scatterplot$css_text = '\r\n                .point circle { stroke: rgba(0, 0, 0,0.4); fill: rgba(255, 255, 255,0.3); }\r\n                .point text { display: none; }\r\n                .point:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n                \r\n\r\n                .petrol circle { stroke: rgba(0, 0, 0,0.4); fill:rgb(255, 0, 0); }\r\n                .petrol rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 0, 0); }\r\n                .petrol text { display: none; }\r\n\r\n                .diesel circle { stroke: rgba(0, 0, 0,0.4); fill:rgb(0, 255, 0); }\r\n                .diesel rect { stroke: rgba(0, 0, 0,0.4); fill:rgb(0, 255, 0); }\r\n                .diesel text { display: none; }\r\n\r\n                .hybrid circle { stroke: rgba(0, 0, 0,0.4); fill:rgb(0, 0, 255) ; }\r\n                .hybrid rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 0, 255) ; }\r\n                .hybrid text { display: none; }\r\n\r\n                .electric circle { stroke: rgba(0, 0, 0,0.4); fill:rgb(255, 255, 0) ; }\r\n                .electric rect { stroke: rgba(0, 0, 0,0.4); fill:rgb(255, 255, 0) ; }\r\n                .electric text { display: none; }\r\n\r\n                .lpg circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 0, 255) ; }\r\n                .lpg rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 0, 255) ; }\r\n                .lpg text { display: none; }\r\n\r\n                .cng circle { stroke: rgba(0, 0, 0,0.4); fill:rgb(0, 255, 255); }\r\n                .cng rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 255, 255); }\r\n                .cng text { display: none; }\r\n\r\n                .diesel_hybrid circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(128, 0, 128); }\r\n                .diesel_hybrid rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(128, 0, 128); }\r\n                .diesel_hybrid text { display: none; }\r\n\r\n                .other circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 165, 0); }\r\n                .other rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(255, 165, 0); }\r\n                .other text { display: none; }\r\n\r\n                .unknown circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(128, 128, 128) ; }\r\n                .unknown rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(128, 128, 128) ; }\r\n                .unknown text { display: none; }\r\n\r\n                .hydrogen circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 128, 0) ; }\r\n                .hydrogen rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(0, 128, 0) ; }\r\n                .hydrogen text { display: none;}\r\n\r\n                .ethanol circle { stroke: rgba(0, 0, 0,0.4); fill: rgb(128, 0, 0); }\r\n                .ethanol rect { stroke: rgba(0, 0, 0,0.4); fill: rgb(128, 0, 0); }\r\n                .ethanol text { display: none; }\r\n\r\n    ';
 var $elm_community$typed_svg$TypedSvg$Attributes$cx = function (length) {
 	return A2(
 		$elm_community$typed_svg$TypedSvg$Core$attribute,
@@ -9165,7 +9191,15 @@ var $elm_community$typed_svg$TypedSvg$Attributes$InPx$cy = function (value) {
 	return $elm_community$typed_svg$TypedSvg$Attributes$cy(
 		$elm_community$typed_svg$TypedSvg$Types$px(value));
 };
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$fontSize(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
+};
 var $author$project$Scatterplot$h = 450;
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$height = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$height(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
+};
 var $elm$core$Tuple$mapFirst = F2(
 	function (func, _v0) {
 		var x = _v0.a;
@@ -9204,10 +9238,15 @@ var $elm_community$typed_svg$TypedSvg$Attributes$InPx$r = function (value) {
 		$elm_community$typed_svg$TypedSvg$Types$px(value));
 };
 var $author$project$Scatterplot$radius = 5.0;
+var $elm_community$typed_svg$TypedSvg$rect = $elm_community$typed_svg$TypedSvg$Core$node('rect');
 var $author$project$Scatterplot$tickCount = 5;
 var $author$project$Scatterplot$w = 900;
-var $author$project$Scatterplot$drawScatterplot = F5(
-	function (pointLabels, xValues, yValues, xLabel, yLabel) {
+var $elm_community$typed_svg$TypedSvg$Attributes$InPx$width = function (value) {
+	return $elm_community$typed_svg$TypedSvg$Attributes$width(
+		$elm_community$typed_svg$TypedSvg$Types$px(value));
+};
+var $author$project$Scatterplot$drawScatterplot = F6(
+	function (pointLabels, xValues, yValues, transmissionList, xLabel, yLabel) {
 		var wideExtent = function (values) {
 			return A2(
 				$elm$core$Tuple$mapSecond,
@@ -9270,15 +9309,52 @@ var $author$project$Scatterplot$drawScatterplot = F5(
 				}),
 			xValues,
 			yValues);
-		var makePoint = F4(
-			function (scaleX, scaleY, point, pointLabelText) {
+		var half = function (t) {
+			return (t.b - t.a) / 2;
+		};
+		var labelPositions = {
+			x: half(
+				wideExtent(xValues)),
+			y: wideExtent(yValues).b
+		};
+		var getClassByTransmission = function (transmission) {
+			switch (transmission) {
+				case 'Petrol':
+					return 'petrol';
+				case 'Diesel':
+					return 'diesel';
+				case 'Hybrid':
+					return 'hybrid';
+				case 'Electric':
+					return 'electric';
+				case 'LPG':
+					return 'lpg';
+				case 'CNG':
+					return 'cng';
+				case 'Diesel Hybrid':
+					return 'diesel_hybrid';
+				case 'Other':
+					return 'other';
+				case 'Unknown':
+					return 'unknown';
+				case 'Hydrogen':
+					return 'hydrogen';
+				case 'Ethanol':
+					return 'ethanol';
+				default:
+					return 'unknown';
+			}
+		};
+		var makePoint = F5(
+			function (scaleX, scaleY, point, pointLabelText, transmission) {
+				var classForTransmission = getClassByTransmission(transmission);
 				return A2(
 					$elm_community$typed_svg$TypedSvg$g,
 					_List_fromArray(
 						[
 							$elm_community$typed_svg$TypedSvg$Attributes$class(
 							_List_fromArray(
-								['point'])),
+								[classForTransmission])),
 							$elm_community$typed_svg$TypedSvg$Attributes$fontSize(
 							$elm_community$typed_svg$TypedSvg$Types$Px(10.0)),
 							$elm_community$typed_svg$TypedSvg$Attributes$fontFamily(
@@ -9313,14 +9389,6 @@ var $author$project$Scatterplot$drawScatterplot = F5(
 								]))
 						]));
 			});
-		var half = function (t) {
-			return (t.b - t.a) / 2;
-		};
-		var labelPositions = {
-			x: half(
-				wideExtent(xValues)),
-			y: wideExtent(yValues).b
-		};
 		return A2(
 			$elm_community$typed_svg$TypedSvg$svg,
 			_List_fromArray(
@@ -9338,7 +9406,7 @@ var $author$project$Scatterplot$drawScatterplot = F5(
 					_List_Nil,
 					_List_fromArray(
 						[
-							$elm_community$typed_svg$TypedSvg$Core$text('\r\n            .point circle { stroke: rgba(0, 0, 0,0.4); fill: rgba(255, 255, 255,0.3); }\r\n            .point text { display: none; }\r\n            .point:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }\r\n            .point:hover .point text { display: inline; } \r\n          ')
+							$elm_community$typed_svg$TypedSvg$Core$text($author$project$Scatterplot$css_text)
 						])),
 					A2(
 					$elm_community$typed_svg$TypedSvg$g,
@@ -9359,6 +9427,342 @@ var $author$project$Scatterplot$drawScatterplot = F5(
 								['r', 'point']))
 						]),
 					_List_Nil),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(200)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('Hybrid')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(25),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(200)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('Electric')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(350)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('Lpg')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(25),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(350)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('Cng')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(500)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('Diesel Hybrid')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(25),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(500)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('Other')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(100)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('Petrol')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(25),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(100)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('Diesel')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(610)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('Unknown')
+								])),
+							A2(
+							$elm_community$typed_svg$TypedSvg$text_,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(25),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(610)
+								]),
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Core$text('Ethanol')
+								]))
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['petrol']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(85),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(10)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['diesel']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(85),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(18),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(10)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['hybrid']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(185),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(10)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['electric']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(185),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(18),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(10)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['lpg']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(335),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(10)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['cng']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(335),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(18),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(10)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['diesel_hybrid']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(485),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(10)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['other']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(485),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(18),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(10)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['unknown']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(595),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(3),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(10)
+								]),
+							_List_Nil)
+						])),
+					A2(
+					$elm_community$typed_svg$TypedSvg$g,
+					_List_fromArray(
+						[
+							$elm_community$typed_svg$TypedSvg$Attributes$class(
+							_List_fromArray(
+								['ethanol']))
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm_community$typed_svg$TypedSvg$rect,
+							_List_fromArray(
+								[
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$x(595),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$y(18),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(10),
+									$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(10)
+								]),
+							_List_Nil)
+						])),
 					A2(
 					$elm_community$typed_svg$TypedSvg$g,
 					_List_fromArray(
@@ -9421,11 +9825,12 @@ var $author$project$Scatterplot$drawScatterplot = F5(
 									A2($elm_community$typed_svg$TypedSvg$Types$Translate, $author$project$Scatterplot$padding, $author$project$Scatterplot$padding)
 								]))
 						]),
-					A3(
-						$elm$core$List$map2,
+					A4(
+						$elm$core$List$map3,
 						A2(makePoint, xScaleLocal, yScaleLocal),
 						points,
-						pointLabels))
+						pointLabels,
+						transmissionList))
 				]));
 	});
 var $avh4$elm_color$Color$black = A4($avh4$elm_color$Color$RgbaSpace, 0 / 255, 0 / 255, 0 / 255, 1.0);
@@ -9446,23 +9851,15 @@ var $elm$core$List$concatMap = F2(
 			A2($elm$core$List$map, f, list));
 	});
 var $elm$core$Basics$cos = _Basics_cos;
-var $elm_community$typed_svg$TypedSvg$Attributes$InPx$fontSize = function (value) {
-	return $elm_community$typed_svg$TypedSvg$Attributes$fontSize(
-		$elm_community$typed_svg$TypedSvg$Types$px(value));
-};
 var $author$project$StarPlot$getRow = F2(
 	function (targetBrand, starDataList) {
-		return A3(
-			$elm$core$Basics$composeL,
-			$author$project$DataHandling$log('Roe'),
-			$elm$core$Basics$identity,
-			$elm$core$List$head(
-				A2(
-					$elm$core$List$filter,
-					function (starData) {
-						return _Utils_eq(starData.brand, targetBrand);
-					},
-					starDataList)));
+		return $elm$core$List$head(
+			A2(
+				$elm$core$List$filter,
+				function (starData) {
+					return _Utils_eq(starData.brand, targetBrand);
+				},
+				starDataList));
 	});
 var $elm$core$Maybe$map2 = F3(
 	function (func, ma, mb) {
@@ -9595,10 +9992,7 @@ var $author$project$StarPlot$drawStarPlot = F2(
 		var radius = 2000.0;
 		var numberOfLines = 7;
 		var floatRowData = $author$project$StarPlot$starDataToFloat(rowData);
-		var scaledRowData = A2(
-			$elm$core$Debug$log,
-			'scaled values',
-			A2($author$project$StarPlot$getScaling, carList, floatRowData));
+		var scaledRowData = A2($author$project$StarPlot$getScaling, carList, floatRowData);
 		var center = {x: 3000.0, y: 3000.0};
 		var getSpokePosition = function (angle) {
 			return {
@@ -9736,6 +10130,15 @@ var $author$project$StarPlot$drawStarPlot = F2(
 					_List_Nil)
 				]));
 	});
+var $author$project$Main$filterCarOffersByYear = F2(
+	function (carOfferList, year) {
+		return A2(
+			$elm$core$List$filter,
+			function (offer) {
+				return _Utils_eq(offer.year, year);
+			},
+			carOfferList);
+	});
 var $author$project$DataHandling$getFloatColumn = F2(
 	function (attribute, carOffers) {
 		switch (attribute) {
@@ -9790,6 +10193,13 @@ var $author$project$DataHandling$getFloatColumn = F2(
 							return $.length_offer_description;
 						},
 						carOffers));
+			case 'sentiment_score':
+				return A2(
+					$elm$core$List$map,
+					function ($) {
+						return $.sentiment_score;
+					},
+					carOffers);
 			default:
 				return _List_Nil;
 		}
@@ -9827,7 +10237,10 @@ var $author$project$DataHandling$generateParallelAxisCarOffers = F5(
 		return A5(zipValuesAndDescription, values1, values2, values3, values4, descriptions);
 	});
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
+var $elm$html$Html$input = _VirtualDom_node('input');
 var $elm$html$Html$main_ = _VirtualDom_node('main');
+var $elm$html$Html$Attributes$max = $elm$html$Html$Attributes$stringProperty('max');
+var $elm$html$Html$Attributes$min = $elm$html$Html$Attributes$stringProperty('min');
 var $elm$html$Html$a = _VirtualDom_node('a');
 var $elm$html$Html$li = _VirtualDom_node('li');
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
@@ -9930,6 +10343,40 @@ var $author$project$Main$navigationBar = A2(
 						]))
 				]))
 		]));
+var $elm$html$Html$Events$alwaysStop = function (x) {
+	return _Utils_Tuple2(x, true);
+};
+var $elm$virtual_dom$VirtualDom$MayStopPropagation = function (a) {
+	return {$: 'MayStopPropagation', a: a};
+};
+var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var $elm$html$Html$Events$stopPropagationOn = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$MayStopPropagation(decoder));
+	});
+var $elm$json$Json$Decode$field = _Json_decodeField;
+var $elm$json$Json$Decode$at = F2(
+	function (fields, decoder) {
+		return A3($elm$core$List$foldr, $elm$json$Json$Decode$field, decoder, fields);
+	});
+var $elm$json$Json$Decode$string = _Json_decodeString;
+var $elm$html$Html$Events$targetValue = A2(
+	$elm$json$Json$Decode$at,
+	_List_fromArray(
+		['target', 'value']),
+	$elm$json$Json$Decode$string);
+var $elm$html$Html$Events$onInput = function (tagger) {
+	return A2(
+		$elm$html$Html$Events$stopPropagationOn,
+		'input',
+		A2(
+			$elm$json$Json$Decode$map,
+			$elm$html$Html$Events$alwaysStop,
+			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
+};
 var $elm$html$Html$p = _VirtualDom_node('p');
 var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $author$project$Main$parallelPlotText = A2(
@@ -10048,43 +10495,10 @@ var $author$project$Main$topText = A2(
 					$elm$html$Html$text('Welcome to this GitHub repository showcasing the outcome of an Information Visualization project. This project comprises three visualizations, offering insights into the world of used car offers extracted from a prominent online marketplace. The goal of this project is to provide valuable perspectives and actionable intelligence for stakeholders in the automotive industry.')
 				]))
 		]));
-var $elm$html$Html$Events$alwaysStop = function (x) {
-	return _Utils_Tuple2(x, true);
-};
-var $elm$virtual_dom$VirtualDom$MayStopPropagation = function (a) {
-	return {$: 'MayStopPropagation', a: a};
-};
-var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
-var $elm$html$Html$Events$stopPropagationOn = F2(
-	function (event, decoder) {
-		return A2(
-			$elm$virtual_dom$VirtualDom$on,
-			event,
-			$elm$virtual_dom$VirtualDom$MayStopPropagation(decoder));
-	});
-var $elm$json$Json$Decode$field = _Json_decodeField;
-var $elm$json$Json$Decode$at = F2(
-	function (fields, decoder) {
-		return A3($elm$core$List$foldr, $elm$json$Json$Decode$field, decoder, fields);
-	});
-var $elm$json$Json$Decode$string = _Json_decodeString;
-var $elm$html$Html$Events$targetValue = A2(
-	$elm$json$Json$Decode$at,
-	_List_fromArray(
-		['target', 'value']),
-	$elm$json$Json$Decode$string);
-var $elm$html$Html$Events$onInput = function (tagger) {
-	return A2(
-		$elm$html$Html$Events$stopPropagationOn,
-		'input',
-		A2(
-			$elm$json$Json$Decode$map,
-			$elm$html$Html$Events$alwaysStop,
-			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
-};
+var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
+var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $elm$html$Html$option = _VirtualDom_node('option');
 var $elm$html$Html$select = _VirtualDom_node('select');
-var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $author$project$Main$viewDropdown = F2(
 	function (options, onInputMsg) {
 		return A2(
@@ -10135,6 +10549,42 @@ var $author$project$Main$view = function (model) {
 						$author$project$Main$bootstrapCDN,
 						$author$project$Main$navigationBar,
 						$author$project$Main$topText,
+						A2(
+						$elm$html$Html$div,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text(
+								'Selected Year: ' + $elm$core$String$fromInt(fullText.year))
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('form-label')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$input,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$type_('range'),
+										$elm$html$Html$Attributes$min('2010'),
+										$elm$html$Html$Attributes$max('2025'),
+										$elm$html$Html$Attributes$value(
+										$elm$core$String$fromInt(fullText.year)),
+										$elm$html$Html$Events$onInput(
+										function (val) {
+											return $author$project$CarOfferTypes$UpdateSlider(
+												A2(
+													$elm$core$Maybe$withDefault,
+													2010,
+													$elm$core$String$toInt(val)));
+										})
+									]),
+								_List_Nil)
+							])),
 						$author$project$Main$scatterPlotText,
 						A2(
 						$elm$html$Html$div,
@@ -10191,16 +10641,31 @@ var $author$project$Main$view = function (model) {
 											]))
 									]))
 							])),
-						A5(
+						A6(
 						$author$project$Scatterplot$drawScatterplot,
 						A2(
 							$elm$core$List$map,
 							function ($) {
 								return $.offer_description;
 							},
-							fullText.data),
-						A2($author$project$DataHandling$getFloatColumn, fullText.xAxis, fullText.data),
-						A2($author$project$DataHandling$getFloatColumn, fullText.yAxis, fullText.data),
+							A2($author$project$Main$filterCarOffersByYear, fullText.data, fullText.year)),
+						A2(
+							$author$project$DataHandling$getFloatColumn,
+							fullText.xAxis,
+							A2($author$project$Main$filterCarOffersByYear, fullText.data, fullText.year)),
+						A2(
+							$author$project$DataHandling$getFloatColumn,
+							fullText.yAxis,
+							A2($author$project$Main$filterCarOffersByYear, fullText.data, fullText.year)),
+						A2(
+							$elm$core$Debug$log,
+							'transmission',
+							A2(
+								$elm$core$List$map,
+								function ($) {
+									return $.fuel_type;
+								},
+								A2($author$project$Main$filterCarOffersByYear, fullText.data, fullText.year))),
 						fullText.xAxis,
 						fullText.yAxis),
 						$author$project$Main$parallelPlotText,
@@ -10307,7 +10772,16 @@ var $author$project$Main$view = function (model) {
 							])),
 						A5(
 						$author$project$ParallelPlot$drawParallelplot,
-						A5($author$project$DataHandling$generateParallelAxisCarOffers, fullText.data, fullText.firstCoordinate, fullText.secondCoordinate, fullText.thirdCoordinate, fullText.forthCoordinate),
+						A5(
+							$author$project$DataHandling$generateParallelAxisCarOffers,
+							A2(
+								$author$project$Main$filterCarOffersByYear,
+								A2($author$project$Main$filterCarOffersByYear, fullText.data, fullText.year),
+								fullText.year),
+							fullText.firstCoordinate,
+							fullText.secondCoordinate,
+							fullText.thirdCoordinate,
+							fullText.forthCoordinate),
 						fullText.firstCoordinate,
 						fullText.secondCoordinate,
 						fullText.thirdCoordinate,

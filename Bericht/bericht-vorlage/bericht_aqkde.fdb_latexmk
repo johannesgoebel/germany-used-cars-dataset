@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1702995637 "c:/Users/johan/OneDrive/Dokumente/germany-used-cars-dataset/Bericht/bericht-vorlage/bericht_aqkde.tex" "bericht_aqkde.pdf" "bericht_aqkde" 1702995638 2
+["pdflatex"] 1702996430 "c:/Users/johan/OneDrive/Dokumente/germany-used-cars-dataset/Bericht/bericht-vorlage/bericht_aqkde.tex" "bericht_aqkde.pdf" "bericht_aqkde" 1702996432 2
   "C:/Users/johan/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1702852830 24141909 dab2c45666465cbaf36a254764f0ccd1 ""
   "C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecrm1095.tfm" 993062124 3172 eb6efaa83c6c52473a1c403f376eab0f ""
   "C:/Users/johan/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmr10.tfm" 1136765053 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
@@ -105,9 +105,9 @@
   "C:/Users/johan/AppData/Local/Programs/MiKTeX/tex/latex/xstring/xstring.sty" 1693735632 123 a302f2c651a95033260db60e51527ae8 ""
   "C:/Users/johan/AppData/Local/Programs/MiKTeX/tex/latex/zref/zref-abspage.sty" 1695383086 2269 4fe6fb3396214c91f164d45faf9bec45 ""
   "C:/Users/johan/AppData/Local/Programs/MiKTeX/tex/latex/zref/zref-base.sty" 1695383086 20785 f7d1133a287929598a897c93f8f4c44b ""
-  "bericht_aqkde.aux" 0 -1 0 "pdflatex"
-  "bericht_aqkde.tex" 1702911703 1214 dec8a1416e6baea2b651af652d26a9a3 ""
-  "c:/Users/johan/OneDrive/Dokumente/germany-used-cars-dataset/Bericht/bericht-vorlage/bericht_aqkde.tex" 1702911703 1214 dec8a1416e6baea2b651af652d26a9a3 ""
+  "bericht_aqkde.aux" 1702996430 34 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "bericht_aqkde.tex" 1702995710 1214 dec8a1416e6baea2b651af652d26a9a3 ""
+  "c:/Users/johan/OneDrive/Dokumente/germany-used-cars-dataset/Bericht/bericht-vorlage/bericht_aqkde.tex" 1702995710 1214 dec8a1416e6baea2b651af652d26a9a3 ""
   (generated)
   "bericht_aqkde.aux"
   "bericht_aqkde.log"
