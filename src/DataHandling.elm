@@ -59,7 +59,6 @@ decodeCarOffer =
             |>  Csv.Decode.andMap (field "fuel_type" Ok)
             |>  Csv.Decode.andMap (field "fuel_consumption_l_100km" (String.toFloat >> Result.fromMaybe "error parsing string fuel consumption"  ))
             |>  Csv.Decode.andMap (field "mileage_in_km" (String.toFloat >> Result.fromMaybe "error parsing string mileage_in_km"  ))
-            |>  Csv.Decode.andMap (field "offer_description" Ok)
             |> Csv.Decode.andMap (field "length_offer_description" (String.toInt >>  Result.fromMaybe "error parsing length_offer_Description"))
             |> Csv.Decode.andMap (field "sentiment_score" (String.toFloat >> Result.fromMaybe "error parsing string sentiment")))
             
@@ -119,7 +118,7 @@ generateParallelAxisCarOffers carOffers attr1 attr2 attr3 attr4 =
     let
         getDescriptionColumn : List CarOffer -> List String
         getDescriptionColumn =
-            List.map .offer_description
+            List.map .model
 
         values1 : List Float
         values1 =

@@ -165,7 +165,7 @@ view model =
                     ]
                 ]
               ]
-          , drawScatterplot (List.map .offer_description (filterCarOffersByYear fullText.data fullText.year) ) (getFloatColumn fullText.xAxis (filterCarOffersByYear fullText.data fullText.year)) (getFloatColumn fullText.yAxis (filterCarOffersByYear fullText.data fullText.year)) ((List.map .fuel_type (filterCarOffersByYear fullText.data fullText.year) )|> Debug.log "transmission") fullText.xAxis fullText.yAxis
+          , drawScatterplot (List.map .model (filterCarOffersByYear fullText.data fullText.year) ) (getFloatColumn fullText.xAxis (filterCarOffersByYear fullText.data fullText.year)) (getFloatColumn fullText.yAxis (filterCarOffersByYear fullText.data fullText.year)) ((List.map .fuel_type (filterCarOffersByYear fullText.data fullText.year) )|> Debug.log "transmission") fullText.xAxis fullText.yAxis
           , parallelPlotText
           , div [class "row"]
               [ div [class "col-md-3"] [

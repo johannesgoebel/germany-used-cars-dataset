@@ -46,7 +46,6 @@ type alias CarOffer =
     fuel_type : String,
     fuel_consumption_l_100km : Float,
     mileage_in_km : Float,
-    offer_description : String,
     length_offer_description :  Int,
     sentiment_score : Float
     }
@@ -78,7 +77,6 @@ carOfferAttributes =
     , "fuel_type"
     , "fuel_consumption_l_100km"
     , "mileage_in_km"
-    , "offer_description"
     , "length_offer_description"
     , "sentiment_score"
     ]
