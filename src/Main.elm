@@ -2,7 +2,8 @@ module Main exposing (..)
 import CarOfferTypes exposing (carOfferAttributes, Model, Msg, CarOffer, carBrandList)
 import Scatterplot exposing (drawScatterplot)
 import DataHandling exposing (fetchData, dataFromCSV)
-import Html exposing (Html, div, text, ul, li, main_, h1, h2, p, a, h4)
+import Html exposing (Html, div, text, ul, li, main_, h1, h2, p, a, h4, input)
+import Html.Attributes exposing (min, max)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import Browser
@@ -45,7 +46,8 @@ update msg model=
                                               ,secondCoordinate = "power_ps" 
                                               ,thirdCoordinate = "fuel_consumption_l_100km"
                                               ,forthCoordinate = "mileage_in_km"
-                                              , starParameter = "audi"}, fetchStarAvgData)
+                                              , starParameter = "audi"
+                                              , year = 2020}, fetchStarAvgData)
           Err _ ->
               (CarOfferTypes.Failure, Cmd.none)
         CarOfferTypes.FetchedCSVStarAvg result ->
@@ -113,7 +115,12 @@ update msg model=
               (Success <| {d | starParameter = starUpdate}, Cmd.none)
             _ -> 
                 (model, Cmd.none) 
-                
+        CarOfferTypes.UpdateSlider y ->
+            case model of 
+              Success d ->
+                (Success <| {d | year = y}, Cmd.none)
+              _ ->
+                (model, Cmd.none) 
 
 
 view : Model -> Html Msg
@@ -130,7 +137,22 @@ view model =
         [ bootstrapCDN
           ,navigationBar
           ,topText
-          , scatterPlotText
+          , div []
+                [ text <| "Selected Year: " ++ String.fromInt fullText.year
+                ]
+          , div [ class "form-label"]
+                [ input
+                    [ type_ "range"
+                    , Html.Attributes.min "2010"
+                    , Html.Attributes.max "2025"
+                    , value (String.fromInt fullText.year)
+                    , onInput (\val -> CarOfferTypes.UpdateSlider (String.toInt val |> Maybe.withDefault 2010))
+                    ]
+                    []
+                ]
+            
+            
+              , scatterPlotText
           , div [class "row"] -- Add Bootstrap row class
               [ div [class "col-md-6"] [ -- Use Bootstrap col-md-6 class for half-width
                     div [] [ Html.p [] [ Html.text "Adjust attribute shown on x-coordinate." ]
@@ -143,7 +165,7 @@ view model =
                     ]
                 ]
               ]
-          , drawScatterplot (List.map .offer_description fullText.data ) (getFloatColumn fullText.xAxis fullText.data) (getFloatColumn fullText.yAxis fullText.data) ((List.map .fuel_type fullText.data )|> Debug.log "transmission") fullText.xAxis fullText.yAxis
+          , drawScatterplot (List.map .offer_description (filterCarOffersByYear fullText.data fullText.year) ) (getFloatColumn fullText.xAxis (filterCarOffersByYear fullText.data fullText.year)) (getFloatColumn fullText.yAxis (filterCarOffersByYear fullText.data fullText.year)) ((List.map .fuel_type (filterCarOffersByYear fullText.data fullText.year) )|> Debug.log "transmission") fullText.xAxis fullText.yAxis
           , parallelPlotText
           , div [class "row"]
               [ div [class "col-md-3"] [
@@ -167,7 +189,7 @@ view model =
                     ]
                 ]
               ]
-          , drawParallelplot (generateParallelAxisCarOffers fullText.data fullText.firstCoordinate fullText.secondCoordinate fullText.thirdCoordinate fullText.forthCoordinate) fullText.firstCoordinate fullText.secondCoordinate fullText.thirdCoordinate fullText.forthCoordinate
+          , drawParallelplot (generateParallelAxisCarOffers (filterCarOffersByYear (filterCarOffersByYear fullText.data fullText.year) fullText.year) fullText.firstCoordinate fullText.secondCoordinate fullText.thirdCoordinate fullText.forthCoordinate) fullText.firstCoordinate fullText.secondCoordinate fullText.thirdCoordinate fullText.forthCoordinate
           , starPlotText
           , div [class "row"] -- Add Bootstrap row class
               [ div [class "col-md-3"] [
@@ -196,6 +218,9 @@ navigationBar =
                 ]
         ]
 
+filterCarOffersByYear : List CarOffer -> Int -> List CarOffer
+filterCarOffersByYear carOfferList year =
+    List.filter (\offer -> offer.year == year) carOfferList
 
 
 viewDropdown : List String -> (String -> Msg) -> Html Msg

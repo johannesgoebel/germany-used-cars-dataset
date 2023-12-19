@@ -5,11 +5,13 @@ import CarOfferTypes exposing (..)
 import Html exposing (a)
 import Csv.Decode exposing (..)
 import Csv exposing (..)
+import Result exposing (mapError)
+import Html.Attributes exposing (value)
 
 fetchData : Cmd Msg
 fetchData = Http.get
         {
-            url = "https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/data_with_sentiment_error_rows_removed.csv"
+            url = "https://raw.githubusercontent.com/johannesgoebel/germany-used-cars-dataset/main/Daten/bug_finding2.csv"
             , expect = Http.expectString <| FetchedCSV
         }
 fetchStarAvgData: Cmd Msg 
@@ -27,6 +29,7 @@ fetchStarSumData = Http.get
 log : String -> a -> a
 log tag value =
     Debug.log tag value
+
 
 
 dataFromCSV : String -> List CarOffer
@@ -57,8 +60,9 @@ decodeCarOffer =
             |>  Csv.Decode.andMap (field "fuel_consumption_l_100km" (String.toFloat >> Result.fromMaybe "error parsing string fuel consumption"  ))
             |>  Csv.Decode.andMap (field "mileage_in_km" (String.toFloat >> Result.fromMaybe "error parsing string mileage_in_km"  ))
             |>  Csv.Decode.andMap (field "offer_description" Ok)
-            |> Csv.Decode.andMap (field "length_offer_description" (String.toInt >> Result.fromMaybe "Error parsing 'length_offer_description' as integer"))
-            |> Csv.Decode.andMap (field "sentiment_score" (String.toFloat >> Result.fromMaybe "error parsing string sentiment"  )))
+            |> Csv.Decode.andMap (field "length_offer_description" (String.toInt >>  Result.fromMaybe "error parsing length_offer_Description"))
+            |> Csv.Decode.andMap (field "sentiment_score" (String.toFloat >> Result.fromMaybe "error parsing string sentiment")))
+            
         
         
 
@@ -67,7 +71,6 @@ starDataFromCSV csv_string =
      Csv.parse csv_string
         |> Csv.Decode.decodeCsv decodeStarData
         |> Result.toMaybe
-        |> log "Ergebnis"
         |> Maybe.withDefault []
 
 decodeStarData : Csv.Decode.Decoder (StarData -> a) a

@@ -12,6 +12,7 @@ type Msg
   | SelectChange3PolarPlot String
   | SelectChange4PolarPlot String
   | SelectChangeStarPlot String
+  | UpdateSlider Int
 
 type Model 
     = Failure
@@ -30,6 +31,7 @@ type alias CarOfferData =
         , thirdCoordinate : String
         , forthCoordinate : String
         , starParameter : String
+        , year : Int
     }
 type alias CarOffer =
     { brand : String,
@@ -45,7 +47,7 @@ type alias CarOffer =
     fuel_consumption_l_100km : Float,
     mileage_in_km : Float,
     offer_description : String,
-    length_offer_description : Int,
+    length_offer_description :  Int,
     sentiment_score : Float
     }
 type alias StarData =

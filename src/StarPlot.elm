@@ -5,11 +5,9 @@ import TypedSvg exposing ( ..)
 import TypedSvg.Types exposing ( Transform (..), Paint(..), AnchorAlignment(..), px)
 import TypedSvg.Attributes.InPx exposing (fontSize, r, x,x1, x2,y1,y2, y, cx, cy, rx,ry)
 import TypedSvg.Attributes exposing (transform, viewBox, textAnchor)
-import Html
 import Scale exposing (convert, ContinuousScale)
 import Color
 import CarOfferTypes exposing (StarData)
-import DataHandling exposing (log)
 import TypedSvg.Attributes exposing (stroke, strokeWidth, fill)
 import TypedSvg.Attributes exposing (class)
 import TypedSvg.Attributes exposing (fontFamily)
@@ -66,7 +64,6 @@ getRow : String -> List StarData -> Maybe StarData
 getRow targetBrand starDataList =
     List.filter (\starData -> starData.brand == targetBrand) starDataList
         |> List.head
-        |> log "Roe" << identity
 
 drawStarPlot : List StarData -> String -> Svg msg
 drawStarPlot carList param =
@@ -165,7 +162,6 @@ drawStarPlot carList param =
 
         scaledRowData: List Float
         scaledRowData = getScaling carList floatRowData
-            |> Debug.log "scaled values"
 
         angles =
             List.indexedMap (\i _ -> toFloat i * 2 * pi / toFloat numberOfLines) (List.range 0 (numberOfLines - 1))
